@@ -5,9 +5,9 @@ ENV=$(shell uname)
 IDIR=inc
 LDIR=lib
 ifeq ($(ENV), Linux)
-LDIR=lib/deb
+    LDIR=lib/deb
 else
-LDIR=lib/win64
+    LDIR=lib/win64
 endif
 SDIR=src
 ODIR=obj
@@ -16,15 +16,15 @@ CXX=g++
 CXXFLAGS=-std=c++11 -Wall -Wpedantic -I$(IDIR)
 LFLAGS=-L$(LDIR)
 ifeq ($(ENV), Linux)
-LFLAGS+=-lm -lX11 -lXrandr -lGL -lGLU -lfreeglut
+    LFLAGS+=-lm -lX11 -lXrandr -lGL -lGLU -lfreeglut
 else
-LFLAGS+=-lopengl32 -lglu32 -lfreeglut #-Wl,--subsystem,windows
+    LFLAGS+=-lopengl32 -lglu32 -lfreeglut #-Wl,--subsystem,windows
 endif
 
-_DEPS=Main.h AWindow.h
+_DEPS=Main.h GLUTWindow.h
 DEPS=$(patsubst %,$(SDIR)/%,$(_DEPS))
 
-_OBJ=Main.o AWindow.o
+_OBJ=Main.o GLUTWindow.o
 OBJ=$(patsubst %,$(ODIR)/%,$(_OBJ))
 
 NAME=JFVGL

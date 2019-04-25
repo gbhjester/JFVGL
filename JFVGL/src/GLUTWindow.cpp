@@ -47,8 +47,8 @@ void GLUTWindow::Start(int argc, char **argv)
 		glEnd();
 		glFlush();
 	});
-	glClearColor(0.0, 0.0, 0.0, 1.0);
-	glColor3f(.5, 0.5, 1.000);
+	glClearColor(0.25f, 0.25f, 0.25f, 1.f);
+	glColor3f(0.5f, 0.5f, 1.f);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(-1.0, 1.0, -1.0, 1.0);

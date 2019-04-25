@@ -3,8 +3,9 @@
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df root="." name="0">
       <df name="src">
-        <in>AWindow.cpp</in>
-        <in>AWindow.h</in>
+        <in>GLUTWindow.cpp</in>
+        <in>GLUTWindow.h</in>
+        <in>IWindow.h</in>
         <in>Main.cpp</in>
       </df>
     </df>
@@ -52,9 +53,11 @@
           <preBuildCommand></preBuildCommand>
         </preBuild>
       </makefileType>
-      <item path="src/AWindow.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/GLUTWindow.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/AWindow.h" ex="false" tool="3" flavor2="0">
+      <item path="src/GLUTWindow.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/IWindow.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Main.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">

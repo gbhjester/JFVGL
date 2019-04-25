@@ -12,6 +12,11 @@ Add README.md
 Add Netbeans 8.2 project
 Remove CodeBlocks project
 Add src/AWindow.cpp, src/AWindow.h
+Rename AWindow.cpp → IWindow.cpp
+Rename AWindow.h → IWindow.h
+Remove IWindow.cpp
+Add src/GLUTWindow.cpp, src/GLUTWindow.h
+Move GLUT shit from IWindow to GLUTWindow
 
 2019-04-23
 Create makefile (C99)

@@ -1,0 +1,8 @@
+*** TODO ***
+
+Window:
+	Add class GLUTWindow : IWindow
+
+Shell integration:
+	Add class IShell
+	Add class WinShell : IShell

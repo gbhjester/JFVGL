@@ -21,8 +21,9 @@
       <df name="obj">
       </df>
       <df name="src">
-        <in>AWindow.cpp</in>
-        <in>AWindow.h</in>
+        <in>GLUTWindow.cpp</in>
+        <in>GLUTWindow.h</in>
+        <in>IWindow.h</in>
         <in>Main.cpp</in>
         <in>Main.h</in>
       </df>
