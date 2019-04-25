@@ -3,21 +3,29 @@
  */
 
 /* 
- * AWindow.cpp
- * @author Jester
+ * File:   GLUTWindow.cpp
+ * Author: Jester
+ * 
+ * Created on April 25, 2019, 1:57 AM
  */
 
-#include "AWindow.h"
+#include "GLUTWindow.h"
 
-AWindow::AWindow()
+GLUTWindow::GLUTWindow(){ }
+
+GLUTWindow::~GLUTWindow(){ }
+
+GLUTWindow &GLUTWindow::operator=(GLUTWindow rhs)
 {
+	if (this == &rhs)
+		return *this;
+	Swap(*this, rhs);
+	return *this;
 }
 
-AWindow::~AWindow()
-{
-}
+/* API */
 
-void AWindow::init(int argc, char **argv)
+void GLUTWindow::Start(int argc, char **argv)
 {
 	glutInit(&argc, argv);
 	glutInitWindowSize(
@@ -39,8 +47,8 @@ void AWindow::init(int argc, char **argv)
 		glEnd();
 		glFlush();
 	});
-	glClearColor(0.0, 0.0, 0.0, 1.0); // JMU Gold
-	glColor3f(.5, 0.5, 1.000); // JMU Purple
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glColor3f(.5, 0.5, 1.000);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(-1.0, 1.0, -1.0, 1.0);
