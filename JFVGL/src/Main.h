@@ -14,7 +14,7 @@ namespace JFVGL
 {
 
 	template <typename T>
-	void swap(T &lhs, T &rhs)
+	void Swap(T &lhs, T &rhs)
 	{
 		T tmp(rhs);
 		lhs = rhs;

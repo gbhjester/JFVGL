@@ -6,13 +6,13 @@
  * Main.c
  */
 
-#include <stdio.h>
+//#include <stdio.h>
 #include "main.h"
-#include "AWindow.h"
+#include "GLUTWindow.h"
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-	AWindow wnd;
-	wnd.init(argc, argv);
+	GLUTWindow wnd;
+	wnd.Start(argc, argv);
 	return 0;
 }
