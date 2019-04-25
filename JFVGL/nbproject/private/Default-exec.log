@@ -1,0 +1,21 @@
+called: C:\MinGW64\mingw64\bin\g++.exe
+	C:\Users\Jester\Desktop\JFVGL
+	C:\MinGW64\mingw64\bin\g++.exe
+	-std=c++11
+	-Wall
+	-Wpedantic
+	-Iinc
+	-c
+	src/Main.cpp
+	-oobj/Main.o
+
+called: C:\MinGW64\mingw64\bin\g++.exe
+	C:\Users\Jester\Desktop\JFVGL
+	C:\MinGW64\mingw64\bin\g++.exe
+	-oJFVGL
+	obj/Main.o
+	-Llib/win64
+	-lopengl32
+	-lglu32
+	-lfreeglut
+

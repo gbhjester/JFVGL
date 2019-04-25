@@ -1,0 +1,21 @@
+*** CHANGELOG ***
+
+2019-04-24
+Compile freeglut 3.0.0 Linux binaries
+Compiles on Linux (64-bit)
+Rename main.c → Main.c
+Rename main.h → Main.h
+Switch to C++ (C++11)
+Rename Main.c → Main.cpp
+Add CHANGELOG
+Add README.md
+Add Netbeans 8.2 project
+Remove CodeBlocks project
+Add src/AWindow.cpp, src/AWindow.h
+
+2019-04-23
+Create makefile (C99)
+Add src/main.c
+Add freeglut 3.0.0 Windows binaries
+Add src/main.h
+Compiles on Windows (64-bit)
