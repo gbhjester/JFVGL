@@ -112,8 +112,8 @@ int main(int argc, char *argv[])
 			fclamp(w, w, glutGet(GLUT_SCREEN_WIDTH)),
 			fclamp(h, h, glutGet(GLUT_SCREEN_HEIGHT)));
 		/*f = fmax(
-			w / glutGet(GLUT_SCREEN_WIDTH),
-			h / glutGet(GLUT_SCREEN_HEIGHT));*/
+			(float)w / (float)glutGet(GLUT_SCREEN_WIDTH),
+			(float)h / (float)glutGet(GLUT_SCREEN_HEIGHT));*/
 	}
 	else
 	{
@@ -196,12 +196,12 @@ int main(int argc, char *argv[])
 	{
 		dx = x - px;
 		dy = y - py;
-		if (btnPressed == GLUT_LEFT_BUTTON)
+		if (btnPressed == GLUT_RIGHT_BUTTON)
 		{
 			cx += dx / f;
 				cy += dy / f;
 		}
-		else if (btnPressed == GLUT_RIGHT_BUTTON)
+		else if (btnPressed == GLUT_LEFT_BUTTON)
 		{
 			glutPositionWindow(
 				x - glutGet(GLUT_WINDOW_BORDER_WIDTH) - ppx + glutGet(GLUT_WINDOW_X),

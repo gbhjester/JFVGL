@@ -30,6 +30,7 @@
         <in>Main.cpp</in>
         <in>Main.h</in>
       </df>
+      <in>short.c</in>
     </df>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
