@@ -15,16 +15,21 @@
 
 unsigned int texid;
 unsigned char *img;
+int px = 0, py = 0;
+int dx = 0, dy = 0;
+int cx = 0, cy = 0;
+int w, h, ch;
 
 int main(int argc, char *argv[])
 {
 	/*GLUTWindow wnd;
 	wnd.Start(argc, argv);
 	return 0;*/
-	int w, h, ch;
 	//const char *fn = "E:/torrents/updated mosiac.png";
-	//const char *fn = "table.jpg";w = 3840;h = 2160;
-	const char *fn = "nrm.png";w = 1024;h = 1024;
+	const char *fn = "table.jpg";
+	w = 3840;
+	h = 2160;
+	//const char *fn = "nrm.png";w = 1024;h = 1024;
 	//const char *fn = "table2.png";w = 375;h = 375;
 	img = stbi_load(fn, &w, &h, &ch, 3);
 	if (img)
@@ -66,11 +71,20 @@ int main(int argc, char *argv[])
 	glutCreateWindow("JFVGL");
 	glutDisplayFunc([]()
 	{
+		glViewport(0, 0, glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+		glScissor(0, 0, glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+		glEnable(GL_SCISSOR_TEST);
+		/*float v[] = {
+			-1.f, 1.f,
+			1.f, 1.f,
+			-1.f, -1.f,
+			1.f, -1.f
+		};*/
 		float v[] = {
-			-0.5f, 0.5f,
-			0.5f, 0.5f,
-			-0.5f, -0.5f,
-			0.5f, -0.5f
+			-w, h,
+			w, h,
+			-w, -h,
+			w, -h
 		};
 		unsigned short vi[] = {0, 1, 2, 2, 3, 1};
 		float uv[] = {
@@ -80,6 +94,11 @@ int main(int argc, char *argv[])
 			1.f, 1.f
 		};
 		glClear(GL_COLOR_BUFFER_BIT);
+		glPushMatrix();
+		glScalef(f / (float)glutGet(GLUT_WINDOW_WIDTH), f / (float)glutGet(GLUT_WINDOW_HEIGHT), 0.f);
+		glTranslatef(
+			((float)cx * (2.f / f)),
+			-((float)cy * (2.f / f)), 0.f);
 		glVertexPointer(2, GL_FLOAT, 0, v);
 		glTexCoordPointer(2, GL_FLOAT, 0, uv);
 		glEnableClientState(GL_VERTEX_ARRAY);
@@ -93,27 +112,74 @@ int main(int argc, char *argv[])
 		glDisableClientState(GL_VERTEX_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glDisable(GL_TEXTURE_2D);
+		glPopMatrix();
 		glFlush();
 		/*glClear(GL_COLOR_BUFFER_BIT);
 		glDrawPixels(w, h, GL_RGB, GL_UNSIGNED_BYTE, img);*/
 	});
-		/*glClear(GL_COLOR_BUFFER_BIT);
-		glDrawPixels(w, h, GL_RGB, GL_UNSIGNED_BYTE, img);*/
 	glutMouseFunc([](int btn, int state, int x, int y)
 	{
 		if (state == 1)
 			return;
-		float s = 0.1f;
-		if (btn == GLUT_LEFT_BUTTON)
+	});
+	glutMouseWheelFunc([](int wheel, int dir, int x, int y)
+	{
+		/*auto fmin = [](float a, float b)
 		{
-			f += s;
+			if (a < b)
+				return a;
+			else
+				return b;
+		};
+		auto fmax = [](float a, float b)
+		{
+			if (a > b)
+				return a;
+			else
+				return b;
+		};
+		auto fclamp = [](float a, float x, float b)
+		{
+			if (x < a)
+				return a;
+			else if (x > b)
+				return b;
+			else
+				return x;
+		};
+		float s = 0.1f;*/
+		if (dir == 1)
+		{
+			//f = fmin(f + s, 2.f);
+			//f = fclamp(0.5f, f + s, 2.f);
+			f *= 1.1f;
 		}
-		else if (btn == GLUT_RIGHT_BUTTON)
+		else if (dir == -1)
 		{
-			f -= s;
+			//f = fmax(f - s, 0.5f);
+			//f = fclamp(0.5f, f - s, 2.f);
+			f *= 1.f / 1.1f;
 		}
 		glutPostRedisplay();
 		printf("%f\n", f);
+	});
+	glutMotionFunc([](int x, int y)
+	{
+		dx = x - px;
+		dy = y - py;
+		cx += dx;
+		cy += dy;
+		glutPostRedisplay();
+		px = x;
+		py = y;
+	});
+	glutPassiveMotionFunc([](int x, int y)
+	{
+		dx = x - px;
+		dy = y - py;
+		//glutPostRedisplay();
+		px = x;
+		py = y;
 	});
 	glClearColor(0.25f, 0.25f, 0.25f, 1.f);
 	glColor3f(0.5f, 0.5f, 1.f);

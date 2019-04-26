@@ -1,8 +1,14 @@
 *** TODO ***
 
 Move everything to namespace JFVGL
+Finish prototype code
+Move prototype code to GLUTWindow
 
 Window:
+	Zoom around mouse cursor
+
+Image handling:
+	Arbitrary image sizes
 
 Shell integration:
 	Add class IShell

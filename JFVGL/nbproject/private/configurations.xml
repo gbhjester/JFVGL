@@ -21,6 +21,8 @@
       </df>
       <df name="obj">
       </df>
+      <df name="screenshot">
+      </df>
       <df name="src">
         <in>GLUTWindow.cpp</in>
         <in>GLUTWindow.h</in>

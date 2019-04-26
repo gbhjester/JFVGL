@@ -3,6 +3,7 @@
 2019-04-25
 Add include header stb_image.h
 Add test OpenGL rendering
+Add aspect ratio correct scaling
 
 2019-04-24
 Compile freeglut 3.0.0 Linux binaries
