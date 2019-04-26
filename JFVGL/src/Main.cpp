@@ -81,10 +81,10 @@ int main(int argc, char *argv[])
 			1.f, -1.f
 		};*/
 		float v[] = {
-			-w, h,
-			w, h,
-			-w, -h,
-			w, -h
+			(float)-w, (float)h,
+			(float)w, (float)h,
+			(float)-w, (float)-h,
+			(float)w, (float)-h
 		};
 		unsigned short vi[] = {0, 1, 2, 2, 3, 1};
 		float uv[] = {
@@ -95,10 +95,12 @@ int main(int argc, char *argv[])
 		};
 		glClear(GL_COLOR_BUFFER_BIT);
 		glPushMatrix();
-		glScalef(f / (float)glutGet(GLUT_WINDOW_WIDTH), f / (float)glutGet(GLUT_WINDOW_HEIGHT), 0.f);
+		glScalef(
+			f / (float)glutGet(GLUT_WINDOW_WIDTH),
+			f / (float)glutGet(GLUT_WINDOW_HEIGHT), 0.f);
 		glTranslatef(
-			((float)cx * (2.f / f)),
-			-((float)cy * (2.f / f)), 0.f);
+			((float)cx * (2.f / 1)),
+			-((float)cy * (2.f / 1)), 0.f);
 		glVertexPointer(2, GL_FLOAT, 0, v);
 		glTexCoordPointer(2, GL_FLOAT, 0, uv);
 		glEnableClientState(GL_VERTEX_ARRAY);
