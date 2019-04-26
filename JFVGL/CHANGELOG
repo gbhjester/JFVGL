@@ -3,6 +3,7 @@
 2019-04-26
 Change pan window button to LMB
 Change pan view button to RMB
+Add panic esc for testing
 
 2019-04-25
 Add include header stb_image.h
