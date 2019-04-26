@@ -26,9 +26,9 @@ unsigned int texid;
 unsigned char *img;
 int w, h, ch;
 float f = 1.f;
-float px = 0, py = 0;	// Previous mouse coords
-float ppx = 0, ppy = 0;	// Previous passive mouse coords (not updated while dragging)
-float dx = 0, dy = 0;	// Delta mouse coords (x - px)
+float px = 0, py = 0; // Previous mouse coords
+float ppx = 0, ppy = 0; // Previous passive mouse coords (not updated while dragging)
+float dx = 0, dy = 0; // Delta mouse coords (x - px)
 float cx = 0, cy = 0;
 int btnPressed; // Current button pressed, or -1
 
@@ -203,10 +203,9 @@ int main(int argc, char *argv[])
 		}
 		else if (btnPressed == GLUT_RIGHT_BUTTON)
 		{
-			// Just a guess at border / decorations sizes
 			glutPositionWindow(
-				x - 8 - ppx + glutGet(GLUT_WINDOW_X),
-				y - 30 - ppy + glutGet(GLUT_WINDOW_Y));
+				x - glutGet(GLUT_WINDOW_BORDER_WIDTH) - ppx + glutGet(GLUT_WINDOW_X),
+				y - glutGet(GLUT_WINDOW_BORDER_HEIGHT) - ppy + glutGet(GLUT_WINDOW_Y));
 		}
 		glutPostRedisplay();
 		px = x;
