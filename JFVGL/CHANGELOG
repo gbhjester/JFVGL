@@ -3,7 +3,8 @@
 2019-04-25
 Add include header stb_image.h
 Add test OpenGL rendering
-Add zoom / pan
+Add mwheel zoom
+Add LMB pan
 Add aspect ratio correct scaling
 Add zoom around view zenter
 Set pan speed relative to zoom
@@ -11,6 +12,8 @@ Fix pan instability
 Now opens file given in argv[1] (for testing)
 If no input file specified, opens a default file
 Fixed CPU hogging
+Set size to loaded image on startup
+Add RMB pan window
 
 2019-04-24
 Compile freeglut 3.0.0 Linux binaries

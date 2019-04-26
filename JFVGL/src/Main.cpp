@@ -7,6 +7,7 @@
  */
 
 #include <cerrno>
+#include <cmath>
 #include <cstdlib>
 #include "Main.h"
 #include "GLUTWindow.h"
@@ -14,20 +15,53 @@
 #define STBI_FAILURE_USERMSG
 #include "stb_image.h"
 
+#define epsilon powf(2, -23)
+
+// TODO Move to class Preferences
 #define FPS_TARGET 60
+#define ZOOM_MIN 0.001f
+#define ZOOM_MAX 10.f
 
 unsigned int texid;
 unsigned char *img;
 int w, h, ch;
 float f = 1.f;
-float px = 0, py = 0;
-float dx = 0, dy = 0;
+float px = 0, py = 0;	// Previous mouse coords
+float ppx = 0, ppy = 0;	// Previous passive mouse coords (not updated while dragging)
+float dx = 0, dy = 0;	// Delta mouse coords (x - px)
 float cx = 0, cy = 0;
+int btnPressed; // Current button pressed, or -1
+
+/*float fmin(float a, float b)
+{
+	if (a < b)
+		return a;
+	else
+		return b;
+}
+
+float fmax(float a, float b)
+{
+	if (a > b)
+		return a;
+	else
+		return b;
+}*/
+
+float fclamp(float a, float x, float b)
+{
+	if (x < a)
+		return a;
+	else if (x > b)
+		return b;
+	else
+		return x;
+}
 
 int main(int argc, char *argv[])
 {
 	for (int i = 0; i < argc; i++)
-		printf("%s", argv[i]);
+		printf("%s\n", argv[i]);
 	/*GLUTWindow wnd;
 	wnd.Start(argc, argv);
 	return 0;*/
@@ -40,6 +74,7 @@ int main(int argc, char *argv[])
 		//fn = "table.jpg";
 		//fn = "nrm.png";
 		fn = "table2.png";
+		//fn = "plasma.png";
 	}
 	img = stbi_load(fn, &w, &h, &ch, 3);
 	if (img)
@@ -70,9 +105,22 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 	glutInit(&argc, argv);
-	glutInitWindowSize(
-		glutGet(GLUT_SCREEN_WIDTH) / 3,
-		glutGet(GLUT_SCREEN_HEIGHT) / 2);
+
+	if (img)
+	{
+		glutInitWindowSize(
+			fclamp(w, w, glutGet(GLUT_SCREEN_WIDTH)),
+			fclamp(h, h, glutGet(GLUT_SCREEN_HEIGHT)));
+		/*f = fmax(
+			w / glutGet(GLUT_SCREEN_WIDTH),
+			h / glutGet(GLUT_SCREEN_HEIGHT));*/
+	}
+	else
+	{
+		glutInitWindowSize(
+			glutGet(GLUT_SCREEN_WIDTH) / 3,
+			glutGet(GLUT_SCREEN_HEIGHT) / 2);
+	}
 	glutInitWindowPosition(
 		(glutGet(GLUT_SCREEN_WIDTH) - glutGet(GLUT_INIT_WINDOW_WIDTH)) / 2,
 		(glutGet(GLUT_SCREEN_HEIGHT) - glutGet(GLUT_INIT_WINDOW_HEIGHT)) / 2);
@@ -123,26 +171,23 @@ int main(int argc, char *argv[])
 	glutMouseFunc([](int btn, int state, int x, int y)
 	{
 		if (state == 1)
+		{
+			btnPressed = -1;
 			return;
+		}
+		btnPressed = btn;
 	});
 	glutMouseWheelFunc([](int wheel, int dir, int x, int y)
 	{
-		auto fclamp = [](float a, float x, float b)
-		{
-			if (x < a)
-				return a;
-			else if (x > b)
-				return b;
-			else
-				return x;
-		};
 		if (dir == 1)
 		{
-			f *= 1.1f;
+			//f *= 1.1f;
+			f = fclamp(ZOOM_MIN, f * 1.1f, ZOOM_MAX);
 		}
 		else if (dir == -1)
 		{
-			f *= 1.f / 1.1f;
+			//f *= 1.f / 1.1f;
+			f = fclamp(ZOOM_MIN, f * (1.f / 1.1f), ZOOM_MAX);
 		}
 		glutPostRedisplay();
 		printf("%f\n", f);
@@ -151,8 +196,18 @@ int main(int argc, char *argv[])
 	{
 		dx = x - px;
 		dy = y - py;
-		cx += dx / f;
-		cy += dy / f;
+		if (btnPressed == GLUT_LEFT_BUTTON)
+		{
+			cx += dx / f;
+				cy += dy / f;
+		}
+		else if (btnPressed == GLUT_RIGHT_BUTTON)
+		{
+			// Just a guess at border / decorations sizes
+			glutPositionWindow(
+				x - 8 - ppx + glutGet(GLUT_WINDOW_X),
+				y - 30 - ppy + glutGet(GLUT_WINDOW_Y));
+		}
 		glutPostRedisplay();
 		px = x;
 		py = y;
@@ -164,6 +219,8 @@ int main(int argc, char *argv[])
 		//glutPostRedisplay();
 		px = x;
 		py = y;
+		ppx = x;
+		ppy = y;
 	});
 	glClearColor(0.25f, 0.25f, 0.25f, 1.f);
 	glColor3f(0.5f, 0.5f, 1.f);
