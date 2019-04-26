@@ -3,6 +3,7 @@
 Move everything to namespace JFVGL
 Finish prototype code
 Move prototype code to GLUTWindow
+Fix Linux linking shitness
 
 Window:
 	Zoom around mouse cursor

@@ -3,8 +3,11 @@
 2019-04-25
 Add include header stb_image.h
 Add test OpenGL rendering
+Add zoom / pan
 Add aspect ratio correct scaling
 Add zoom around view zenter
+Set pan speed relative to zoom
+Fix pan instability
 
 2019-04-24
 Compile freeglut 3.0.0 Linux binaries

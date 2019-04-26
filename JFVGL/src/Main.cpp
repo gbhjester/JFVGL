@@ -16,9 +16,9 @@
 
 unsigned int texid;
 unsigned char *img;
-int px = 0, py = 0;
-int dx = 0, dy = 0;
-int cx = 0, cy = 0;
+float px = 0, py = 0;
+float dx = 0, dy = 0;
+float cx = 0, cy = 0;
 int w, h, ch;
 
 int main(int argc, char *argv[])
@@ -100,8 +100,8 @@ int main(int argc, char *argv[])
 			f / (float)glutGet(GLUT_WINDOW_WIDTH),
 			f / (float)glutGet(GLUT_WINDOW_HEIGHT), 0.f);
 		glTranslatef(
-			((float)cx * (2.f / 1)),
-			-((float)cy * (2.f / 1)), 0.f);
+			((float)cx * 2.f),
+			-((float)cy * 2.f), 0.f);
 		glVertexPointer(2, GL_FLOAT, 0, v);
 		glTexCoordPointer(2, GL_FLOAT, 0, uv);
 		glEnableClientState(GL_VERTEX_ARRAY);
@@ -170,8 +170,8 @@ int main(int argc, char *argv[])
 	{
 		dx = x - px;
 		dy = y - py;
-		cx += dx;
-		cy += dy;
+		cx += dx / f;
+		cy += dy / f;
 		glutPostRedisplay();
 		px = x;
 		py = y;
