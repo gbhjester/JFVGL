@@ -6,6 +6,7 @@
  * Main.c
  */
 
+#include <cerrno>
 #include <cstdlib>
 #include "Main.h"
 #include "GLUTWindow.h"

@@ -16,7 +16,7 @@ CXX=g++
 CXXFLAGS=-std=c++11 -Wall -Wpedantic -I$(IDIR)
 LFLAGS=-L$(LDIR)
 ifeq ($(ENV), Linux)
-    LFLAGS+=-lm -lX11 -lXrandr -lGL -lGLU -lfreeglut
+    LFLAGS+=-lm -lXrandr -lGL -lGLU -lX11 -lfreeglut
 else
     LFLAGS+=-lopengl32 -lglu32 -lfreeglut #-Wl,--subsystem,windows
 endif
