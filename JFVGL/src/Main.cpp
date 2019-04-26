@@ -14,6 +14,8 @@
 #define STBI_FAILURE_USERMSG
 #include "stb_image.h"
 
+#define FPS_TARGET 60
+
 unsigned int texid;
 unsigned char *img;
 int w, h, ch;
@@ -24,16 +26,21 @@ float cx = 0, cy = 0;
 
 int main(int argc, char *argv[])
 {
-	for (int i = 0 ; i < argc ; i++)
+	for (int i = 0; i < argc; i++)
 		printf("%s", argv[i]);
 	/*GLUTWindow wnd;
 	wnd.Start(argc, argv);
 	return 0;*/
-	const char *fn = argv[1];
-	//const char *fn = "E:/torrents/updated mosaic.png";
-	//const char *fn = "table.jpg";
-	//const char *fn = "nrm.png";
-	//const char *fn = "table2.png";
+	const char *fn;
+	if (argc == 2)
+		fn = argv[1];
+	else
+	{
+		//fn = "E:/torrents/updated mosaic.png";
+		//fn = "table.jpg";
+		//fn = "nrm.png";
+		fn = "table2.png";
+	}
 	img = stbi_load(fn, &w, &h, &ch, 3);
 	if (img)
 	{
@@ -112,8 +119,6 @@ int main(int argc, char *argv[])
 		glDisable(GL_TEXTURE_2D);
 		glPopMatrix();
 		glFlush();
-		/*glClear(GL_COLOR_BUFFER_BIT);
-		glDrawPixels(w, h, GL_RGB, GL_UNSIGNED_BYTE, img);*/
 	});
 	glutMouseFunc([](int btn, int state, int x, int y)
 	{
@@ -122,20 +127,6 @@ int main(int argc, char *argv[])
 	});
 	glutMouseWheelFunc([](int wheel, int dir, int x, int y)
 	{
-		/*auto fmin = [](float a, float b)
-		{
-			if (a < b)
-				return a;
-			else
-				return b;
-		};
-		auto fmax = [](float a, float b)
-		{
-			if (a > b)
-				return a;
-			else
-				return b;
-		};
 		auto fclamp = [](float a, float x, float b)
 		{
 			if (x < a)
@@ -145,17 +136,12 @@ int main(int argc, char *argv[])
 			else
 				return x;
 		};
-		float s = 0.1f;*/
 		if (dir == 1)
 		{
-			//f = fmin(f + s, 2.f);
-			//f = fclamp(0.5f, f + s, 2.f);
 			f *= 1.1f;
 		}
 		else if (dir == -1)
 		{
-			//f = fmax(f - s, 0.5f);
-			//f = fclamp(0.5f, f - s, 2.f);
 			f *= 1.f / 1.1f;
 		}
 		glutPostRedisplay();
@@ -197,8 +183,11 @@ int main(int argc, char *argv[])
 		GL_RGB,
 		GL_UNSIGNED_BYTE,
 		img);
+	// TODO Integrate?
 	while (true)
 	{
+		if (glutGet(GLUT_ELAPSED_TIME) % (int)(1000.f / FPS_TARGET) != 0)
+			Sleep(1000 / FPS_TARGET);
 		glutMainLoopEvent();
 	}
 	glDeleteTextures(1, &texid);

@@ -4,7 +4,7 @@ Move everything to namespace JFVGL
 Finish prototype code
 Move prototype code to GLUTWindow
 Fix Linux linking shitness
-Fix CPU hogging
+Add class Preferences
 
 Window:
 	Zoom around mouse cursor

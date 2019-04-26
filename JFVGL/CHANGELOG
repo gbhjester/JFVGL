@@ -9,6 +9,8 @@ Add zoom around view zenter
 Set pan speed relative to zoom
 Fix pan instability
 Now opens file given in argv[1] (for testing)
+If no input file specified, opens a default file
+Fixed CPU hogging
 
 2019-04-24
 Compile freeglut 3.0.0 Linux binaries
