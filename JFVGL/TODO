@@ -4,13 +4,17 @@ Move everything to namespace JFVGL
 Finish prototype code
 Move prototype code to GLUTWindow
 Fix Linux linking shitness
+Fix CPU hogging
 
 Window:
 	Zoom around mouse cursor
+	Keyboard input (esc etc)
+	Set appropriate default scale on load (zoom 100%, window to image size)
 
 Image handling:
-	Arbitrary image sizes
+	Arbitrary image loading
 
 Shell integration:
 	Add class IShell
 	Add class WinShell : IShell
+	Add drag / drop

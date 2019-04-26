@@ -16,22 +16,24 @@
 
 unsigned int texid;
 unsigned char *img;
+int w, h, ch;
+float f = 1.f;
 float px = 0, py = 0;
 float dx = 0, dy = 0;
 float cx = 0, cy = 0;
-int w, h, ch;
 
 int main(int argc, char *argv[])
 {
+	for (int i = 0 ; i < argc ; i++)
+		printf("%s", argv[i]);
 	/*GLUTWindow wnd;
 	wnd.Start(argc, argv);
 	return 0;*/
-	//const char *fn = "E:/torrents/updated mosiac.png";
-	const char *fn = "table.jpg";
-	w = 3840;
-	h = 2160;
-	//const char *fn = "nrm.png";w = 1024;h = 1024;
-	//const char *fn = "table2.png";w = 375;h = 375;
+	const char *fn = argv[1];
+	//const char *fn = "E:/torrents/updated mosaic.png";
+	//const char *fn = "table.jpg";
+	//const char *fn = "nrm.png";
+	//const char *fn = "table2.png";
 	img = stbi_load(fn, &w, &h, &ch, 3);
 	if (img)
 	{
@@ -60,7 +62,6 @@ int main(int argc, char *argv[])
 		printf("Image failed to load : %s (%s)\n", stbi_failure_reason(), strerror(errno));
 		return -1;
 	}
-	static float f = 1.f;
 	glutInit(&argc, argv);
 	glutInitWindowSize(
 		glutGet(GLUT_SCREEN_WIDTH) / 3,
@@ -75,12 +76,6 @@ int main(int argc, char *argv[])
 		glViewport(0, 0, glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 		glScissor(0, 0, glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 		glEnable(GL_SCISSOR_TEST);
-		/*float v[] = {
-			-1.f, 1.f,
-			1.f, 1.f,
-			-1.f, -1.f,
-			1.f, -1.f
-		};*/
 		float v[] = {
 			(float)-w, (float)h,
 			(float)w, (float)h,

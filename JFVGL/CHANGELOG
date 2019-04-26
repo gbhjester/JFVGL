@@ -8,6 +8,7 @@ Add aspect ratio correct scaling
 Add zoom around view zenter
 Set pan speed relative to zoom
 Fix pan instability
+Now opens file given in argv[1] (for testing)
 
 2019-04-24
 Compile freeglut 3.0.0 Linux binaries
