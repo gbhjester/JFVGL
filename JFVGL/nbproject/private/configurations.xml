@@ -11,6 +11,7 @@
           <in>freeglut_std.h</in>
           <in>glut.h</in>
         </df>
+        <in>stb_image.h</in>
       </df>
       <df name="lib">
         <df name="deb">

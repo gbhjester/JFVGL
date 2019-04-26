@@ -1,7 +1,8 @@
 *** TODO ***
 
+Move everything to namespace JFVGL
+
 Window:
-	Add class GLUTWindow : IWindow
 
 Shell integration:
 	Add class IShell
