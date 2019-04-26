@@ -6,8 +6,9 @@
  * Main.c
  */
 
+#include <cerrno>
 #include <cstdlib>
-#include "main.h"
+#include "Main.h"
 #include "GLUTWindow.h"
 #define STB_IMAGE_IMPLEMENTATION
 #define STBI_FAILURE_USERMSG
