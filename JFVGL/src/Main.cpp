@@ -221,6 +221,17 @@ int main(int argc, char *argv[])
 		ppx = x;
 		ppy = y;
 	});
+	glutKeyboardFunc([](unsigned char key, int x, int y)
+	{
+		switch (key)
+		{
+		case 27:	// Esc
+			exit(27);	// Panic quit for testing
+			break;
+		default:
+			break;
+		}
+	});
 	glClearColor(0.25f, 0.25f, 0.25f, 1.f);
 	glColor3f(0.5f, 0.5f, 1.f);
 	glMatrixMode(GL_PROJECTION);
