@@ -196,12 +196,12 @@ int main(int argc, char *argv[])
 	{
 		dx = x - px;
 		dy = y - py;
-		if (btnPressed == GLUT_RIGHT_BUTTON)
+		if (btnPressed == GLUT_LEFT_BUTTON)
 		{
 			cx += dx / f;
 				cy += dy / f;
 		}
-		else if (btnPressed == GLUT_LEFT_BUTTON)
+		else if (btnPressed == GLUT_RIGHT_BUTTON)
 		{
 			glutPositionWindow(
 				x - glutGet(GLUT_WINDOW_BORDER_WIDTH) - ppx + glutGet(GLUT_WINDOW_X),
@@ -227,6 +227,9 @@ int main(int argc, char *argv[])
 		{
 		case 27:	// Esc
 			exit(27);	// Panic quit for testing
+			break;
+		case 13:	// Enter
+			exit(0);
 			break;
 		default:
 			break;
