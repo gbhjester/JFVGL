@@ -19,7 +19,7 @@
 
 // TODO Move to class Preferences
 #define FPS_TARGET 60
-#define ZOOM_MIN 0.001f
+#define ZOOM_MIN 0.01f
 #define ZOOM_MAX 10.f
 
 unsigned int texid;
@@ -104,6 +104,11 @@ int main(int argc, char *argv[])
 		printf("Image failed to load : %s (%s)\n", stbi_failure_reason(), strerror(errno));
 		return -1;
 	}
+	/*for (int i = 0; i < w*h*3; i += 3)
+	{
+		printf("[%u %u %u]\n", img[i], img[i + 1], img[i + 2]);
+	}
+	return 0;*/
 	glutInit(&argc, argv);
 
 	if (img)
@@ -225,10 +230,10 @@ int main(int argc, char *argv[])
 	{
 		switch (key)
 		{
-		case 27:	// Esc
-			exit(27);	// Panic quit for testing
+		case 27: // Esc
+			exit(27); // Panic quit for testing
 			break;
-		case 13:	// Enter
+		case 13: // Enter
 			exit(0);
 			break;
 		default:

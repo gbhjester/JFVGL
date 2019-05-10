@@ -3,13 +3,21 @@
 Move everything to namespace JFVGL
 Finish prototype code
 Move prototype code to GLUTWindow
+Add API methods to IWindow
+	- Open(), Close(), Move(), Resize(), Minimize(), Maximize()
 Fix Linux linking shitness
 Add class Preferences
+	- Load(), Save()
+Add interface IImage -- image support API
+	- Open(), Close(), ToGL(RGB, RGBA, greyscale (?), etc)
+Add class wxWindow
 
 Window:
 	Zoom around mouse cursor
 	Keyboard input (esc etc)
-	Set appropriate default scale on load (zoom 100%, window to image size)
+	Set appropriate default scale on load
+		- IF SMALLER THAN SCREEN SIZE : zoom 100%, window to image size
+		- IF NOT SMALER THAN SCREEN SIZE : window to screen size, zoom to fit
 
 Image handling:
 	Arbitrary image loading
