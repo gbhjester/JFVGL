@@ -1,8 +1,6 @@
 *** TODO ***
 
 Move everything to namespace JFVGL
-Finish prototype code
-Move prototype code to GLUTWindow
 Add API methods to IWindow
 	- Open(), Close(), Move(), Resize(), Minimize(), Maximize()
 Fix Linux linking shitness
@@ -11,7 +9,7 @@ Add class Preferences
 Add interface IImage -- image support API
 	- Open(), Close(), ToGL(RGB, RGBA, greyscale (?), etc)
 Add class wxWindow
-Move away from Glut dependency
+Move away from Glut
 Drop GLUT dependency (AFTER wxWindow fully supported on Windows AND Linux!)
 
 Window:

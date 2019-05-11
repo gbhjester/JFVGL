@@ -1,5 +1,8 @@
 *** CHANGELOG ***
 
+2019-05-11
+Move GLUT code to GLUTWindow.cpp (TODO : refactor / shim api appropriately)
+
 2019-04-26
 Change pan window button to LMB
 Change pan view button to RMB

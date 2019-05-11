@@ -14,6 +14,11 @@
 #include "Main.h"
 #include "IWindow.h"
 
+// TODO Move to class Preferences
+#define FPS_TARGET 60
+#define ZOOM_MIN 0.01f
+#define ZOOM_MAX 10.f
+
 class GLUTWindow : public IWindow
 {
 private:
