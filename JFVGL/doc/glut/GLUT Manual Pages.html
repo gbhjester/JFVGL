@@ -1,0 +1,994 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>GLUT Manual Pages</title>
+</head>
+
+<body bgcolor="#CAFFFF">
+
+<p align="center"><font size="6"><B>GLUT Man Pages</B></font></p>
+
+<hr>
+<A NAME="glutInit">
+<h2>glutInit</h2></A>
+<tt>
+
+<p>glutInit</tt><font SIZE="2"> is used to initialize the GLUT library. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutInit(int *argcp, char **argv);</pre>
+<tt>
+
+<dl>
+  <dt>argcp</tt> </dt>
+  <dd>A pointer to the program's <em>unmodified</em> <tt>argc</tt> variable from <tt>main.</tt>
+    Upon return, the value pointed to by <tt>argcp</tt> will be updated, because <tt>glutInit</tt>
+    extracts any command line options intended for the GLUT library. </dd>
+  <tt>
+  <dt>argv</tt> </dt>
+  <dd>The program's <em>unmodified</em> <tt>argv</tt> variable from <tt>main.</tt> Like <tt>argcp,</tt>
+    the data for <tt>argv</tt> will be updated because <tt>glutInit</tt> extracts any command
+    line options understood by the GLUT library. </dd>
+</dl>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutInit</tt><font SIZE="2"> will initialize the GLUT library and negotiate a session
+with the window system. During this process, </font><tt>glutInit</tt><font SIZE="2"> may
+cause the termination of the GLUT program with an error message to the user if GLUT cannot
+be properly initialized. Examples of this situation include the failure to connect to the
+window system, the lack of window system support for OpenGL, and invalid command line
+options. </p>
+</font><tt>
+
+<p>glutInit</tt><font SIZE="2"> also processes command line options, but the specific
+options parse are window system dependent. </p>
+<b>
+
+<p>X Implementation Notes</b> </p>
+
+<p>The X Window System specific options parsed by </font><tt>glutInit</tt><font SIZE="2">
+are as follows: </font><tt>
+
+<dl>
+  <dt>-display</tt> <em>DISPLAY</em> </dt>
+  <dd>Specify the X server to connect to. If not specified, the value of the <tt>DISPLAY</tt>
+    environment variable is used. </dd>
+  <tt>
+  <dt>-geometry</tt> <em>W</em><tt> x</tt><em> H</em><tt> +</tt><em> X</em><tt> +</tt><em> Y</em>
+  </dt>
+  <dd>Determines where window's should be created on the screen. The parameter following <tt>-geometry</tt>
+    should be formatted as a standard X geometry specification. The effect of using this
+    option is to change the GLUT <em>initial size</em> and <em>initial position</em> the same
+    as if <tt>glutInitWindowSize</tt> or <tt>glutInitWindowPosition</tt> were called directly.
+  </dd>
+  <tt>
+  <dt>-iconic</tt> </dt>
+  <dd>Requests all top-level windows be created in an iconic state. </dd>
+  <tt>
+  <dt>-indirect</tt> </dt>
+  <dd>Force the use of <em>indirect</em> OpenGL rendering contexts. </dd>
+  <tt>
+  <dt>-direct</tt> </dt>
+  <dd>Force the use of <em>direct</em> OpenGL rendering contexts (not all GLX implementations
+    support direct rendering contexts). A fatal error is generated if direct rendering is not
+    supported by the OpenGL implementation. </dd>
+  <dd>If neither <tt>-indirect</tt> or <tt>-direct</tt> are used to force a particular
+    behavior, GLUT will attempt to use direct rendering if possible and otherwise fallback to
+    indirect rendering. </dd>
+  <tt>
+  <dt>-gldebug</tt> </dt>
+  <dd>After processing callbacks and/or events, check if there are any OpenGL errors by
+    calling <tt>glGetError</tt>. If an error is reported, print out a warning by looking up
+    the error code with <tt>gluErrorString</tt>. Using this option is helpful in detecting
+    OpenGL run-time errors. </dd>
+  <tt>
+  <dt>-sync</tt> </dt>
+  <dd>Enable synchronous X protocol transactions. This option makes it easier to track down
+    potential X protocol errors. </dd>
+</dl>
+<hr>
+<A NAME="glutInitWindowPosition">
+<A NAME="glutInitWindowSize">
+<h2>glutInitWindowPosition, glutInitWindowSize</h2></A></A>
+<tt>
+
+<p>glutInitWindowPosition</tt><font SIZE="2"> and </font><tt>glutInitWindowSize</tt><font
+SIZE="2"> set the <em>initial window position</em> and <em>size</em> respectively. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutInitWindowSize(int width, int height);
+void glutInitWindowPosition(int x, int y);</pre>
+<tt>
+
+<dl>
+  <dt>width</tt> </dt>
+  <dd>Width in pixels. </dd>
+  <tt>
+  <dt>height</tt> </dt>
+  <dd>Height in pixels. </dd>
+  <tt>
+  <dt>x</tt> </dt>
+  <dd>Window X location in pixels. </dd>
+  <tt>
+  <dt>y</tt> </dt>
+  <dd>Window Y location in pixels. </dd>
+</dl>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+
+<p>Windows created by </font><tt>glutCreateWindow</tt><font SIZE="2"> will be requested to
+be created with the current <em>initial window position</em> and <em>size</em>. </p>
+
+<p>The initial value of the <em>initial window position</em> GLUT state is -1 and -1. If
+either the X or Y component to the <em>initial window position</em> is negative, the
+actual window position is left to the window system to determine. The initial value of the
+<em>initial window size</em> GLUT state is 300 by 300. The <em>initial window size</em>
+components must be greater than zero. </p>
+
+<p>The intent of the <em>initial window position</em> and <em>size</em> values is to
+provide a suggestion to the window system for a window's initial size and position. The
+window system is not obligated to use this information. Therefore, GLUT programs should
+not assume the window was created at the specified size or position. A GLUT program should
+use the window's reshape callback to determine the true size of the window. </p>
+</font>
+<hr>
+<A NAME="glutInitDisplayMode">
+<h2>glutInitDisplayMode</h2></A>
+<tt>
+
+<p>glutInitDisplayMode</tt><font SIZE="2"> sets the <em>initial display mode</em>. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutInitDisplayMode(unsigned int mode);</pre>
+<tt>
+
+<dl>
+  <dt>mode</tt> </dt>
+  <dd>Display mode, normally the bitwise <em>OR</em>-ing of GLUT display mode bit masks. See
+    values below: </dd>
+  <tt>
+  <dt>GLUT_RGBA</tt> </dt>
+  <dd>Bit mask to select an RGBA mode window. This is the default if neither <tt>GLUT_RGBA</tt>
+    nor <tt>GLUT_INDEX</tt> are specified. </dd>
+  <tt>
+  <dt>GLUT_RGB</tt> </dt>
+  <dd>An alias for <tt>GLUT_RGBA</tt>. </dd>
+  <tt>
+  <dt>GLUT_INDEX</tt> </dt>
+  <dd>Bit mask to select a color index mode window. This overrides <tt>GLUT_RGBA</tt> if it is
+    also specified. </dd>
+  <tt>
+  <dt>GLUT_SINGLE</tt> </dt>
+  <dd>Bit mask to select a single buffered window. This is the default if neither <tt>GLUT_DOUBLE</tt>
+    or <tt>GLUT_SINGLE</tt> are specified. </dd>
+  <tt>
+  <dt>GLUT_DOUBLE</tt> </dt>
+  <dd>Bit mask to select a double buffered window. This overrides <tt>GLUT_SINGLE</tt> if it
+    is also specified. </dd>
+  <tt>
+  <dt>GLUT_ACCUM</tt> </dt>
+  <dd>Bit mask to select a window with an accumulation buffer. </dd>
+  <tt>
+  <dt>GLUT_ALPHA</tt> </dt>
+  <dd>Bit mask to select a window with an alpha component to the color buffer(s). </dd>
+  <tt>
+  <dt>GLUT_DEPTH</tt> </dt>
+  <dd>Bit mask to select a window with a depth buffer. </dd>
+  <tt>
+  <dt>GLUT_STENCIL</tt> </dt>
+  <dd>Bit mask to select a window with a stencil buffer. </dd>
+  <tt>
+  <dt>GLUT_MULTISAMPLE</tt> </dt>
+  <dd>Bit mask to select a window with multisampling support. If multisampling is not
+    available, a non-multisampling window will automatically be chosen. Note: both the OpenGL
+    client-side and server-side implementations must support the <tt>GLX_SAMPLE_SGIS</tt>
+    extension for multisampling to be available. </dd>
+  <tt>
+  <dt>GLUT_STEREO</tt> </dt>
+  <dd>Bit mask to select a stereo window. </dd>
+  <tt>
+  <dt>GLUT_LUMINANCE</tt> </dt>
+  <dd>Bit mask to select a window with a ``luminance'' color model. This model provides the
+    functionality of OpenGL's RGBA color model, but the green and blue components are not
+    maintained in the frame buffer. Instead each pixel's red component is converted to an
+    index between zero and <tt>glutGet(GLUT_WINDOW_COLORMAP_SIZE)-1</tt> and looked up in a
+    per-window color map to determine the color of pixels within the window. The initial
+    colormap of <tt>GLUT_LUMINANCE</tt> windows is initialized to be a linear gray ramp, but
+    can be modified with GLUT's colormap routines. </dd>
+</dl>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+
+<p>The <em>initial display mode</em> is used when creating top-level windows, subwindows,
+and overlays to determine the OpenGL display mode for the to-be-created window or overlay.
+</p>
+
+<p>Note that </font><tt>GLUT_RGBA</tt><font SIZE="2"> selects the RGBA color model, but it
+does not request any bits of alpha (sometimes called an <em>alpha buffer</em> or <em>destination
+alpha</em>) be allocated. To request alpha, specify </font><tt>GLUT_ALPHA</tt><font
+SIZE="2">. The same applies to </font><tt>GLUT_LUMINANCE</tt><font SIZE="2">. </p>
+</font><b><tt>
+
+<p>GLUT_LUMINANCE</tt><font SIZE="2"> Implementation Notes</b> </p>
+</font><tt>
+
+<p>GLUT_LUMINANCE</tt><font SIZE="2"> is not supported on most OpenGL platforms. </p>
+</font>
+<hr>
+<A NAME="glutMainLoop">
+<h2>glutMainLoop</h2></A>
+<tt>
+
+<p>glutMainLoop</tt><font SIZE="2"> enters the GLUT event processing loop. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutMainLoop(void);</pre>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutMainLoop</tt><font SIZE="2"> enters the GLUT event processing loop. This routine
+should be called at most once in a GLUT program. Once called, this routine will never
+return. It will call as necessary any callbacks that have been registered. </p>
+</font>
+<hr>
+<A NAME="glutCreateWindow">
+<h2>glutCreateWindow</h2>
+<tt>
+
+<p>glutCreateWindow</tt><font SIZE="2"> creates a top-level window. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>int glutCreateWindow(char *name);</pre>
+<tt>
+
+<dl>
+  <dt>name</tt> </dt>
+  <dd>ASCII character string for use as window name. </dd>
+</dl>
+<font SIZE="2"><b>
+
+<p>Description</b> </font><tt>glutCreateWindow</tt><font SIZE="2"> creates a top-level
+window. The </font><tt>name</tt><font SIZE="2"> will be provided to the window system as
+the window's name. The intent is that the window system will label the window with the
+name. </p>
+
+<p>Implicitly, the <em>current window</em> is set to the newly created window. </p>
+
+<p>Each created window has a unique associated OpenGL context. State changes to a window's
+associated OpenGL context can be done immediately after the window is created. </p>
+
+<p>The <em>display state</em> of a window is initially for the window to be shown. But the
+window's <em>display state</em> is not actually acted upon until </font><tt>glutMainLoop</tt><font
+SIZE="2"> is entered. This means until </font><tt>glutMainLoop</tt><font SIZE="2"> is
+called, rendering to a created window is ineffective because the window can not yet be
+displayed. </p>
+
+<p>The value returned is a unique small integer identifier for the window. The range of
+allocated identifiers starts at one. This window identifier can be used when calling </font><tt>glutSetWindow</tt><font
+SIZE="2">. </p>
+<b>
+
+<p>X Implementation Notes</b> </p>
+
+<p>The proper X Inter-Client Communication Conventions Manual (ICCCM) top-level properties
+are established. The </font><tt>WM_COMMAND</tt><font SIZE="2"> property that lists the
+command line used to invoke the GLUT program is only established for the first window
+created. </p>
+</font>
+<HR><A NAME="glutPostRedisplay">
+<h2>glutPostRedisplay</h2></A>
+<tt>
+
+<p>glutPostRedisplay</tt><font SIZE="2"> marks the <em>current window</em> as needing to
+be redisplayed. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutPostRedisplay(void);</pre>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+
+<p>Mark the normal plane of <em>current window</em> as needing to be redisplayed. The next
+iteration through </font><tt>glutMainLoop</tt><font SIZE="2">, the window's display
+callback will be called to redisplay the window's normal plane. Multiple calls to </font><tt>glutPostRedisplay</tt><font
+SIZE="2"> before the next display callback opportunity generates only a single redisplay
+callback. </font><tt>glutPostRedisplay</tt><font SIZE="2"> may be called within a window's
+display or overlay display callback to re-mark that window for redisplay. </p>
+
+<p>Logically, normal plane damage notification for a window is treated as a </font><tt>glutPostRedisplay</tt><font
+SIZE="2"> on the damaged window. Unlike damage reported by the window system, </font><tt>glutPostRedisplay</tt><font
+SIZE="2"> will <em>not</em> set to true the normal plane's damaged status (returned by </font><tt>glutLayerGet(GLUT_NORMAL_DAMAGED)</tt><font
+SIZE="2">. </p>
+
+<p>Also, see </font><tt>glutPostOverlayRedisplay</tt><font SIZE="2">. </p>
+</font>
+<HR><A NAME="glutSwapBuffers">
+<h2>glutSwapBuffers</h2></A>
+<tt>
+
+<p>glutSwapBuffers</tt><font SIZE="2"> swaps the buffers of the <em>current window</em> if
+double buffered. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutSwapBuffers(void);</pre>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+
+<p>Performs a buffer swap on the <em>layer in use</em> for the <em>current window</em>.
+Specifically, </font><tt>glutSwapBuffers</tt><font SIZE="2"> promotes the contents of the
+back buffer of the <em>layer in use</em> of the <em>current window</em> to become the
+contents of the front buffer. The contents of the back buffer then become undefined. The
+update typically takes place during the vertical retrace of the monitor, rather than
+immediately after </font><tt>glutSwapBuffers</tt><font SIZE="2"> is called. </p>
+
+<p>An implicit </font><tt>glFlush</tt><font SIZE="2"> is done by </font><tt>glutSwapBuffers</tt><font
+SIZE="2"> before it returns. Subsequent OpenGL commands can be issued immediately after
+calling </font><tt>glutSwapBuffers</tt><font SIZE="2">, but are not executed until the
+buffer exchange is completed. </p>
+
+<p>If the <em>layer in use</em> is not double buffered, </font><tt>glutSwapBuffers</tt><font
+SIZE="2"> has no effect. </p>
+</font>
+<HR>
+<A NAME="glutCreateMenu">
+<h2>glutCreateMenu</h2></A>
+<tt>
+
+<p>glutCreateMenu</tt><font SIZE="2"> creates a new pop-up menu. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>int glutCreateMenu(void (*func)(int value));</pre>
+<tt>
+
+<dl>
+  <dt>func</tt> </dt>
+  <dd>The callback function for the menu that is called when a menu entry from the menu is
+    selected. The value passed to the callback is determined by the value for the selected
+    menu entry. </dd>
+</dl>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutCreateMenu</tt><font SIZE="2"> creates a new pop-up menu and returns a unique small
+integer identifier. The range of allocated identifiers starts at one. The menu identifier
+range is separate from the window identifier range. Implicitly, the <em>current menu</em>
+is set to the newly created menu. This menu identifier can be used when calling </font><tt>glutSetMenu</tt><font
+SIZE="2">. </p>
+
+<p>When the menu callback is called because a menu entry is selected for the menu, the <em>current
+menu</em> will be implicitly set to the menu with the selected entry before the callback
+is made. </p>
+<b>
+
+<p>X Implementation Notes</b> </p>
+
+<p>If available, GLUT for X will take advantage of overlay planes for implementing pop-up
+menus. The use of overlay planes can eliminate display callbacks when pop-up menus are
+deactivated. The </font><tt>SERVER_OVERLAY_VISUALS</tt><font SIZE="2"> convention [<a
+HREF="node112.html#kilgard93layers">5</a>] is used to determine if overlay visuals are
+available. </p>
+</font>
+<HR>
+<A NAME="glutAddMenuEntry">
+<h2>glutAddMenuEntry</h2></A>
+<tt>
+
+<p>glutAddMenuEntry</tt><font SIZE="2"> adds a menu entry to the bottom of the <em>current
+menu</em>. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutAddMenuEntry(char *name, int value);</pre>
+<tt>
+
+<dl>
+  <dt>name</tt> </dt>
+  <dd>ASCII character string to display in the menu entry. </dd>
+  <tt>
+  <dt>value</tt> </dt>
+  <dd>Value to return to the menu's callback function if the menu entry is selected. </dd>
+</dl>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutAddMenuEntry</tt><font SIZE="2"> adds a menu entry to the bottom of the <em>current
+menu</em>. The string </font><tt>name</tt><font SIZE="2"> will be displayed for the newly
+added menu entry. If the menu entry is selected by the user, the menu's callback will be
+called passing </font><tt>value</tt><font SIZE="2"> as the callback's parameter. </p>
+</font>
+<HR>
+<A NAME="glutAddSubMenu">
+<h2>glutAddSubMenu</h2></A>
+<tt>
+
+<p>glutAddSubMenu</tt><font SIZE="2"> adds a sub-menu trigger to the bottom of the <em>current
+menu</em>. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutAddSubMenu(char *name, int menu);</pre>
+<tt>
+
+<dl>
+  <dt>name</tt> </dt>
+  <dd>ASCII character string to display in the menu item from which to cascade the sub-menu. </dd>
+  <tt>
+  <dt>menu</tt> </dt>
+  <dd>Identifier of the menu to cascade from this sub-menu menu item. </dd>
+</dl>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutAddSubMenu</tt><font SIZE="2"> adds a sub-menu trigger to the bottom of the <em>current
+menu</em>. The string </font><tt>name</tt><font SIZE="2"> will be displayed for the newly
+added sub-menu trigger. If the sub-menu trigger is entered, the sub-menu numbered </font><tt>menu</tt><font
+SIZE="2"> will be cascaded, allowing sub-menu menu items to be selected. </p>
+</font>
+<hr>
+<A NAME="glutDisplayFunc">
+<h2>glutDisplayFunc</h2></A>
+<tt>
+
+<p>glutDisplayFunc</tt><font SIZE="2"> sets the display callback for the <em>current
+window</em>. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutDisplayFunc(void (*func)(void));</pre>
+<tt>
+
+<dl>
+  <dt>func</tt> </dt>
+  <dd>The new display callback function. </dd>
+</dl>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutDisplayFunc</tt><font SIZE="2"> sets the display callback for the <em>current
+window</em>. When GLUT determines that the normal plane for the window needs to be
+redisplayed, the display callback for the window is called. Before the callback, the <em>current
+window</em> is set to the window needing to be redisplayed and (if no overlay display
+callback is registered) the <em>layer in use</em> is set to the normal plane. The display
+callback is called with no parameters. The entire normal plane region should be
+redisplayed in response to the callback (this includes ancillary buffers if your program
+depends on their state). </p>
+
+<p>GLUT determines when the display callback should be triggered based on the window's
+redisplay state. The redisplay state for a window can be either set explicitly by calling </font><tt>glutPostRedisplay</tt><font
+SIZE="2"> or implicitly as the result of window damage reported by the window system.
+Multiple posted redisplays for a window are coalesced by GLUT to minimize the number of
+display callbacks called. </p>
+
+<p>When an overlay is established for a window, but there is no overlay display callback
+registered, the display callback is used for redisplaying <em>both</em> the overlay and
+normal plane (that is, it will be called if either the redisplay state or overlay
+redisplay state is set). In this case, the <em>layer in use</em> is <em>not</em>
+implicitly changed on entry to the display callback. </p>
+
+<p>See </font><tt>glutOverlayDisplayFunc</tt><font SIZE="2"> to understand how distinct
+callbacks for the overlay and normal plane of a window may be established. </p>
+
+<p>When a window is created, no display callback exists for the window. It is the
+responsibility of the programmer to install a display callback for the window before the
+window is shown. A display callback <em>must</em> be registered for any window that is
+shown. If a window becomes displayed without a display callback being registered, a fatal
+error occurs. Passing </font><tt>NULL</tt><font SIZE="2"> to </font><tt>glutDisplayFunc</tt><font
+SIZE="2"> is illegal as of GLUT 3.0; there is no way to ``deregister'' a display callback
+(though another callback routine can always be registered). </p>
+
+<p>Upon return from the display callback, the <em>normal damaged</em> state of the window
+(returned by calling </font><tt>glutLayerGet(GLUT_NORMAL_DAMAGED)</tt><font SIZE="2"> is
+cleared. If there is no overlay display callback registered the <em>overlay damaged</em>
+state of the window (returned by calling </font><tt>glutLayerGet(GLUT_OVERLAY_DAMAGED)</tt><font
+SIZE="2"> is also cleared. </p>
+</font>
+<hr>
+<A NAME="glutReshapeFunc">
+<h2>glutReshapeFunc</h2></A>
+<tt>
+
+<p>glutReshapeFunc</tt><font SIZE="2"> sets the reshape callback for the <em>current
+window</em>. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutReshapeFunc(void (*func)(int width, int height));</pre>
+<tt>
+
+<dl>
+  <dt>func</tt> </dt>
+  <dd>The new reshape callback function. </dd>
+</dl>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutReshapeFunc</tt><font SIZE="2"> sets the reshape callback for the <em>current
+window</em>. The reshape callback is triggered when a window is reshaped. A reshape
+callback is also triggered immediately before a window's first display callback after a
+window is created or whenever an overlay for the window is established. The </font><tt>width</tt><font
+SIZE="2"> and </font><tt>height</tt><font SIZE="2"> parameters of the callback specify the
+new window size in pixels. Before the callback, the <em>current window</em> is set to the
+window that has been reshaped. </p>
+
+<p>If a reshape callback is not registered for a window or </font><tt>NULL</tt><font
+SIZE="2"> is passed to </font><tt>glutReshapeFunc</tt><font SIZE="2"> (to deregister a
+previously registered callback), the default reshape callback is used. This default
+callback will simply call </font><tt>glViewport(0,0,width,height)</tt><font SIZE="2"> on
+the normal plane (and on the overlay if one exists). </p>
+
+<p>If an overlay is established for the window, a single reshape callback is generated. It
+is the callback's responsibility to update both the normal plane and overlay for the
+window (changing the <em>layer in use</em> as necessary). </p>
+
+<p>When a top-level window is reshaped, subwindows are not reshaped. It is up to the GLUT
+program to manage the size and positions of subwindows within a top-level window. Still,
+reshape callbacks will be triggered for subwindows when their size is changed using </font><tt>glutReshapeWindow</tt><font
+SIZE="2">. </p>
+</font>
+<hr>
+<A NAME="glutKeyboardFunc">
+<h2>glutKeyboardFunc</h2></A>
+<tt>
+
+<p>glutKeyboardFunc</tt><font SIZE="2"> sets the keyboard callback for the <em>current
+window</em>. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutKeyboardFunc(void (*func)(unsigned char key,
+                                   int x, int y));</pre>
+<tt>
+
+<dl>
+  <dt>func</tt> </dt>
+  <dd>The new keyboard callback function. </dd>
+</dl>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutKeyboardFunc</tt><font SIZE="2"> sets the keyboard callback for the <em>current
+window</em>. When a user types into the window, each key press generating an ASCII
+character will generate a keyboard callback. The </font><tt>key</tt><font SIZE="2">
+callback parameter is the generated ASCII character. The state of modifier keys such as
+Shift cannot be determined directly; their only effect will be on the returned ASCII data.
+The </font><tt>x</tt><font SIZE="2"> and </font><tt>y</tt><font SIZE="2"> callback
+parameters indicate the mouse location in window relative coordinates when the key was
+pressed. When a new window is created, no keyboard callback is initially registered, and
+ASCII key strokes in the window are ignored. Passing </font><tt>NULL</tt><font SIZE="2">
+to </font><tt>glutKeyboardFunc</tt><font SIZE="2"> disables the generation of keyboard
+callbacks. </p>
+
+<p>During a keyboard callback, </font><tt>glutGetModifiers</tt><font SIZE="2"> may be
+called to determine the state of modifier keys when the keystroke generating the callback
+occurred. </p>
+
+<p>Also, see </font><tt>glutSpecialFunc</tt><font SIZE="2"> for a means to detect
+non-ASCII key strokes. </p>
+</font>
+<hr>
+<A NAME="glutMouseFunc">
+<h2>glutMouseFunc</h2></A>
+<tt>
+
+<p>glutMouseFunc</tt><font SIZE="2"> sets the mouse callback for the <em>current window</em>.
+</p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutMouseFunc(void (*func)(int button, int state,
+                                int x, int y));</pre>
+<tt>
+
+<dl>
+  <dt>func</tt> </dt>
+  <dd>The new mouse callback function. </dd>
+</dl>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutMouseFunc</tt><font SIZE="2"> sets the mouse callback for the <em>current window</em>.
+When a user presses and releases mouse buttons in the window, each press and each release
+generates a mouse callback. The </font><tt>button</tt><font SIZE="2"> parameter is one of </font><tt>GLUT_LEFT_BUTTON</tt><font
+SIZE="2">, </font><tt>GLUT_MIDDLE_BUTTON</tt><font SIZE="2">, or </font><tt>GLUT_RIGHT_BUTTON</tt><font
+SIZE="2">. For systems with only two mouse buttons, it may not be possible to generate </font><tt>GLUT_MIDDLE_BUTTON</tt><font
+SIZE="2"> callback. For systems with a single mouse button, it may be possible to generate
+only a </font><tt>GLUT_LEFT_BUTTON</tt><font SIZE="2"> callback. The </font><tt>state</tt><font
+SIZE="2"> parameter is either </font><tt>GLUT_UP</tt><font SIZE="2"> or </font><tt>GLUT_DOWN</tt><font
+SIZE="2"> indicating whether the callback was due to a release or press respectively. The </font><tt>x</tt><font
+SIZE="2"> and </font><tt>y</tt><font SIZE="2"> callback parameters indicate the window
+relative coordinates when the mouse button state changed. If a </font><tt>GLUT_DOWN</tt><font
+SIZE="2"> callback for a specific button is triggered, the program can assume a </font><tt>GLUT_UP</tt><font
+SIZE="2"> callback for the same button will be generated (assuming the window still has a
+mouse callback registered) when the mouse button is released even if the mouse has moved
+outside the window. </p>
+
+<p>If a menu is attached to a button for a window, mouse callbacks will not be generated
+for that button. </p>
+
+<p>During a mouse callback, </font><tt>glutGetModifiers</tt><font SIZE="2"> may be called
+to determine the state of modifier keys when the mouse event generating the callback
+occurred. </p>
+
+<p>Passing </font><tt>NULL</tt><font SIZE="2"> to </font><tt>glutMouseFunc</tt><font
+SIZE="2"> disables the generation of mouse callbacks. </p>
+</font>
+<hr><A NAME="glutIdleFunc">
+<h2>glutIdleFunc</h2></A>
+<tt>
+
+<p>glutIdleFunc</tt><font SIZE="2"> sets the global idle callback. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutIdleFunc(void (*func)(void));</pre>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutIdleFunc</tt><font SIZE="2"> sets the global idle callback to be </font><tt>func</tt><font
+SIZE="2"> so a GLUT program can perform background processing tasks or continuous
+animation when window system events are not being received. If enabled, the idle callback
+is continuously called when events are not being received. The callback routine has no
+parameters. The <em>current window</em> and <em>current menu</em> will not be changed
+before the idle callback. Programs with multiple windows and/or menus should explicitly
+set the <em>current window</em> and/or <em>current menu</em> and not rely on its current
+setting. </p>
+
+<p>The amount of computation and rendering done in an idle callback should be minimized to
+avoid affecting the program's interactive response. In general, not more than a single
+frame of rendering should be done in an idle callback. </p>
+
+<p>Passing </font><tt>NULL</tt><font SIZE="2"> to </font><tt>glutIdleFunc</tt><font
+SIZE="2"> disables the generation of the idle callback. </p>
+</font>
+<hr><A NAME="glutTimerFunc">
+<h2>glutTimerFunc</h2></A>
+<tt>
+
+<p>glutTimerFunc</tt><font SIZE="2"> registers a timer callback to be triggered in a
+specified number of milliseconds. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutTimerFunc(unsigned int msecs,
+                   void (*func)(int value), value);</pre>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutTimerFunc</tt><font SIZE="2"> registers the timer callback </font><tt>func</tt><font
+SIZE="2"> to be triggered in at least </font><tt>msecs</tt><font SIZE="2"> milliseconds.
+The </font><tt>value</tt><font SIZE="2"> parameter to the timer callback will be the value
+of the </font><tt>value</tt><font SIZE="2"> parameter to </font><tt>glutTimerFunc</tt><font
+SIZE="2">. Multiple timer callbacks at same or differing times may be registered
+simultaneously. </p>
+
+<p>The number of milliseconds is a lower bound on the time before the callback is
+generated. GLUT attempts to deliver the timer callback as soon as possible after the
+expiration of the callback's time interval. </p>
+
+<p>There is no support for canceling a registered callback. Instead, ignore a callback
+based on its </font><tt>value</tt><font SIZE="2"> parameter when it is triggered. </p>
+</font>
+<hr><A NAME="glutSolidSphere"><A NAME="glutWireSphere">
+<h2>glutSolidSphere, glutWireSphere</h2></A></A>
+<tt>
+
+<p>glutSolidSphere</tt><font SIZE="2"> and </font><tt>glutWireSphere</tt><font SIZE="2">
+render a solid or wireframe sphere respectively. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutSolidSphere(GLdouble radius,
+                     GLint slices, GLint stacks);
+void glutWireSphere(GLdouble radius,
+                    GLint slices, GLint stacks);</pre>
+<tt>
+
+<dl>
+  <dt>radius</tt> </dt>
+  <dd>The radius of the sphere. </dd>
+  <tt>
+  <dt>slices</tt> </dt>
+  <dd>The number of subdivisions around the Z axis (similar to lines of longitude). </dd>
+  <tt>
+  <dt>stacks</tt> </dt>
+  <dd>The number of subdivisions along the Z axis (similar to lines of latitude). </dd>
+</dl>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+
+<p>Renders a sphere centered at the modeling coordinates origin of the specified </font><tt>radius</tt><font
+SIZE="2">. The sphere is subdivided around the Z axis into slices and along the Z axis
+into stacks. </p>
+</font>
+<hr><A NAME="glutSolidCube"><A NAME="glutWireCube">
+<h2>glutSolidCube, glutWireCube</h2></A></A>
+<tt>
+
+<p>glutSolidCube</tt><font SIZE="2"> and </font><tt>glutWireCube</tt><font SIZE="2">
+render a solid or wireframe cube respectively. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutSolidCube(GLdouble size);
+void glutWireCube(GLdouble size);</pre>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutSolidCube</tt><font SIZE="2"> and </font><tt>glutWireCube</tt><font SIZE="2">
+render a solid or wireframe cube respectively. The cube is centered at the modeling
+coordinates origin with sides of length </font><tt>size</tt><font SIZE="2">. </p>
+</font>
+<hr><A NAME="glutSolidCone"><A NAME="glutWireCone">
+<h2>glutSolidCone, glutWireCone</h2></A></A>
+<tt>
+
+<p>glutSolidCone</tt><font SIZE="2"> and </font><tt>glutWireCone</tt><font SIZE="2">
+render a solid or wireframe cone respectively. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutSolidCone(GLdouble base, GLdouble height,
+                   GLint slices, GLint stacks);
+void glutWireCone(GLdouble base, GLdouble height,
+                  GLint slices, GLint stacks);</pre>
+<tt>
+
+<dl>
+  <dt>base</tt> </dt>
+  <dd>The radius of the base of the cone. </dd>
+  <tt>
+  <dt>height</tt> </dt>
+  <dd>The height of the cone. </dd>
+  <tt>
+  <dt>slices</tt> </dt>
+  <dd>The number of subdivisions around the Z axis. </dd>
+  <tt>
+  <dt>stacks</tt> </dt>
+  <dd>The number of subdivisions along the Z axis. </dd>
+</dl>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutSolidCone</tt><font SIZE="2"> and </font><tt>glutWireCone</tt><font SIZE="2">
+render a solid or wireframe cone respectively oriented along the Z axis. The base of the
+cone is placed at Z = 0, and the top at Z = </font><tt>height</tt><font SIZE="2">. The
+cone is subdivided around the Z axis into slices, and along the Z axis into stacks. </p>
+</font>
+<hr><A NAME="glutSolidTorus"><A NAME="glutWireTorus">
+<h2>glutSolidTorus, glutWireTorus</h2></A></A>
+<tt>
+
+<p>glutSolidTorus</tt><font SIZE="2"> and </font><tt>glutWireTorus</tt><font SIZE="2">
+render a solid or wireframe torus (doughnut) respectively. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutSolidTorus(GLdouble innerRadius,
+                    GLdouble outerRadius,
+                    GLint nsides, GLint rings);
+void glutWireTorus(GLdouble innerRadius,
+                   GLdouble outerRadius,
+                   GLint nsides, GLint rings);</pre>
+<tt>
+
+<dl>
+  <dt>innerRadius</tt> </dt>
+  <dd>Inner radius of the torus. </dd>
+  <tt>
+  <dt>outerRadius</tt> </dt>
+  <dd>Outer radius of the torus. </dd>
+  <tt>
+  <dt>nsides</tt> </dt>
+  <dd>Number of sides for each radial section. </dd>
+  <tt>
+  <dt>rings</tt> </dt>
+  <dd>Number of radial divisions for the torus. </dd>
+</dl>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutSolidTorus</tt><font SIZE="2"> and </font><tt>glutWireTorus</tt><font SIZE="2">
+render a solid or wireframe torus (doughnut) respectively centered at the modeling
+coordinates origin whose axis is aligned with the Z axis. </p>
+</font>
+<hr><A NAME="glutSolidDodecahedron"><A NAME="glutWireDodecahedron">
+<h2>glutSolidDodecahedron, glutWireDodecahedron</h2></A></A>
+<tt>
+
+<p>glutSolidDodecahedron</tt><font SIZE="2"> and </font><tt>glutWireDodecahedron</tt><font
+SIZE="2"> render a solid or wireframe dodecahedron (12-sided regular solid) respectively. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutSolidDodecahedron(void);
+void glutWireDodecahedron(void);</pre>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutSolidDodecahedron</tt><font SIZE="2"> and </font><tt>glutWireDodecahedron</tt><font
+SIZE="2"> render a solid or wireframe dodecahedron respectively centered at the modeling
+coordinates origin with a given radius. </p>
+</font>
+<hr><A NAME="glutSolidOctahedron"><A NAME="glutWireOctahedron">
+<h2>glutSolidOctahedron, glutWireOctahedron</h2></A></A>
+<tt>
+
+<p>glutSolidOctahedron</tt><font SIZE="2"> and </font><tt>glutWireOctahedron</tt><font
+SIZE="2"> render a solid or wireframe octahedron (8-sided regular solid) respectively. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutSolidOctahedron(void);
+void glutWireOctahedron(void);</pre>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutSolidOctahedron</tt><font SIZE="2"> and </font><tt>glutWireOctahedron</tt><font
+SIZE="2"> render a solid or wireframe octahedron respectively centered at the modeling
+coordinates origin with a radius of 1.0. </p>
+</font>
+<hr><A NAME="glutSolidTetrahedron"><A NAME="glutWireTetrahedron">
+<h2>glutSolidTetrahedron, glutWireTetrahedron</h2></A></A>
+<tt>
+
+<p>glutSolidTetrahedron</tt><font SIZE="2"> and </font><tt>glutWireTetrahedron</tt><font
+SIZE="2"> render a solid or wireframe tetrahedron (4-sided regular solid) respectively. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutSolidTetrahedron(void);
+void glutWireTetrahedron(void);</pre>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutSolidTetrahedron</tt><font SIZE="2"> and </font><tt>glutWireTetrahedron</tt><font
+SIZE="2"> render a solid or wireframe tetrahedron respectively centered at the modeling
+coordinates origin with a given radius. </p>
+</font>
+<hr><A NAME="glutSolidIconsahedron"><A NAME="glutWireIcosahedron">
+<h2>glutSolidIcosahedron, glutWireIcosahedron</h2></A></A>
+<tt>
+
+<p>glutSolidIcosahedron</tt><font SIZE="2"> and </font><tt>glutWireIcosahedron</tt><font
+SIZE="2"> render a solid or wireframe icosahedron (20-sided regular solid) respectively. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutSolidIcosahedron(void);
+void glutWireIcosahedron(void);</pre>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutSolidIcosahedron</tt><font SIZE="2"> and </font><tt>glutWireIcosahedron</tt><font
+SIZE="2"> render a solid or wireframe icosahedron respectively. The icosahedron is
+centered at the modeling coordinates origin and has a radius of 1.0. </p>
+</font>
+<hr><A NAME="glutSolidTeapot"><A NAME="glutWireTeapot">
+<h2>glutSolidTeapot, glutWireTeapot</h2></A></A>
+<tt>
+
+<p>glutSolidTeapot</tt><font SIZE="2"> and </font><tt>glutWireTeapot</tt><font SIZE="2">
+render a solid or wireframe teapot respectively. </p>
+<b>
+
+<p>Usage</b> </p>
+</font>
+
+<pre>void glutSolidTeapot(GLdouble size);
+void glutWireTeapot(GLdouble size);</pre>
+<tt>
+
+<dl>
+  <dt>size</tt> </dt>
+  <dd>Relative size of the teapot. </dd>
+</dl>
+<font SIZE="2"><b>
+
+<p>Description</b> </p>
+</font><tt>
+
+<p>glutSolidTeapot</tt><font SIZE="2"> and </font><tt>glutWireTeapot</tt><font SIZE="2">
+render a solid or wireframe teapot respectively. Both surface normals and texture
+coordinates for the teapot are generated. The teapot is generated with OpenGL evaluators. </p>
+</font>
+
+
+</body>
+</html>
