@@ -11,6 +11,8 @@ Add class Preferences
 Add interface IImage -- image support API
 	- Open(), Close(), ToGL(RGB, RGBA, greyscale (?), etc)
 Add class wxWindow
+Move away from Glut dependency
+Drop GLUT dependency (AFTER wxWindow fully supported on Windows AND Linux!)
 
 Window:
 	Zoom around mouse cursor
