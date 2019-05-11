@@ -13,34 +13,44 @@
 
 #include "IWindow.h"
 
-class GLUTWindow : public IWindow
+namespace JFVGL
 {
-private:
-protected:
-public:
-	GLUTWindow();
 
-	GLUTWindow(const GLUTWindow &other)
+	class GLUTWindow : public IWindow
 	{
-		// Deep copy all member variables
-		// eg this->x = other.x;
-		;
-	}
+	private:
+	protected:
+	public:
+		GLUTWindow();
 
-	GLUTWindow &operator=(GLUTWindow rhs);
+		GLUTWindow(const GLUTWindow &other)
+		{
+			// Deep copy all member variables
+			// eg this->x = other.x;
+			;
+		}
 
-	virtual ~GLUTWindow();
+		GLUTWindow &operator=(GLUTWindow rhs)
+		{
+			if (this == &rhs)
+				return *this;
+			Swap(*this, rhs);
+			return *this;
+		}
 
-	friend void Swap(GLUTWindow &lhs, GLUTWindow &rhs)
-	{
-		using JFVGL::Swap;
-		// Swap all member variables
-		//swap(lhs.x, rhs.x);
-	}
-    
-    static int DoGlutStuff(int argc, char **argv);
+		virtual ~GLUTWindow();
 
-	/* API */
+		friend void Swap(GLUTWindow &lhs, GLUTWindow &rhs)
+		{
+			using JFVGL::Swap;
+			// Swap all member variables
+			//swap(lhs.x, rhs.x);
+		}
 
-	virtual void Start(int argc, char **argv) override;
-};
+		static int DoGlutStuff(int argc, char **argv);
+
+		/* API */
+
+		virtual void Start() override;
+	};
+}

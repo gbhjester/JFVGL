@@ -24,17 +24,9 @@
 #define ZOOM_MIN 0.01f
 #define ZOOM_MAX 10.f
 
-GLUTWindow::GLUTWindow(){ }
+JFVGL::GLUTWindow::GLUTWindow(){ }
 
-GLUTWindow::~GLUTWindow(){ }
-
-GLUTWindow &GLUTWindow::operator=(GLUTWindow rhs)
-{
-	if (this == &rhs)
-		return *this;
-	Swap(*this, rhs);
-	return *this;
-}
+JFVGL::GLUTWindow::~GLUTWindow(){ }
 
 unsigned int texid;
 unsigned char *img;
@@ -48,7 +40,7 @@ int btnPressed; // Current button pressed, or -1
 
 // For now
 // TODO Remove / refactor
-int GLUTWindow::DoGlutStuff(int argc, char **argv)
+int JFVGL::GLUTWindow::DoGlutStuff(int argc, char **argv)
 {
 	const char *fn;
 	if (argc == 2)
@@ -99,8 +91,8 @@ int GLUTWindow::DoGlutStuff(int argc, char **argv)
 	if (img)
 	{
 		glutInitWindowSize(
-			JFVGL::fclamp(w, w, glutGet(GLUT_SCREEN_WIDTH)),
-			JFVGL::fclamp(h, h, glutGet(GLUT_SCREEN_HEIGHT)));
+			fclamp(w, w, glutGet(GLUT_SCREEN_WIDTH)),
+			fclamp(h, h, glutGet(GLUT_SCREEN_HEIGHT)));
 		/*f = fmax(
 			(float)w / (float)glutGet(GLUT_SCREEN_WIDTH),
 			(float)h / (float)glutGet(GLUT_SCREEN_HEIGHT));*/
@@ -172,12 +164,12 @@ int GLUTWindow::DoGlutStuff(int argc, char **argv)
 		if (dir == 1)
 		{
 			//f *= 1.1f;
-			f = JFVGL::fclamp(ZOOM_MIN, f * 1.1f, ZOOM_MAX);
+			f = fclamp(ZOOM_MIN, f * 1.1f, ZOOM_MAX);
 		}
 		else if (dir == -1)
 		{
 			//f *= 1.f / 1.1f;
-			f = JFVGL::fclamp(ZOOM_MIN, f * (1.f / 1.1f), ZOOM_MAX);
+			f = fclamp(ZOOM_MIN, f * (1.f / 1.1f), ZOOM_MAX);
 		}
 		glutPostRedisplay();
 		printf("%f\n", f);
@@ -256,12 +248,6 @@ int GLUTWindow::DoGlutStuff(int argc, char **argv)
 
 /* API */
 
-/*float s(float p, float t)
+void JFVGL::GLUTWindow::Start()
 {
-	return p*t;
-}*/
-
-void GLUTWindow::Start(int argc, char **argv)
-{
-	DoGlutStuff(argc, argv);
 }

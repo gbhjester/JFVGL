@@ -8,16 +8,28 @@
 
 #include <cstdio>
 #include "Main.h"
-#include "GLUTWindow.h"	// For now
+#ifdef TARGET_GLUT
+#include "GLUTWindow.h" // For now
+#endif
+#ifdef TARGET_WX
+	#include "WXWindow.h"
+#endif
 
-//#define epsilon powf(2, -23)
-
+#ifdef TARGET_WX
+	wxIMPLEMENT_APP(JFVGL::WXApp);
+#else
 int main(int argc, char **argv)
 {
+#ifdef DEBUG
 	for (int i = 0; i < argc; i++)
 		printf("%s\n", argv[i]);
-	/*GLUTWindow wnd;
-	wnd.Start(argc, argv);*/
-	GLUTWindow::DoGlutStuff(argc, argv);
+#endif
+#ifdef TARGET_GLUT
+	JFVGL::GLUTWindow::DoGlutStuff(argc, argv);
+	return 0;
+#else
+	printf("No target specified\n");
+#endif
 	return 0;
 }
+#endif

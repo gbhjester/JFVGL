@@ -13,15 +13,18 @@
 
 #include "Main.h"
 
-class IWindow
+namespace JFVGL
 {
-private:
-protected:
-public:
+	class IWindow
+	{
+	private:
+	protected:
+	public:
 
-	virtual ~IWindow() { }
+		virtual ~IWindow() { }
 
-	/* API */
+		/* API */
 
-	virtual void Start(int argc, char **argv) = 0;
-};
+		virtual void Start() = 0;
+	};
+}

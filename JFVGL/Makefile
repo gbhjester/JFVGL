@@ -1,7 +1,8 @@
 # I, Jester, hereby release this work, except as stated otherwise, into the public domain.
 
 ENV=$(shell uname)
-DBG=1
+DEFINES=-DTARGET_WX
+DEFINES+= -DDEBUG
 
 IDIR=inc
 LDIR=lib
@@ -16,18 +17,20 @@ ODIR=obj
 CXX=g++
 CXXFLAGS=-std=c++11 -Wall -Wpedantic -I$(IDIR)
 
-LFLAGS=-L$(LDIR)
+LDFLAGS=-L$(LDIR) -L$(LDIR)/wx
 ifeq ($(ENV), Linux)
-	LFLAGS+=# TODO add Linux linker args
+	LDFLAGS+=# TODO add Linux wx linker args
 else
-	LFLAGS+= #-mwindows
+	LDFLAGS+=$(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a
+ifndef DEBUG
+	LDFLAGS+=-mwindows
+endif
 endif
 
-_WXDEFINES=WIN32 WINVER=0X400 __WXMSW__ _WINDOWS WXUSINGDLL wxUSE_GUI=1 _UNICODE
-ifneq ($(DBG), 0)
-	_WXDEFINES+=_DEBUG
+WXDEFINES=
+ifndef DEBUG
+	WXDEFINES+=-D_DEBUG
 endif
-WXDEFINES=$(patsubst %,-D%,$(_WXDEFINES))
 
 _DEPS=Main.h wxWindow.h
 DEPS=$(patsubst %,$(SDIR)/%,$(_DEPS))
@@ -38,10 +41,10 @@ OBJ=$(patsubst %,$(ODIR)/%,$(_OBJ))
 NAME=JFVGL
 
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
-	$(CXX) $(CXXFLAGS) -c $< -o$@
+	$(CXX) $(CXXFLAGS) $(WXDEFINES) $(DEFINES) -c $< -o$@
 
 all: $(OBJ)
-	$(CXX) -o$(NAME) $^ $(LFLAGS)
+	$(CXX) -o$(NAME) $^ $(LDFLAGS)
 
 clean:
 	rm -f $(NAME)

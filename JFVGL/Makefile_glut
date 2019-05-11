@@ -1,6 +1,8 @@
 # I, Jester, hereby release this work, except as stated otherwise, into the public domain.
 
 ENV=$(shell uname)
+DEFINES=TARGET_GLUT
+#DEFINES+=DEBUG
 
 IDIR=inc
 LDIR=lib
@@ -30,7 +32,7 @@ OBJ=$(patsubst %,$(ODIR)/%,$(_OBJ))
 NAME=JFVGL_glut
 
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
-	$(CXX) $(CXXFLAGS) -c $< -o$@
+	$(CXX) $(CXXFLAGS) -DTARGET_GLUT -c $< -o$@
 
 all: $(OBJ)
 	$(CXX) -o$(NAME) $^ $(LFLAGS)
