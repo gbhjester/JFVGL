@@ -47,4 +47,3 @@ clean:
 	rm -f $(NAME)
 	rm -r -f obj
 	mkdir obj
-

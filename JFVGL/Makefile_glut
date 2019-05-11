@@ -27,7 +27,7 @@ DEPS=$(patsubst %,$(SDIR)/%,$(_DEPS))
 _OBJ=Main.o GLUTWindow.o
 OBJ=$(patsubst %,$(ODIR)/%,$(_OBJ))
 
-NAME=JFVGL
+NAME=JFVGL_glut
 
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
 	$(CXX) $(CXXFLAGS) -c $< -o$@
@@ -39,4 +39,3 @@ clean:
 	rm -f $(NAME)
 	rm -r -f obj
 	mkdir obj
-
