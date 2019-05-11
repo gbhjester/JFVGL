@@ -8,6 +8,7 @@
  * 
  * Created on April 25, 2019, 1:57 AM
  */
+
 #include <cerrno>
 #include <cmath>
 #include <cstdio>
@@ -17,6 +18,11 @@
 #define STBI_FAILURE_USERMSG
 #include "stb_image.h"
 #include "GLUTWindow.h"
+
+// TODO Move to class Preferences
+#define FPS_TARGET 60
+#define ZOOM_MIN 0.01f
+#define ZOOM_MAX 10.f
 
 GLUTWindow::GLUTWindow(){ }
 
@@ -40,19 +46,9 @@ float dx = 0, dy = 0; // Delta mouse coords (x - px)
 float cx = 0, cy = 0;
 int btnPressed; // Current button pressed, or -1
 
-float fclamp(float a, float x, float b)
-{
-	if (x < a)
-		return a;
-	else if (x > b)
-		return b;
-	else
-		return x;
-}
-
 // For now
 // TODO Remove / refactor
-static int doGlutStuff(int argc, char **argv)
+int GLUTWindow::DoGlutStuff(int argc, char **argv)
 {
 	const char *fn;
 	if (argc == 2)
@@ -103,8 +99,8 @@ static int doGlutStuff(int argc, char **argv)
 	if (img)
 	{
 		glutInitWindowSize(
-			fclamp(w, w, glutGet(GLUT_SCREEN_WIDTH)),
-			fclamp(h, h, glutGet(GLUT_SCREEN_HEIGHT)));
+			JFVGL::fclamp(w, w, glutGet(GLUT_SCREEN_WIDTH)),
+			JFVGL::fclamp(h, h, glutGet(GLUT_SCREEN_HEIGHT)));
 		/*f = fmax(
 			(float)w / (float)glutGet(GLUT_SCREEN_WIDTH),
 			(float)h / (float)glutGet(GLUT_SCREEN_HEIGHT));*/
@@ -176,12 +172,12 @@ static int doGlutStuff(int argc, char **argv)
 		if (dir == 1)
 		{
 			//f *= 1.1f;
-			f = fclamp(ZOOM_MIN, f * 1.1f, ZOOM_MAX);
+			f = JFVGL::fclamp(ZOOM_MIN, f * 1.1f, ZOOM_MAX);
 		}
 		else if (dir == -1)
 		{
 			//f *= 1.f / 1.1f;
-			f = fclamp(ZOOM_MIN, f * (1.f / 1.1f), ZOOM_MAX);
+			f = JFVGL::fclamp(ZOOM_MIN, f * (1.f / 1.1f), ZOOM_MAX);
 		}
 		glutPostRedisplay();
 		printf("%f\n", f);
@@ -267,5 +263,5 @@ static int doGlutStuff(int argc, char **argv)
 
 void GLUTWindow::Start(int argc, char **argv)
 {
-	doGlutStuff(argc, argv);
+	DoGlutStuff(argc, argv);
 }

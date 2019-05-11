@@ -7,6 +7,8 @@
         <in>GLUTWindow.h</in>
         <in>IWindow.h</in>
         <in>Main.cpp</in>
+        <in>wxWindow.cpp</in>
+        <in>wxWindow.h</in>
       </df>
     </df>
     <logicalFolder name="ExternalFiles"
@@ -62,6 +64,10 @@
       <item path="src/Main.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
         </ccTool>
+      </item>
+      <item path="src/wxWindow.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/wxWindow.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

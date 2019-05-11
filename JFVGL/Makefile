@@ -29,10 +29,10 @@ ifneq ($(DBG), 0)
 endif
 WXDEFINES=$(patsubst %,-D%,$(_WXDEFINES))
 
-_DEPS=Main.h GLUTWindow.h
+_DEPS=Main.h wxWindow.h
 DEPS=$(patsubst %,$(SDIR)/%,$(_DEPS))
 
-_OBJ=Main.o GLUTWindow.o
+_OBJ=Main.o wxWindow.o
 OBJ=$(patsubst %,$(ODIR)/%,$(_OBJ))
 
 NAME=JFVGL

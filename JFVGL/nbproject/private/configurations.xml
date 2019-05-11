@@ -1581,6 +1581,8 @@
         <in>IWindow.h</in>
         <in>Main.cpp</in>
         <in>Main.h</in>
+        <in>wxWindow.cpp</in>
+        <in>wxWindow.h</in>
       </df>
       <in>short.c</in>
     </df>

@@ -11,6 +11,8 @@
 
 #pragma once
 
+#include "Main.h"
+
 class IWindow
 {
 private:

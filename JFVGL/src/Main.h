@@ -18,4 +18,15 @@ namespace JFVGL
 		lhs = rhs;
 		rhs = tmp;
 	}
+
+	inline float fclamp(float a, float x, float b)
+	{
+		/*if (x < a)
+			return a;
+		else if (x > b)
+			return b;
+		else
+			return x;*/
+		return (x < a ? a : (x > b ? b : x));
+	}
 }
