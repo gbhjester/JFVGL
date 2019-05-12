@@ -13,6 +13,7 @@
 
 bool JFVGL::WXApp::OnInit()
 {
+	wxInitAllImageHandlers();
 	WXWindow *wnd = new WXWindow();
 	int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, 0};
 	wnd->canvas = new WXCanvas(wnd, args);

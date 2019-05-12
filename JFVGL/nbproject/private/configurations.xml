@@ -1527,8 +1527,16 @@
       <in>stb_image.h</in>
     </df>
     <df root="src" name="1">
+      <in>IImage.h</in>
+      <in>IWindow.h</in>
+      <in>Image.cpp</in>
+      <in>Image.h</in>
+      <in>Main.cpp</in>
+      <in>Main.h</in>
       <in>WXCanvas.cpp</in>
       <in>WXCanvas.h</in>
+      <in>WXWindow.cpp</in>
+      <in>WXWindow.h</in>
     </df>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>

@@ -1,23 +1,22 @@
 *** TODO ***
 
-Move everything to namespace JFVGL
-Add API methods to IWindow
-	- Open(), Close(), Move(), Resize(), Minimize(), Maximize()
+Separate class WXApp from WXWindow.cpp into WXApp.cpp
 Fix Linux linking shitness
+	- OpenGL? GLUT?
+	- Need to link wxWidgets on Linux...
 Add class Preferences
 	- Load(), Save()
-Add interface IImage -- image support API
-	- Open(), Close(), ToGL(RGB, RGBA, greyscale (?), etc)
-Add class wxWindow
-Move away from Glut
-Drop GLUT dependency (AFTER wxWindow fully supported on Windows AND Linux!)
+	- Subclass wxConfig?
+Move away from GLUT
+Drop dependency GLUT (AFTER wxWindow codepath fully supported on Windows AND Linux!)
+Remove interface IWindow
 
-Window:
+View:
 	Zoom around mouse cursor
 	Keyboard input (esc etc)
 	Set appropriate default scale on load
 		- IF SMALLER THAN SCREEN SIZE : zoom 100%, window to image size
-		- IF NOT SMALER THAN SCREEN SIZE : window to screen size, zoom to fit
+		- IF NOT SMALLER THAN SCREEN SIZE : window to screen size, zoom to fit
 
 Image handling:
 	Arbitrary image loading

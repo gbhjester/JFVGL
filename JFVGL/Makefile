@@ -2,7 +2,7 @@
 
 ENV=$(shell uname)
 DEFINES=-DTARGET_WX
-DEFINES+= -DDEBUG
+DEFINES+=-DDEBUG
 
 IDIR=inc
 LDIR=lib
@@ -28,14 +28,14 @@ endif
 endif
 
 WXDEFINES=
-ifndef DEBUG
+ifdef DEBUG
 	WXDEFINES+=-D_DEBUG
 endif
 
-_DEPS=Main.h wxWindow.h wxCanvas.h
+_DEPS=Main.h wxWindow.h wxCanvas.h WXImage.h
 DEPS=$(patsubst %,$(SDIR)/%,$(_DEPS))
 
-_OBJ=Main.o wxWindow.o wxCanvas.o
+_OBJ=Main.o wxWindow.o wxCanvas.o WXImage.o
 OBJ=$(patsubst %,$(ODIR)/%,$(_OBJ))
 
 NAME=JFVGL

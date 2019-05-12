@@ -11,6 +11,7 @@
 
 #pragma once
 
+#include "wx/image.h"
 #include "wx/wx.h"
 #include "WXCanvas.h"
 #include "IWindow.h"

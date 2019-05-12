@@ -6,6 +6,8 @@ Add class WXWindow : public IWindow, public wxFrame
 Link wxWidgets
 Add class WXCanvas : public wxGLCanvas
 Link wxGL
+Add interface IImage
+Add class WXImage : public IImage
 
 2019-04-26
 Change pan window button to LMB
