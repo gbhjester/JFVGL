@@ -227,11 +227,11 @@ int JFVGL::GLUTWindow::DoGlutStuff(int argc, char **argv)
 	glTexImage2D(
 		GL_TEXTURE_2D,
 		0,
-		GL_RGB,
+		ch == 4 ? GL_RGBA : GL_RGB,
 		w,
 		h,
 		0,
-		GL_RGB,
+		ch == 4 ? GL_RGBA : GL_RGB,
 		GL_UNSIGNED_BYTE,
 		img);
 	// TODO Integrate?
