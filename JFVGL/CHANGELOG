@@ -2,6 +2,10 @@
 
 2019-05-11
 Move GLUT code to GLUTWindow.cpp (TODO : refactor / shim api appropriately)
+Add class WXWindow : public IWindow, public wxFrame
+Link wxWidgets
+Add class WXCanvas : public wxGLCanvas
+Link wxGL
 
 2019-04-26
 Change pan window button to LMB
