@@ -298,7 +298,7 @@ public:
     }
   }
     // string containing nRepeat copies of ch
-  wxStringImpl(size_type nRepeat, wxStringCharType ch);
+  wxStringImpl(size_type nRepeat, wxStringCharType IGETCH);
     // ctor takes first nLength characters from C string
     // (default value of npos means take all the string)
   wxStringImpl(const wxStringCharType *psz)
@@ -349,7 +349,7 @@ public:
     // from another wxString
   wxStringImpl& operator=(const wxStringImpl& stringSrc);
     // from a character
-  wxStringImpl& operator=(wxStringCharType ch);
+  wxStringImpl& operator=(wxStringCharType IGETCH);
     // from a C string
   wxStringImpl& operator=(const wxStringCharType *psz);
 
@@ -360,7 +360,7 @@ public:
     // return the maximum size of the string
   size_type max_size() const { return npos; }
     // resize the string, filling the space with c if c != 0
-  void resize(size_t nSize, wxStringCharType ch = '\0');
+  void resize(size_t nSize, wxStringCharType IGETCH = '\0');
     // delete the contents of the string
   void clear() { erase(0, npos); }
     // returns true if the string is empty
@@ -400,7 +400,7 @@ public:
   wxStringImpl& append(const wxStringCharType *sz, size_t n)
     { ConcatSelf(n, sz); return *this; }
     // append n copies of ch
-  wxStringImpl& append(size_t n, wxStringCharType ch);
+  wxStringImpl& append(size_t n, wxStringCharType IGETCH);
     // append from first to last
   wxStringImpl& append(const_iterator first, const_iterator last)
     { ConcatSelf(last - first, first.GetPtr()); return *this; }
@@ -417,8 +417,8 @@ public:
   wxStringImpl& assign(const wxStringCharType *sz, size_t n)
     { return replace(0, npos, sz, n); }
     // same as `= n copies of ch'
-  wxStringImpl& assign(size_t n, wxStringCharType ch)
-    { return replace(0, npos, n, ch); }
+  wxStringImpl& assign(size_t n, wxStringCharType IGETCH)
+    { return replace(0, npos, n, IGETCH); }
     // assign from first to last
   wxStringImpl& assign(const_iterator first, const_iterator last)
     { return replace(begin(), end(), first, last); }
@@ -448,14 +448,14 @@ public:
     // insert first n (or all if n == npos) characters of sz
   wxStringImpl& insert(size_t nPos, const wxStringCharType *sz, size_t n = npos);
     // insert n copies of ch
-  wxStringImpl& insert(size_t nPos, size_t n, wxStringCharType ch)
-    { return insert(nPos, wxStringImpl(n, ch)); }
-  iterator insert(iterator it, wxStringCharType ch)
-    { size_t idx = it - begin(); insert(idx, 1, ch); return begin() + idx; }
+  wxStringImpl& insert(size_t nPos, size_t n, wxStringCharType IGETCH)
+    { return insert(nPos, wxStringImpl(n, IGETCH)); }
+  iterator insert(iterator it, wxStringCharType IGETCH)
+    { size_t idx = it - begin(); insert(idx, 1, IGETCH); return begin() + idx; }
   void insert(iterator it, const_iterator first, const_iterator last)
     { insert(it - begin(), first.GetPtr(), last - first); }
-  void insert(iterator it, size_type n, wxStringCharType ch)
-    { insert(it - begin(), n, ch); }
+  void insert(iterator it, size_type n, wxStringCharType IGETCH)
+    { insert(it - begin(), n, IGETCH); }
 
     // delete characters from nStart to nStart + nLen
   wxStringImpl& erase(size_type pos = 0, size_type n = npos);
@@ -479,8 +479,8 @@ public:
     { return replace(nStart, nLen, str.c_str(), str.length()); }
     // replaces the substring with nCount copies of ch
   wxStringImpl& replace(size_t nStart, size_t nLen,
-                        size_t nCount, wxStringCharType ch)
-    { return replace(nStart, nLen, wxStringImpl(nCount, ch)); }
+                        size_t nCount, wxStringCharType IGETCH)
+    { return replace(nStart, nLen, wxStringImpl(nCount, IGETCH)); }
     // replaces a substring with another substring
   wxStringImpl& replace(size_t nStart, size_t nLen,
                         const wxStringImpl& str, size_t nStart2, size_t nLen2)
@@ -516,7 +516,7 @@ public:
   size_t find(const wxStringCharType* sz, size_t nStart = 0, size_t n = npos) const;
 
     // find the first occurrence of character ch after nStart
-  size_t find(wxStringCharType ch, size_t nStart = 0) const;
+  size_t find(wxStringCharType IGETCH, size_t nStart = 0) const;
 
     // rfind() family is exactly like find() but works right to left
 
@@ -527,7 +527,7 @@ public:
   size_t rfind(const wxStringCharType* sz, size_t nStart = npos,
                size_t n = npos) const;
     // as find, but from the end
-  size_t rfind(wxStringCharType ch, size_t nStart = npos) const;
+  size_t rfind(wxStringCharType IGETCH, size_t nStart = npos) const;
 
   size_type copy(wxStringCharType* s, size_type n, size_type pos = 0);
 
@@ -539,7 +539,7 @@ public:
       // string += C string
   wxStringImpl& operator+=(const wxStringCharType *psz) { return append(psz); }
       // string += char
-  wxStringImpl& operator+=(wxStringCharType ch) { return append(1, ch); }
+  wxStringImpl& operator+=(wxStringCharType IGETCH) { return append(1, IGETCH); }
 
   // helpers for wxStringBuffer and wxStringBufferLength
   wxStringCharType *DoGetWriteBuf(size_t nLen);

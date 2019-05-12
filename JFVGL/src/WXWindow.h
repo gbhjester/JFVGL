@@ -13,8 +13,9 @@
 
 #include "wx/image.h"
 #include "wx/wx.h"
-#include "WXCanvas.h"
 #include "IWindow.h"
+#include "WXCanvas.h"
+#include "WXImage.h"
 
 namespace JFVGL
 {

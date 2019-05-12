@@ -12,13 +12,21 @@
 #include <GL/glu.h>
 #include <GL/gl.h>
 #include "WXCanvas.h"
+#include "WXImage.h"
+
+// TODO Move to class Preferences
+#define FPS_TARGET 60
+#define ZOOM_MIN 0.01f
+#define ZOOM_MAX 10.f
 
 JFVGL::WXCanvas::WXCanvas(wxFrame *owner, int *args)
 : wxGLCanvas(owner, wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE)
 {
 	context = new wxGLContext(this);
+	SetCurrent(*context);
+	img = new WXImage();
 
-	//SetBackgroundStyle(wxBG_STYLE_CUSTOM);
+	SetBackgroundStyle(wxBG_STYLE_CUSTOM);
 }
 
 JFVGL::WXCanvas::~WXCanvas()
@@ -26,14 +34,14 @@ JFVGL::WXCanvas::~WXCanvas()
 	delete context;
 }
 
-unsigned int texid;
-unsigned char *img;
-int w, h, ch;
+// TODO Refactor into class WXCanvas
 float f = 1.f;
 float px = 0, py = 0; // Previous mouse coords
 float ppx = 0, ppy = 0; // Previous passive mouse coords (not updated while dragging)
 float dx = 0, dy = 0; // Delta mouse coords (x - px)
 float cx = 0, cy = 0;
+
+/* Events */
 
 void JFVGL::WXCanvas::Render(wxPaintEvent& e)
 {
@@ -47,10 +55,10 @@ void JFVGL::WXCanvas::Render(wxPaintEvent& e)
 	glScissor(0, 0, GetClientSize().x, GetClientSize().y);
 	glEnable(GL_SCISSOR_TEST);
 	float v[] = {
-		(float)-w, (float)h,
-		(float)w, (float)h,
-		(float)-w, (float)-h,
-		(float)w, (float)-h
+		0.f - img->w, 0.f + img->h,
+		0.f + img->w, 0.f + img->h,
+		0.f - img->w, 0.f - img->h,
+		0.f + img->w, 0.f - img->h
 	};
 	unsigned short vi[] = {0, 1, 2, 2, 3, 1};
 	float uv[] = {
@@ -65,18 +73,17 @@ void JFVGL::WXCanvas::Render(wxPaintEvent& e)
 		f / (float)GetClientSize().x,
 		f / (float)GetClientSize().y, 0.f);
 	glTranslatef(
-		((float)cx * 2.f),
-		-((float)cy * 2.f), 0.f);
+		(cx * 2.f),
+		-(cy * 2.f), 0.f);
 	glVertexPointer(2, GL_FLOAT, 0, v);
 	glTexCoordPointer(2, GL_FLOAT, 0, uv);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glBindTexture(GL_TEXTURE_2D, texid);
+	glBindTexture(GL_TEXTURE_2D, img->id);
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glColor3f(1.f, 1.f, 1.f);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, vi);
-	glDisable(GL_TEXTURE_2D);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisable(GL_TEXTURE_2D);
@@ -85,8 +92,47 @@ void JFVGL::WXCanvas::Render(wxPaintEvent& e)
 	SwapBuffers(); // If double buffering
 }
 
-void JFVGL::WXCanvas::Resized(wxSizeEvent& e)
-{
+void JFVGL::WXCanvas::Resized(wxSizeEvent &e){
 	// NOTE On Linux, call Update() instead?
+	//Refresh();
+}
+
+void JFVGL::WXCanvas::MouseMoved(wxMouseEvent &e)
+{
+	dx = e.GetX() - px;
+	dy = e.GetY() - py;
+	if (e.LeftIsDown())
+	{
+		cx += dx / f;
+		cy += dy / f;
+	}
+	else if (e.RightIsDown())
+	{
+		// TODO Drag window
+		/*glutPositionWindow(
+			x - glutGet(GLUT_WINDOW_BORDER_WIDTH) - ppx + glutGet(GLUT_WINDOW_X),
+			e.m_y - glutGet(GLUT_WINDOW_BORDER_HEIGHT) - ppy + glutGet(GLUT_WINDOW_Y));*/
+	}
 	Refresh();
+	px = e.GetX();
+	py = e.GetY();
+}
+
+void JFVGL::WXCanvas::MouseWheel(wxMouseEvent &e)
+{
+	if (e.GetWheelRotation() > 0)
+	{
+		f = fclamp(ZOOM_MIN, f * 1.1f, ZOOM_MAX);
+	}
+	else if (e.GetWheelRotation() < 0)
+	{
+		f = fclamp(ZOOM_MIN, f * (1.f / 1.1f), ZOOM_MAX);
+	}
+	Refresh();
+	printf("%f\n", f);
+}
+
+void JFVGL::WXCanvas::MouseMiddleDoubleClick(wxMouseEvent &e)
+{
+	GetParent()->Close(true);
 }

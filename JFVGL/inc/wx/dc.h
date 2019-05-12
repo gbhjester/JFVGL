@@ -459,7 +459,7 @@ public:
     // instead.
     wxDEPRECATED_BUT_USED_INTERNALLY(
         virtual void DoGetClippingBox(wxCoord *x, wxCoord *y,
-                                      wxCoord *w, wxCoord *h) const
+                                      wxCoord *IGETW, wxCoord *IGETH) const
     );
 #endif // WXWIN_COMPATIBILITY_3_0
 
@@ -1295,7 +1295,7 @@ public:
                        const wxFont *theFont = NULL) const );
     wxDEPRECATED( void GetLogicalOrigin(long *x, long *y) const );
     wxDEPRECATED( void GetDeviceOrigin(long *x, long *y) const );
-    wxDEPRECATED( void GetClippingBox(long *x, long *y, long *w, long *h) const );
+    wxDEPRECATED( void GetClippingBox(long *x, long *y, long *IGETW, long *IGETH) const );
 
     wxDEPRECATED( void DrawObject(wxDrawObject* drawobject) );
 #endif  // WXWIN_COMPATIBILITY_2_8

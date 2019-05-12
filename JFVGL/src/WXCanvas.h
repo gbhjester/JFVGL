@@ -13,6 +13,7 @@
 
 #include "wx/wx.h"
 #include "wx/glcanvas.h"
+#include "WXImage.h"
 
 namespace JFVGL
 {
@@ -29,6 +30,8 @@ namespace JFVGL
 
 	protected:
 	public:
+        WXImage *img;
+        
 		WXCanvas(wxFrame *owner, int *args);
 
 		// TODO Does copy ctor make sense for canvas?
@@ -55,14 +58,19 @@ namespace JFVGL
 			// Swap all member variables
 			//swap(lhs.x, rhs.x);
 		}*/
-        
-        /* API */
 
-		void Render(wxPaintEvent &e);
-		void Resized(wxSizeEvent &e);
+		/* API */
         
 		/* wxWidgets API */
 
-        DECLARE_EVENT_TABLE()
+        /* Events */
+
+		void Render(wxPaintEvent &e);
+		void Resized(wxSizeEvent &e);
+        void MouseMoved(wxMouseEvent &e);
+        void MouseWheel(wxMouseEvent &e);
+        void MouseMiddleDoubleClick(wxMouseEvent &e);
+
+		DECLARE_EVENT_TABLE()
 	};
 }

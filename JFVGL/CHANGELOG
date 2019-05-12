@@ -8,6 +8,7 @@ Add class WXCanvas : public wxGLCanvas
 Link wxGL
 Add interface IImage
 Add class WXImage : public IImage
+Prototype wxWidgets backend (supports basic features, load image with default image handlers (bmp, jpg, png, tiff?), display image in previously prototyped GLView logic, pan / zoom with previous prototype logic)
 
 2019-04-26
 Change pan window button to LMB

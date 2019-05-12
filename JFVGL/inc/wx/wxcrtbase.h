@@ -480,7 +480,7 @@ WXDLLIMPEXP_BASE int wxCRT_PutsW(const wchar_t *ws);
 #endif
 
 #ifndef wxCRT_FputsW
-WXDLLIMPEXP_BASE int wxCRT_FputsW(const wchar_t *ch, FILE *stream);
+WXDLLIMPEXP_BASE int wxCRT_FputsW(const wchar_t *IGETCH, FILE *stream);
 #endif
 
 #ifndef wxCRT_FputcW

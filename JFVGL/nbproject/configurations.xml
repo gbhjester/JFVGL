@@ -9,9 +9,9 @@
       </df>
     </df>
     <df root="src" name="1">
-      <in>Image.cpp</in>
       <in>Main.cpp</in>
       <in>WXCanvas.cpp</in>
+      <in>WXImage.cpp</in>
       <in>WXWindow.cpp</in>
     </df>
     <logicalFolder name="ExternalFiles"
@@ -65,6 +65,8 @@
           <preprocessorList>
             <Elem>DEBUG</Elem>
             <Elem>TARGET_WX</Elem>
+            <Elem>WXDEBUG</Elem>
+            <Elem>_DEBUG</Elem>
           </preprocessorList>
         </ccTool>
       </folder>
@@ -80,15 +82,15 @@
         <ccTool flags="1">
         </ccTool>
       </item>
-      <item path="src/Image.cpp" ex="false" tool="1" flavor2="8">
-        <ccTool flags="0">
-        </ccTool>
-      </item>
       <item path="src/Main.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
         </ccTool>
       </item>
       <item path="src/WXCanvas.cpp" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/WXImage.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
         </ccTool>
       </item>

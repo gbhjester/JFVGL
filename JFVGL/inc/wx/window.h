@@ -2033,14 +2033,14 @@ inline wxWindow *wxWindowBase::GetGrandParent() const
 
 /* static */
 inline wxSize
-wxWindowBase::FromDIP(const wxSize& sz, const wxWindowBase* WXUNUSED(w))
+wxWindowBase::FromDIP(const wxSize& sz, const wxWindowBase* WXUNUSED(IGETW))
 {
     return sz;
 }
 
 /* static */
 inline wxSize
-wxWindowBase::ToDIP(const wxSize& sz, const wxWindowBase* WXUNUSED(w))
+wxWindowBase::ToDIP(const wxSize& sz, const wxWindowBase* WXUNUSED(IGETW))
 {
     return sz;
 }

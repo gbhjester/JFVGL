@@ -174,8 +174,8 @@ public:
 
     virtual bool Create(int width, int height, int depth = wxBITMAP_SCREEN_DEPTH) = 0;
     virtual bool Create(const wxSize& sz, int depth = wxBITMAP_SCREEN_DEPTH) = 0;
-    virtual bool CreateScaled(int w, int h, int d, double logicalScale)
-        { return Create(wxRound(w*logicalScale), wxRound(h*logicalScale), d); }
+    virtual bool CreateScaled(int IGETW, int IGETH, int d, double logicalScale)
+        { return Create(wxRound(IGETW*logicalScale), wxRound(IGETH*logicalScale), d); }
 
     virtual int GetHeight() const = 0;
     virtual int GetWidth() const = 0;

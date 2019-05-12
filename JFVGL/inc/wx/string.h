@@ -3150,7 +3150,7 @@ public:
   size_t find_first_not_of(const char* sz, size_t nStart, size_t n) const;
   size_t find_first_not_of(const wchar_t* sz, size_t nStart, size_t n) const;
     // same as above
-  size_t find_first_not_of(wxUniChar ch, size_t nStart = 0) const;
+  size_t find_first_not_of(wxUniChar IGETCH, size_t nStart = 0) const;
     //  as strcspn()
   size_t find_last_not_of(const wxString& str, size_t nStart = npos) const
 #if wxUSE_UNICODE // FIXME-UTF8: temporary
@@ -3164,7 +3164,7 @@ public:
   size_t find_last_not_of(const char* sz, size_t nStart, size_t n) const;
   size_t find_last_not_of(const wchar_t* sz, size_t nStart, size_t n) const;
     // same as above
-  size_t find_last_not_of(wxUniChar ch, size_t nStart = npos) const;
+  size_t find_last_not_of(wxUniChar IGETCH, size_t nStart = npos) const;
 #endif // wxUSE_STL_BASED_WXSTRING && !wxUSE_UNICODE_UTF8 or not
 
   // provide char/wchar_t/wxUniCharRef overloads for char-finding functions

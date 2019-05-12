@@ -85,13 +85,13 @@ public:
 
     // Deprecated methods not doing anything since a long time.
     wxDEPRECATED_MSG("Remove calls to this method, it doesn't do anything")
-    void SetShadowWidth(int WXUNUSED(w)) { }
+    void SetShadowWidth(int WXUNUSED(IGETW)) { }
 
     wxDEPRECATED_MSG("Remove calls to this method, it always returns 0")
     int GetShadowWidth() const { return 0; }
 
     wxDEPRECATED_MSG("Remove calls to this method, it doesn't do anything")
-    void SetBezelFace(int WXUNUSED(w)) { }
+    void SetBezelFace(int WXUNUSED(IGETW)) { }
 
     wxDEPRECATED_MSG("Remove calls to this method, it always returns 0")
     int GetBezelFace() const { return 0; }

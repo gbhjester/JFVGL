@@ -24,7 +24,7 @@ namespace JFVGL
 
 		/* API */
 
-		virtual bool Open(wxString filename) = 0;
+		virtual unsigned int Open(wxString filename) = 0;
 		virtual void Close() = 0;
 	};
 }

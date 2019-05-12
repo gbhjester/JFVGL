@@ -66,14 +66,14 @@ struct WXDLLIMPEXP_BASE wxStringOperationsWchar
         wxChar data[2];
         operator const wxChar*() const { return data; }
     };
-    static SingleCharBuffer EncodeChar(const wxUniChar& ch)
+    static SingleCharBuffer EncodeChar(const wxUniChar& IGETCH)
     {
         SingleCharBuffer buf;
-        buf.data[0] = (wxChar)ch;
+        buf.data[0] = (wxChar)IGETCH;
         buf.data[1] = 0;
         return buf;
     }
-    static wxWxCharBuffer EncodeNChars(size_t n, const wxUniChar& ch);
+    static wxWxCharBuffer EncodeNChars(size_t n, const wxUniChar& IGETCH);
     static bool IsSingleCodeUnitCharacter(const wxUniChar&) { return true; }
 #endif
 
@@ -163,16 +163,16 @@ struct WXDLLIMPEXP_BASE wxStringOperationsUtf8
         return dist;
     }
 
-    static bool IsSingleCodeUnitCharacter(const wxUniChar& ch)
-        { return ch.IsAscii(); }
+    static bool IsSingleCodeUnitCharacter(const wxUniChar& IGETCH)
+        { return IGETCH.IsAscii(); }
 
     // encodes the character as UTF-8:
     typedef wxUniChar::Utf8CharBuffer Utf8CharBuffer;
-    static Utf8CharBuffer EncodeChar(const wxUniChar& ch)
-        { return ch.AsUTF8(); }
+    static Utf8CharBuffer EncodeChar(const wxUniChar& IGETCH)
+        { return IGETCH.AsUTF8(); }
 
     // returns n copies of ch encoded in UTF-8 string
-    static wxCharBuffer EncodeNChars(size_t n, const wxUniChar& ch);
+    static wxCharBuffer EncodeNChars(size_t n, const wxUniChar& IGETCH);
 
     // returns the length of UTF-8 encoding of the character with lead byte 'c'
     static size_t GetUtf8CharLength(char c)

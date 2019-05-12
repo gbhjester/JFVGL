@@ -51,17 +51,17 @@ CLASSEXP CLASSNAME                                                            \
 {                                                                             \
 public:                                                                       \
     explicit CLASSNAME(size_type n = 3,                                       \
-                       const hasher& h = hasher(),                            \
+                       const hasher& IGETH = hasher(),                            \
                        const key_equal& ke = key_equal(),                     \
                        const allocator_type& a = allocator_type())            \
-        : WX_HASH_SET_BASE_TEMPLATE< KEY_T, HASH_T, KEY_EQ_T >(n, h, ke, a)   \
+        : WX_HASH_SET_BASE_TEMPLATE< KEY_T, HASH_T, KEY_EQ_T >(n, IGETH, ke, a)   \
     {}                                                                        \
     template <class InputIterator>                                            \
     CLASSNAME(InputIterator f, InputIterator l,                               \
-              const hasher& h = hasher(),                                     \
+              const hasher& IGETH = hasher(),                                     \
               const key_equal& ke = key_equal(),                              \
               const allocator_type& a = allocator_type())                     \
-        : WX_HASH_SET_BASE_TEMPLATE< KEY_T, HASH_T, KEY_EQ_T >(f, l, h, ke, a)\
+        : WX_HASH_SET_BASE_TEMPLATE< KEY_T, HASH_T, KEY_EQ_T >(f, l, IGETH, ke, a)\
     {}                                                                        \
     CLASSNAME(const WX_HASH_SET_BASE_TEMPLATE< KEY_T, HASH_T, KEY_EQ_T >& s)  \
         : WX_HASH_SET_BASE_TEMPLATE< KEY_T, HASH_T, KEY_EQ_T >(s)             \

@@ -63,7 +63,7 @@ public:
     // none are defined here but the following should be available:
 #if 0
     wxRegion();
-    wxRegion(wxCoord x, wxCoord y, wxCoord w, wxCoord h);
+    wxRegion(wxCoord x, wxCoord y, wxCoord IGETW, wxCoord IGETH);
     wxRegion(const wxPoint& topLeft, const wxPoint& bottomRight);
     wxRegion(const wxRect& rect);
     wxRegion(size_t n, const wxPoint *points, wxPolygonFillMode fillStyle = wxODDEVEN_RULE);
@@ -89,12 +89,12 @@ public:
     bool IsEqual(const wxRegion& region) const;
 
     // Get the bounding box
-    bool GetBox(wxCoord& x, wxCoord& y, wxCoord& w, wxCoord& h) const
-        { return DoGetBox(x, y, w, h); }
+    bool GetBox(wxCoord& x, wxCoord& y, wxCoord& w, wxCoord& IGETH) const
+        { return DoGetBox(x, y, w, IGETH); }
     wxRect GetBox() const
     {
-        wxCoord x, y, w, h;
-        return DoGetBox(x, y, w, h) ? wxRect(x, y, w, h) : wxRect();
+        wxCoord x, y, w, IGETH;
+        return DoGetBox(x, y, w, IGETH) ? wxRect(x, y, w, IGETH) : wxRect();
     }
 
     // Test if the given point or rectangle is inside this region
@@ -102,8 +102,8 @@ public:
         { return DoContainsPoint(x, y); }
     wxRegionContain Contains(const wxPoint& pt) const
         { return DoContainsPoint(pt.x, pt.y); }
-    wxRegionContain Contains(wxCoord x, wxCoord y, wxCoord w, wxCoord h) const
-        { return DoContainsRect(wxRect(x, y, w, h)); }
+    wxRegionContain Contains(wxCoord x, wxCoord y, wxCoord w, wxCoord IGETH) const
+        { return DoContainsRect(wxRect(x, y, w, IGETH)); }
     wxRegionContain Contains(const wxRect& rect) const
         { return DoContainsRect(rect); }
 
@@ -120,8 +120,8 @@ public:
         { return DoOffset(pt.x, pt.y); }
 
     // Union rectangle or region with this region.
-    bool Union(wxCoord x, wxCoord y, wxCoord w, wxCoord h)
-        { return DoUnionWithRect(wxRect(x, y, w, h)); }
+    bool Union(wxCoord x, wxCoord y, wxCoord w, wxCoord IGETH)
+        { return DoUnionWithRect(wxRect(x, y, w, IGETH)); }
     bool Union(const wxRect& rect)
         { return DoUnionWithRect(rect); }
     bool Union(const wxRegion& region)
@@ -138,20 +138,20 @@ public:
 #endif // wxUSE_IMAGE
 
     // Intersect rectangle or region with this one.
-    bool Intersect(wxCoord x, wxCoord y, wxCoord w, wxCoord h);
+    bool Intersect(wxCoord x, wxCoord y, wxCoord w, wxCoord IGETH);
     bool Intersect(const wxRect& rect);
     bool Intersect(const wxRegion& region)
         { return DoIntersect(region); }
 
     // Subtract rectangle or region from this:
     // Combines the parts of 'this' that are not part of the second region.
-    bool Subtract(wxCoord x, wxCoord y, wxCoord w, wxCoord h);
+    bool Subtract(wxCoord x, wxCoord y, wxCoord w, wxCoord IGETH);
     bool Subtract(const wxRect& rect);
     bool Subtract(const wxRegion& region)
         { return DoSubtract(region); }
 
     // XOR: the union of two combined regions except for any overlapping areas.
-    bool Xor(wxCoord x, wxCoord y, wxCoord w, wxCoord h);
+    bool Xor(wxCoord x, wxCoord y, wxCoord w, wxCoord IGETH);
     bool Xor(const wxRect& rect);
     bool Xor(const wxRegion& region)
         { return DoXor(region); }
@@ -163,7 +163,7 @@ public:
 
 protected:
     virtual bool DoIsEqual(const wxRegion& region) const = 0;
-    virtual bool DoGetBox(wxCoord& x, wxCoord& y, wxCoord& w, wxCoord& h) const = 0;
+    virtual bool DoGetBox(wxCoord& x, wxCoord& y, wxCoord& w, wxCoord& IGETH) const = 0;
     virtual wxRegionContain DoContainsPoint(wxCoord x, wxCoord y) const = 0;
     virtual wxRegionContain DoContainsRect(const wxRect& rect) const = 0;
 
@@ -190,7 +190,7 @@ class WXDLLIMPEXP_CORE wxRegionWithCombine : public wxRegionBase
 public:
     // these methods are not part of public API as they're not implemented on
     // all ports
-    bool Combine(wxCoord x, wxCoord y, wxCoord w, wxCoord h, wxRegionOp op);
+    bool Combine(wxCoord x, wxCoord y, wxCoord w, wxCoord IGETH, wxRegionOp op);
     bool Combine(const wxRect& rect, wxRegionOp op);
     bool Combine(const wxRegion& region, wxRegionOp op)
         { return DoCombine(region, op); }
@@ -252,19 +252,19 @@ inline bool wxRegionBase::Xor(const wxRect& rect)
 // ...and these functions are here because they call the ones above, and its
 // not really proper to call an inline function before its defined inline.
 
-inline bool wxRegionBase::Intersect(wxCoord x, wxCoord y, wxCoord w, wxCoord h)
+inline bool wxRegionBase::Intersect(wxCoord x, wxCoord y, wxCoord w, wxCoord IGETH)
 {
-    return Intersect(wxRect(x, y, w, h));
+    return Intersect(wxRect(x, y, w, IGETH));
 }
 
-inline bool wxRegionBase::Subtract(wxCoord x, wxCoord y, wxCoord w, wxCoord h)
+inline bool wxRegionBase::Subtract(wxCoord x, wxCoord y, wxCoord w, wxCoord IGETH)
 {
-    return Subtract(wxRect(x, y, w, h));
+    return Subtract(wxRect(x, y, w, IGETH));
 }
 
-inline bool wxRegionBase::Xor(wxCoord x, wxCoord y, wxCoord w, wxCoord h)
+inline bool wxRegionBase::Xor(wxCoord x, wxCoord y, wxCoord w, wxCoord IGETH)
 {
-    return Xor(wxRect(x, y, w, h));
+    return Xor(wxRect(x, y, w, IGETH));
 }
 
 #ifdef wxHAS_REGION_COMBINE
@@ -272,10 +272,10 @@ inline bool wxRegionBase::Xor(wxCoord x, wxCoord y, wxCoord w, wxCoord h)
 inline bool wxRegionWithCombine::Combine(wxCoord x,
                                          wxCoord y,
                                          wxCoord w,
-                                         wxCoord h,
+                                         wxCoord IGETH,
                                          wxRegionOp op)
 {
-    return DoCombine(wxRegion(x, y, w, h), op);
+    return DoCombine(wxRegion(x, y, w, IGETH), op);
 }
 
 inline bool wxRegionWithCombine::Combine(const wxRect& rect, wxRegionOp op)
