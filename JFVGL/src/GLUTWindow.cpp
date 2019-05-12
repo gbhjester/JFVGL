@@ -143,7 +143,6 @@ int JFVGL::GLUTWindow::DoGlutStuff(int argc, char **argv)
 		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 		glColor3f(1.f, 1.f, 1.f);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, vi);
-		glDisable(GL_TEXTURE_2D);
 		glDisableClientState(GL_VERTEX_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glDisable(GL_TEXTURE_2D);
