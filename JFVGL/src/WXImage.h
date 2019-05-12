@@ -25,9 +25,10 @@ namespace JFVGL
 	public:
 
 		//wxImage *img;
-        unsigned int w, h;
-        unsigned char bpc;
-        unsigned int id;
+		unsigned int w, h;
+		unsigned char bpc;
+		unsigned int id;
+		wxString *filename;
 
 		WXImage();
 

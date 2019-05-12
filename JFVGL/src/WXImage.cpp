@@ -19,9 +19,13 @@ JFVGL::WXImage::WXImage()
 	this->h = 0;
 	this->bpc = 0;
 	this->id = 0;
+	this->filename = new wxString();
 }
 
-JFVGL::WXImage::~WXImage(){ }
+JFVGL::WXImage::~WXImage()
+{
+	delete filename;
+}
 
 /* API */
 
@@ -32,6 +36,7 @@ unsigned int JFVGL::WXImage::Open(wxString filename)
 		wxMessageBox(filename + " not found.", "Error");
 		return 0;
 	}
+	*this->filename = filename;
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	wxImage *img = new wxImage(filename);
 	w = img->GetWidth();

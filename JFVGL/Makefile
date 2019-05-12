@@ -6,7 +6,7 @@ DBG=0
 # 0, 1
 DBG_CMP=0
 # 2, 6, s. 0 = disabled
-OPT=6
+OPT=0
 
 DEFINES=-DTARGET_WX
 ifneq ($(DBG), 0)

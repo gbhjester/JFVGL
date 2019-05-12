@@ -33,6 +33,7 @@ bool JFVGL::WXApp::OnInit()
 		wnd->canvas->img->Open(wxApp::argv[1]);
 	else
 		wnd->canvas->img->Open("table2.png");
+	wnd->SetTitle("JFVGL - " + *wnd->canvas->img->filename);
 	// TODO Set display to display mouse currently inside
 	wnd->SetSize(
 		JFVGL::fclamp(WND_WMIN, wnd->canvas->img->w, disp.GetClientArea().width),
