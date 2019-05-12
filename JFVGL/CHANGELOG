@@ -4,6 +4,9 @@
 Add DBG (set debug flags), CBG_CMP (debug compilation), OPT (optimization levels) switches to makefile
 Set initial / on image load window size and position
 Show file pathname in title bar
+Add RMB -> pan window
+Fix on load window size setting total window size, not client size
+Add LMB double click -> toggle maximized
 
 2019-05-11
 Move GLUT code to GLUTWindow.cpp (TODO : refactor / shim api appropriately)

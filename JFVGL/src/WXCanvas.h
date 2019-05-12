@@ -20,8 +20,12 @@ namespace JFVGL
 	class WXCanvas : public wxGLCanvas
 	{
 	private:
-        float f;
-        
+		float f;
+		float px, py; // Previous mouse coords
+		float ppx, ppy; // Previous passive mouse coords (not updated while dragging
+		float dx, dy; // Delta mouse coords (x - px)
+		float cx, cy; // Camera coords
+
 		/* wxWidgets variables */
 
 		wxGLContext *context;
@@ -30,9 +34,8 @@ namespace JFVGL
 
 	protected:
 	public:
-        int mx;
-        WXImage *img;
-        
+		WXImage *img;
+
 		WXCanvas(wxFrame *owner, int *args);
 
 		// TODO Does copy ctor make sense for canvas?
@@ -61,17 +64,18 @@ namespace JFVGL
 		}*/
 
 		/* API */
-        
+
 		/* wxWidgets API */
 
-        /* Events */
+		/* Events */
 
 		void Render(wxPaintEvent &e);
 		void Resized(wxSizeEvent &e);
-        void MouseMoved(wxMouseEvent &e);
-        void MouseWheel(wxMouseEvent &e);
-        void MouseMiddleDoubleClick(wxMouseEvent &e);
-        void KeyDown(wxKeyEvent &e);
+		void MouseMoved(wxMouseEvent &e);
+		void MouseWheel(wxMouseEvent &e);
+		void MouseLeftDoubleClick(wxMouseEvent &e);
+		void MouseMiddleDoubleClick(wxMouseEvent &e);
+		void KeyDown(wxKeyEvent &e);
 
 		DECLARE_EVENT_TABLE()
 	};

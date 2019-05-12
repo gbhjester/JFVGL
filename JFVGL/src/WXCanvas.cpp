@@ -25,9 +25,12 @@ JFVGL::WXCanvas::WXCanvas(wxFrame *owner, int *args)
 	this->context = new wxGLContext(this);
 	SetCurrent(*context);
 	this->img = new WXImage();
-	
+
 	this->f = 1.f;
-	this->mx = 0;
+	this->px = 0, this->py = 0;
+	this->ppx = 0, this->ppy = 0;
+	this->dx = 0, this->dy = 0;
+	this->cx = 0, this->cy = 0;
 
 	SetBackgroundStyle(wxBG_STYLE_CUSTOM);
 }
@@ -36,13 +39,6 @@ JFVGL::WXCanvas::~WXCanvas()
 {
 	delete context;
 }
-
-// TODO Refactor into class WXCanvas
-//float f = 1.f;
-float px = 0, py = 0; // Previous mouse coords
-float ppx = 0, ppy = 0; // Previous passive mouse coords (not updated while dragging)
-float dx = 0, dy = 0; // Delta mouse coords (x - px)
-float cx = 0, cy = 0;
 
 /* Events */
 
@@ -102,20 +98,27 @@ void JFVGL::WXCanvas::Resized(wxSizeEvent &e){
 
 void JFVGL::WXCanvas::MouseMoved(wxMouseEvent &e)
 {
-	mx = e.GetX();
 	dx = e.GetX() - px;
 	dy = e.GetY() - py;
-	if (e.LeftIsDown())
+	if (e.LeftIsDown()) // LMB - pan view
 	{
 		cx += dx / f;
 		cy += dy / f;
 	}
-	else if (e.RightIsDown())
+	else if (e.RightIsDown()) // RMB - pan window
 	{
 		// TODO Drag window
 		/*glutPositionWindow(
 			x - glutGet(GLUT_WINDOW_BORDER_WIDTH) - ppx + glutGet(GLUT_WINDOW_X),
 			e.m_y - glutGet(GLUT_WINDOW_BORDER_HEIGHT) - ppy + glutGet(GLUT_WINDOW_Y));*/
+		GetParent()->Move(
+			e.GetX() - ppx + GetParent()->GetPosition().x,
+			e.GetY() - ppy + GetParent()->GetPosition().y);
+	}
+	else // Nothing pressed
+	{
+		ppx = e.GetX();
+		ppy = e.GetY();
 	}
 	Refresh();
 	px = e.GetX();
@@ -134,6 +137,12 @@ void JFVGL::WXCanvas::MouseWheel(wxMouseEvent &e)
 	}
 	Refresh();
 	printf("%f\n", f);
+}
+
+void JFVGL::WXCanvas::MouseLeftDoubleClick(wxMouseEvent &e)
+{
+	wxFrame *fp = ((wxFrame *)GetParent());
+	fp->Maximize(!fp->IsMaximized());
 }
 
 void JFVGL::WXCanvas::MouseMiddleDoubleClick(wxMouseEvent &e)

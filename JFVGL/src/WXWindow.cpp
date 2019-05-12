@@ -12,7 +12,7 @@
 #include "WXWindow.h"
 
 // TODO Move to Preferences
-#define WND_WMIN 400
+#define WND_WMIN 300
 #define WND_HMIN 300
 
 bool JFVGL::WXApp::OnInit()
@@ -33,9 +33,9 @@ bool JFVGL::WXApp::OnInit()
 		wnd->canvas->img->Open(wxApp::argv[1]);
 	else
 		wnd->canvas->img->Open("table2.png");
-	wnd->SetTitle("JFVGL - " + *wnd->canvas->img->filename);
+	wnd->SetTitle(/*"JFVGL - " + */*wnd->canvas->img->filename);
 	// TODO Set display to display mouse currently inside
-	wnd->SetSize(
+	wnd->SetClientSize(
 		JFVGL::fclamp(WND_WMIN, wnd->canvas->img->w, disp.GetClientArea().width),
 		JFVGL::fclamp(WND_HMIN, wnd->canvas->img->h, disp.GetClientArea().height));
 	wnd->SetPosition(wxPoint(
@@ -49,6 +49,7 @@ EVT_PAINT(JFVGL::WXCanvas::Render)
 EVT_SIZE(JFVGL::WXCanvas::Resized)
 EVT_MOTION(JFVGL::WXCanvas::MouseMoved)
 EVT_MOUSEWHEEL(JFVGL::WXCanvas::MouseWheel)
+EVT_LEFT_DCLICK(JFVGL::WXCanvas::MouseLeftDoubleClick)
 EVT_MIDDLE_DCLICK(JFVGL::WXCanvas::MouseMiddleDoubleClick)
 EVT_KEY_DOWN(JFVGL::WXCanvas::KeyDown)
 //EVT_(JFVGL::WXCanvas::)
