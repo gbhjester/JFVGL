@@ -22,9 +22,12 @@
 JFVGL::WXCanvas::WXCanvas(wxFrame *owner, int *args)
 : wxGLCanvas(owner, wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE)
 {
-	context = new wxGLContext(this);
+	this->context = new wxGLContext(this);
 	SetCurrent(*context);
-	img = new WXImage();
+	this->img = new WXImage();
+	
+	this->f = 1.f;
+	this->mx = 0;
 
 	SetBackgroundStyle(wxBG_STYLE_CUSTOM);
 }
@@ -35,7 +38,7 @@ JFVGL::WXCanvas::~WXCanvas()
 }
 
 // TODO Refactor into class WXCanvas
-float f = 1.f;
+//float f = 1.f;
 float px = 0, py = 0; // Previous mouse coords
 float ppx = 0, ppy = 0; // Previous passive mouse coords (not updated while dragging)
 float dx = 0, dy = 0; // Delta mouse coords (x - px)
@@ -99,6 +102,7 @@ void JFVGL::WXCanvas::Resized(wxSizeEvent &e){
 
 void JFVGL::WXCanvas::MouseMoved(wxMouseEvent &e)
 {
+	mx = e.GetX();
 	dx = e.GetX() - px;
 	dy = e.GetY() - py;
 	if (e.LeftIsDown())
@@ -135,4 +139,10 @@ void JFVGL::WXCanvas::MouseWheel(wxMouseEvent &e)
 void JFVGL::WXCanvas::MouseMiddleDoubleClick(wxMouseEvent &e)
 {
 	GetParent()->Close(true);
+}
+
+void JFVGL::WXCanvas::KeyDown(wxKeyEvent &e)
+{
+	if (e.GetUnicodeKey() == 27 || e.GetUnicodeKey() == 13)
+		GetParent()->Close(true);
 }

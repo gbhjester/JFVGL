@@ -12,7 +12,6 @@
 #pragma once
 
 #include <GL/gl.h>
-#include "wx/image.h"
 #include "Main.h"
 #include "IImage.h"
 

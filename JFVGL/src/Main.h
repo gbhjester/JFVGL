@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include "prec.h"
+
 #if defined(__linux__) || defined(__linux__) || defined(__linux) || defined(linux) || defined(LINUX)
 	#define LINUX
 #elif defined (_WIN32) || defined(_WIN64)
@@ -31,7 +33,8 @@ namespace JFVGL
 		rhs = tmp;
 	}
 
-	inline float fclamp(float a, float x, float b)
+    // FIXME Throws multiply defined compile error if not inline
+	static inline float fclamp(float a, float x, float b)
 	{
 		/*if (x < a)
 			return a;
@@ -39,6 +42,7 @@ namespace JFVGL
 			return b;
 		else
 			return x;*/
+        // TODO test
 		return (x < a ? a : (x > b ? b : x));
 	}
 }

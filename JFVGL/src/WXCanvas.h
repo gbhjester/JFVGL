@@ -11,8 +11,7 @@
 
 #pragma once
 
-#include "wx/wx.h"
-#include "wx/glcanvas.h"
+#include "Main.h"
 #include "WXImage.h"
 
 namespace JFVGL
@@ -21,7 +20,8 @@ namespace JFVGL
 	class WXCanvas : public wxGLCanvas
 	{
 	private:
-
+        float f;
+        
 		/* wxWidgets variables */
 
 		wxGLContext *context;
@@ -30,6 +30,7 @@ namespace JFVGL
 
 	protected:
 	public:
+        int mx;
         WXImage *img;
         
 		WXCanvas(wxFrame *owner, int *args);
@@ -70,6 +71,7 @@ namespace JFVGL
         void MouseMoved(wxMouseEvent &e);
         void MouseWheel(wxMouseEvent &e);
         void MouseMiddleDoubleClick(wxMouseEvent &e);
+        void KeyDown(wxKeyEvent &e);
 
 		DECLARE_EVENT_TABLE()
 	};

@@ -1,6 +1,5 @@
 *** TODO ***
 
-Fill out WXCanvas events
 Separate class WXApp from WXWindow.cpp into WXApp.cpp
 Refactor WXWindow/WXCanvas/WXImage data sharing / gl sharing shitness
 Fix Linux linking shitness
@@ -12,6 +11,11 @@ Add class Preferences
 Move away from GLUT
 Drop dependency GLUT (AFTER wxWindow codepath fully supported on Windows AND Linux!)
 Remove interface IWindow
+Compile wxWidgets from source
+	- Strip and shrink resulting binaries
+
+Project:
+	Get precompiled headers working
 
 View:
 	Zoom around mouse cursor
@@ -21,7 +25,7 @@ View:
 		- IF NOT SMALLER THAN SCREEN SIZE : window to screen size, zoom to fit
 
 Image handling:
-	Arbitrary image loading
+	Animated gif support
 
 Shell integration:
 	Add class IShell

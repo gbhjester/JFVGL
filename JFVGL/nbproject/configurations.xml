@@ -36,7 +36,7 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <flagsDictionary>
-        <element flagsID="0" commonFlags="-std=c++11 -Wpedantic"/>
+        <element flagsID="0" commonFlags="-std=c++11 -Wpedantic -march=native -fopenmp"/>
         <element flagsID="1" commonFlags="-std=c++14"/>
       </flagsDictionary>
       <codeAssistance>
@@ -63,10 +63,8 @@
       <folder path="1">
         <ccTool>
           <preprocessorList>
-            <Elem>DEBUG</Elem>
             <Elem>TARGET_WX</Elem>
-            <Elem>WXDEBUG</Elem>
-            <Elem>_DEBUG</Elem>
+            <Elem>_GLIBCXX_PARALLEL</Elem>
           </preprocessorList>
         </ccTool>
       </folder>

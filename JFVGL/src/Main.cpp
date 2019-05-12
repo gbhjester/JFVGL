@@ -16,6 +16,7 @@
 #endif
 
 #ifdef TARGET_WX
+	// wx entry point. Replaces main()
 	wxIMPLEMENT_APP(JFVGL::WXApp);
 #else
 int main(int argc, char **argv)

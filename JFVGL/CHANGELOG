@@ -1,5 +1,9 @@
 *** CHANGELOG ***
 
+2019-05-12
+Add DBG (set debug flags), CBG_CMP (debug compilation), OPT (optimization levels) switches to makefile
+Set initial / on image load window size and position
+
 2019-05-11
 Move GLUT code to GLUTWindow.cpp (TODO : refactor / shim api appropriately)
 Add class WXWindow : public IWindow, public wxFrame

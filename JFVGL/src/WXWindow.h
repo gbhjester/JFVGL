@@ -11,8 +11,7 @@
 
 #pragma once
 
-#include "wx/image.h"
-#include "wx/wx.h"
+#include "Main.h"
 #include "IWindow.h"
 #include "WXCanvas.h"
 #include "WXImage.h"
@@ -29,14 +28,14 @@ namespace JFVGL
 	class WXWindow : public IWindow, public wxFrame
 	{
 	private:
-        
+
 		/* wxWidgets variables */
 
 		/* wxWidgets API */
 
 	protected:
 	public:
-        WXCanvas *canvas;
+		WXCanvas *canvas;
 
 		WXWindow();
 
@@ -67,7 +66,7 @@ namespace JFVGL
 		/* API */
 
 		virtual void Start() override;
-        virtual void Render() override;
+		virtual void Render() override;
 
 		/* wxWidgets API */
 
