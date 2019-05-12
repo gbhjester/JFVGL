@@ -21,7 +21,7 @@ LDFLAGS=-L$(LDIR) -L$(LDIR)/wx
 ifeq ($(ENV), Linux)
 	LDFLAGS+=# TODO add Linux wx linker args
 else
-	LDFLAGS+=$(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a
+	LDFLAGS+=-lopengl32 -lglu32 $(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a $(LDIR)/wx/libwxmsw31u_gl.a
 ifndef DEBUG
 	LDFLAGS+=-mwindows
 endif
@@ -32,10 +32,10 @@ ifndef DEBUG
 	WXDEFINES+=-D_DEBUG
 endif
 
-_DEPS=Main.h wxWindow.h
+_DEPS=Main.h wxWindow.h wxCanvas.h
 DEPS=$(patsubst %,$(SDIR)/%,$(_DEPS))
 
-_OBJ=Main.o wxWindow.o
+_OBJ=Main.o wxWindow.o wxCanvas.o
 OBJ=$(patsubst %,$(ODIR)/%,$(_OBJ))
 
 NAME=JFVGL

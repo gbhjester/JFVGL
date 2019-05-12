@@ -26,5 +26,6 @@ namespace JFVGL
 		/* API */
 
 		virtual void Start() = 0;
+		virtual void Render() = 0;
 	};
 }

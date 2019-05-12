@@ -9,6 +9,7 @@
       </df>
     </df>
     <df root="src" name="1">
+      <in>WXCanvas.cpp</in>
     </df>
     <logicalFolder name="src" displayName="src" projectFiles="true" root="src">
       <itemPath>src/GLUTWindow.h</itemPath>
@@ -64,6 +65,15 @@
           <preBuildCommand></preBuildCommand>
         </preBuild>
       </makefileType>
+      <folder path="1">
+        <ccTool>
+          <preprocessorList>
+            <Elem>DEBUG</Elem>
+            <Elem>TARGET_WX</Elem>
+            <Elem>_DEBUG</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
       <folder path="src">
         <ccTool>
           <preprocessorList>
@@ -86,6 +96,10 @@
         </ccTool>
       </item>
       <item path="src/Main.cpp" ex="false" tool="1" flavor2="8">
+        <ccTool flags="0">
+        </ccTool>
+      </item>
+      <item path="src/WXCanvas.cpp" ex="false" tool="1" flavor2="8">
         <ccTool flags="0">
         </ccTool>
       </item>

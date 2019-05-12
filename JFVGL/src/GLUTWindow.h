@@ -52,5 +52,6 @@ namespace JFVGL
 		/* API */
 
 		virtual void Start() override;
+        virtual void Render() override;
 	};
 }

@@ -251,3 +251,7 @@ int JFVGL::GLUTWindow::DoGlutStuff(int argc, char **argv)
 void JFVGL::GLUTWindow::Start()
 {
 }
+
+void JFVGL::GLUTWindow::Render()
+{
+}
