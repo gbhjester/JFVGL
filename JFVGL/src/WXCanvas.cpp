@@ -107,13 +107,12 @@ void JFVGL::WXCanvas::MouseMoved(wxMouseEvent &e)
 	}
 	else if (e.RightIsDown()) // RMB - pan window
 	{
-		// TODO Drag window
-		/*glutPositionWindow(
-			x - glutGet(GLUT_WINDOW_BORDER_WIDTH) - ppx + glutGet(GLUT_WINDOW_X),
-			e.m_y - glutGet(GLUT_WINDOW_BORDER_HEIGHT) - ppy + glutGet(GLUT_WINDOW_Y));*/
-		GetParent()->Move(
-			e.GetX() - ppx + GetParent()->GetPosition().x,
-			e.GetY() - ppy + GetParent()->GetPosition().y);
+		if (!((wxFrame *)GetParent())->IsMaximized())
+		{
+			GetParent()->Move(
+				e.GetX() - ppx + GetParent()->GetPosition().x,
+				e.GetY() - ppy + GetParent()->GetPosition().y);
+		}
 	}
 	else // Nothing pressed
 	{

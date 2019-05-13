@@ -7,6 +7,7 @@ Show file pathname in title bar
 Add RMB -> pan window
 Fix on load window size setting total window size, not client size
 Add LMB double click -> toggle maximized
+Fix window being draggable when maximized
 
 2019-05-11
 Move GLUT code to GLUTWindow.cpp (TODO : refactor / shim api appropriately)
