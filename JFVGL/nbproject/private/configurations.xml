@@ -978,6 +978,19 @@
           <in>window.h</in>
         </df>
         <df name="unix">
+          <df name="private">
+            <in>displayx11.h</in>
+            <in>epolldispatcher.h</in>
+            <in>execute.h</in>
+            <in>executeiohandler.h</in>
+            <in>fdiounix.h</in>
+            <in>fswatcher_inotify.h</in>
+            <in>fswatcher_kqueue.h</in>
+            <in>pipestream.h</in>
+            <in>sockunix.h</in>
+            <in>timer.h</in>
+            <in>wakeuppipe.h</in>
+          </df>
           <in>app.h</in>
           <in>apptbase.h</in>
           <in>apptrait.h</in>
@@ -1527,6 +1540,8 @@
       <in>stb_image.h</in>
     </df>
     <df root="src" name="1">
+      <in>GLUTWindow.cpp</in>
+      <in>GLUTWindow.h</in>
       <in>IImage.h</in>
       <in>IWindow.h</in>
       <in>Main.cpp</in>
@@ -1577,8 +1592,9 @@
       <runprofile version="9">
         <runcommandpicklist>
           <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" test/b-panel.png</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}"</runcommand>
+        <runcommand>"${OUTPUT_PATH}" test/b-panel.png</runcommand>
         <rundir>.</rundir>
         <buildfirst>true</buildfirst>
         <console-type>1</console-type>

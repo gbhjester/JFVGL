@@ -29,12 +29,18 @@ bool JFVGL::WXApp::OnInit()
 	sizer->Add(wnd->canvas, 1, wxEXPAND);
 	wnd->SetSizer(sizer);
 	wnd->SetAutoLayout(true);
+	// TODO Check for file paths with spaces (path split over multiple args)
 	if (wxApp::argc == 2)
 		wnd->canvas->img->Open(wxApp::argv[1]);
 	else
 		wnd->canvas->img->Open("table2.png");
 	wnd->SetTitle(/*"JFVGL - " + */*wnd->canvas->img->filename);
 	// TODO Set display to display mouse currently inside
+	if (wnd->canvas->img->w + (wnd->GetSize().x - wnd->GetClientSize().x) > disp.GetClientArea().width ||
+		wnd->canvas->img->h + (wnd->GetSize().y - wnd->GetClientSize().y) > disp.GetClientArea().height)
+	{
+		wnd->Maximize(true);
+	}
 	wnd->SetClientSize(
 		JFVGL::fclamp(WND_WMIN, wnd->canvas->img->w, disp.GetClientArea().width),
 		JFVGL::fclamp(WND_HMIN, wnd->canvas->img->h, disp.GetClientArea().height));

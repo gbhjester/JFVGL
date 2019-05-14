@@ -27,7 +27,7 @@ SDIR=src
 ODIR=obj
 
 CXX=g++
-CXXFLAGS=-std=c++11 -Wall -Wpedantic -I$(IDIR)
+CXXFLAGS=-std=c++98 -Wall -I$(IDIR)
 
 ifeq ($(DBG), 0)
 ifneq ($(OPT), 0)

@@ -135,7 +135,9 @@ void JFVGL::WXCanvas::MouseWheel(wxMouseEvent &e)
 		f = fclamp(ZOOM_MIN, f * (1.f / 1.1f), ZOOM_MAX);
 	}
 	Refresh();
+#ifdef DEBUG
 	printf("%f\n", f);
+#endif
 }
 
 void JFVGL::WXCanvas::MouseLeftDoubleClick(wxMouseEvent &e)

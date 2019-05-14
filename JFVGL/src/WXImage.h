@@ -25,7 +25,7 @@ namespace JFVGL
 	public:
 
 		//wxImage *img;
-		unsigned int w, h;
+		int w, h;
 		unsigned char bpc;
 		unsigned int id;
 		wxString *filename;
@@ -58,7 +58,7 @@ namespace JFVGL
 
 		/* API */
 
-		virtual unsigned int Open(wxString filename) override;
-		virtual void Close() override;
+		virtual unsigned int Open(wxString filename);
+		virtual void Close();
 	};
 }

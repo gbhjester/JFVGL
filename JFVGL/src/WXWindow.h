@@ -22,7 +22,7 @@ namespace JFVGL
 	class WXApp : public wxApp
 	{
 	public:
-		bool OnInit() override;
+		bool OnInit();
 	};
 
 	class WXWindow : public IWindow, public wxFrame
@@ -65,8 +65,8 @@ namespace JFVGL
 
 		/* API */
 
-		virtual void Start() override;
-		virtual void Render() override;
+		virtual void Start();
+		virtual void Render();
 
 		/* wxWidgets API */
 

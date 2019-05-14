@@ -1,5 +1,12 @@
 *** CHANGELOG ***
 
+2019-05-13
+Window will now maximize on startup image load if image size is larger than screen size
+Change C++ standard from C++11 to C++98
+Remove -Wpedantic compile flag
+Change WXImage::w, h from unsigned int to int
+Temporary workaround for crash when loading image with alpha channel
+
 2019-05-12
 Add DBG (set debug flags), CBG_CMP (debug compilation), OPT (optimization levels) switches to makefile
 Set initial / on image load window size and position

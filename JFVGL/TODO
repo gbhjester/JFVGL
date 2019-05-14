@@ -8,9 +8,12 @@ Fix Linux linking shitness
 Add class Preferences
 	- Load(), Save()
 	- Subclass wxConfig?
+Add right click context menu
 Move away from GLUT
 Drop dependency GLUT (AFTER wxWindow codepath fully supported on Windows AND Linux!)
 Remove interface IWindow
+Refactor away from old multi-backend design
+	- Remove define TARGET_WX
 Compile wxWidgets from source
 	- Strip and shrink resulting binaries
 
@@ -28,6 +31,5 @@ Image handling:
 	Animated gif support
 
 Shell integration:
-	Add class IShell
-	Add class WinShell : IShell
+	Add folder navigation
 	Add drag / drop

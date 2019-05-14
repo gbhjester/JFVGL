@@ -33,7 +33,8 @@ namespace JFVGL
 		rhs = tmp;
 	}
 
-    // FIXME Throws multiply defined compile error if not inline
+	// FIXME Throws multiply defined compile error if not inline
+
 	static inline float fclamp(float a, float x, float b)
 	{
 		/*if (x < a)
@@ -42,7 +43,7 @@ namespace JFVGL
 			return b;
 		else
 			return x;*/
-        // TODO test
+		// TODO test
 		return (x < a ? a : (x > b ? b : x));
 	}
 }
