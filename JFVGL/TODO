@@ -16,6 +16,7 @@ Refactor away from old multi-backend design
 	- Remove define TARGET_WX
 Compile wxWidgets from source
 	- Strip and shrink resulting binaries
+View individual channel
 
 Project:
 	Get precompiled headers working

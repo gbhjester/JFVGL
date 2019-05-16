@@ -39,7 +39,7 @@ bool JFVGL::WXApp::OnInit()
 	if (wnd->canvas->img->w + (wnd->GetSize().x - wnd->GetClientSize().x) > disp.GetClientArea().width ||
 		wnd->canvas->img->h + (wnd->GetSize().y - wnd->GetClientSize().y) > disp.GetClientArea().height)
 	{
-		wnd->Maximize(true);
+		//wnd->Maximize(true);
 	}
 	wnd->SetClientSize(
 		JFVGL::fclamp(WND_WMIN, wnd->canvas->img->w, disp.GetClientArea().width),

@@ -11,6 +11,12 @@
 
 #pragma once
 
+#include "wx/wx.h"
+//#include "wx/dir.h"
+#include "wx/display.h"
+#include "wx/frame.h"
+//#include "wx/glcanvas.h"
+//#include "wx/image.h"
 #include "Main.h"
 #include "IWindow.h"
 #include "WXCanvas.h"

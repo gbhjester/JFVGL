@@ -6,7 +6,7 @@
  * Main.c
  */
 
-#include <cstdio>
+#include "wx/wx.h"
 #include "Main.h"
 #ifdef TARGET_GLUT
 #include "GLUTWindow.h" // For now

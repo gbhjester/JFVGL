@@ -9,9 +9,7 @@
  * Created on May 11, 2019, 9:17 PM
  */
 
-#include <GL/glu.h>
 #include "WXImage.h"
-#include "wx/wx.h"
 
 JFVGL::WXImage::WXImage()
 {
@@ -20,6 +18,16 @@ JFVGL::WXImage::WXImage()
 	this->bpc = 0;
 	this->id = 0;
 	this->filename = new wxString();
+	this->supportedFileTypes[0] = wxString("bmp");
+	this->supportedFileTypes[1] = wxString("gif");
+	this->supportedFileTypes[2] = wxString("jpg");
+	this->supportedFileTypes[3] = wxString("jpeg");
+	this->supportedFileTypes[4] = wxString("pcx");
+	this->supportedFileTypes[5] = wxString("png");
+	this->supportedFileTypes[6] = wxString("tga");
+	this->supportedFileTypes[7] = wxString("tif");
+	this->supportedFileTypes[8] = wxString("tiff");
+	this->supportedFileTypes[9] = wxString("");
 }
 
 JFVGL::WXImage::~WXImage()
@@ -31,11 +39,14 @@ JFVGL::WXImage::~WXImage()
 
 unsigned int JFVGL::WXImage::Open(wxString filename)
 {
+	wxLogNull DONTLOGME;
 	if (!wxFileExists(filename))
 	{
 		wxMessageBox(filename + " not found.", "Error");
 		return 0;
 	}
+	if (id != 0)
+		Close();
 	*this->filename = filename;
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	wxImage *img = new wxImage(filename);
@@ -71,10 +82,76 @@ unsigned int JFVGL::WXImage::Open(wxString filename)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	//glTexImage2D(GL_TEXTURE_2D, 0, bpc == 4 ? GL_RGBA : GL_RGB, w, h, 0, bpc == 4 ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, buf);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, img->GetData());
+	delete img;
 	return id;
 }
 
 void JFVGL::WXImage::Close()
 {
+	// TODO Test VERY IMPORTANT TO ENSURE IMAGES ARE RELEASED FROM VRAM
 	glDeleteTextures(1, &id);
+	id = 0;
+}
+
+void JFVGL::WXImage::TraverseDirectory(int delta)
+{
+	if (delta == 0)
+		return;
+	wxString tstr(*filename);
+	char *tstrcstr = (char *)tstr.c_str().AsChar();
+	for (int i = tstr.length() - 1; i >= 0; i--)
+	{
+		if (tstrcstr[i] == '/' || tstrcstr[i] == '\\')
+		{
+			tstr = tstr.Mid(0, i);
+			break;
+		}
+	}
+#ifdef DEBUG
+	printf("[%s]\n", tstr.c_str().AsChar());
+#endif
+	wxArrayString asfiles, supportedFiles;
+	// NOTE GetAllFiles(...) and manually traversing is probably slower than Traverse(...)
+	wxDir::GetAllFiles(tstr, &asfiles, wxString("*.*"), wxDIR_FILES | wxDIR_NO_FOLLOW);
+	for (size_t i = 0; i < asfiles.Count(); i++)
+	{
+		int o = 0;
+		while (supportedFileTypes[o] != "")
+		{
+			if (asfiles[i].EndsWith(supportedFileTypes[o]))
+				supportedFiles.Add(asfiles[i]);
+			o++;
+		}
+	}
+#ifdef DEBUG
+	for (size_t i = 0; i < supportedFiles.Count(); i++)
+		printf(">%s\n", supportedFiles[i].c_str().AsChar());
+#endif
+	// TODO Optimize. Traversing to big files is SLOW
+	// TODO Find current file in list
+	for (size_t i = 0; i < supportedFiles.Count(); i++)
+	{
+		if (*filename == supportedFiles[i])
+		{
+			if (delta < 0)	// Backward
+			{
+				if (i > 0)
+				{
+					Close();
+					Open(supportedFiles[i - 1]);
+					return;
+				}
+			}
+			else if (delta > 0)	// Forward
+			{
+				if (i < supportedFiles.Count() - 1)
+				{
+					Close();
+					Open(supportedFiles[i + 1]);
+					return;
+				}
+			}
+		}
+	}
+	// TODO Sort by shlwapi::StrCmpLogicalW(...)
 }

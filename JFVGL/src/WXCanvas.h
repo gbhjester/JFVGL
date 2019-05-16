@@ -11,8 +11,14 @@
 
 #pragma once
 
+//#include <shlwapi.h>
+#include <GL/glu.h>
+#include <GL/gl.h>
+#include "wx/wx.h"
+#include "wx/glcanvas.h"
 #include "Main.h"
 #include "WXImage.h"
+#include "Main.h"
 
 namespace JFVGL
 {
@@ -69,6 +75,7 @@ namespace JFVGL
 
 		/* Events */
 
+		// TODO Move to WXWindow
 		void Render(wxPaintEvent &e);
 		void Resized(wxSizeEvent &e);
 		void MouseMoved(wxMouseEvent &e);

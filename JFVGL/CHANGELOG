@@ -1,5 +1,11 @@
 *** CHANGELOG ***
 
+2019-05-14
+Window will no longer maximize on initial image load
+Initial support for directory traversal
+Disable wx warning popups (logging) in WXImage::Open(...)
+Remove interface IImage
+
 2019-05-13
 Window will now maximize on startup image load if image size is larger than screen size
 Change C++ standard from C++11 to C++98

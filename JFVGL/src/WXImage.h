@@ -11,20 +11,27 @@
 
 #pragma once
 
+#include <GL/glu.h>
 #include <GL/gl.h>
+#include "wx/wx.h"
+#include "wx/dir.h"
+//#include "wx/display.h"
+#include "wx/frame.h"
+//#include "wx/glcanvas.h"
+#include "wx/image.h"
 #include "Main.h"
-#include "IImage.h"
 
 namespace JFVGL
 {
 
-	class WXImage : public IImage
+	class WXImage
 	{
 	private:
+		// TODO Move to class Preferences
+		wxString supportedFileTypes[10];
+
 	protected:
 	public:
-
-		//wxImage *img;
 		int w, h;
 		unsigned char bpc;
 		unsigned int id;
@@ -60,5 +67,6 @@ namespace JFVGL
 
 		virtual unsigned int Open(wxString filename);
 		virtual void Close();
+		void TraverseDirectory(int delta);
 	};
 }

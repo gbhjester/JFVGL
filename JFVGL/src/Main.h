@@ -8,7 +8,10 @@
 
 #pragma once
 
-#include "prec.h"
+#ifdef DEBUG
+#include <cstdio>
+#endif
+//#include "prec.h"
 
 #if defined(__linux__) || defined(__linux__) || defined(__linux) || defined(linux) || defined(LINUX)
 	#define LINUX

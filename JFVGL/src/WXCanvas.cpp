@@ -9,8 +9,6 @@
  * Created on May 11, 2019, 7:21 PM
  */
 
-#include <GL/glu.h>
-#include <GL/gl.h>
 #include "WXCanvas.h"
 #include "WXImage.h"
 
@@ -153,6 +151,18 @@ void JFVGL::WXCanvas::MouseMiddleDoubleClick(wxMouseEvent &e)
 
 void JFVGL::WXCanvas::KeyDown(wxKeyEvent &e)
 {
-	if (e.GetUnicodeKey() == 27 || e.GetUnicodeKey() == 13)
+	if (e.GetKeyCode() == WXK_ESCAPE || e.GetKeyCode() == WXK_RETURN)
+	{
 		GetParent()->Close(true);
+		return;
+	}
+	
+	if (e.GetKeyCode() == WXK_LEFT)
+	{
+		img->TraverseDirectory(-1);
+	}
+	else if (e.GetKeyCode() == WXK_RIGHT)
+	{
+		img->TraverseDirectory(1);
+	}
 }
