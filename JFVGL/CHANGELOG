@@ -6,6 +6,7 @@ Initial support for directory traversal
 Disable wx warning popups (logging) in WXImage::Open(...)
 Remove interface IImage
 Window updates title on successive image load
+Window now opens before loading first image
 
 2019-05-13
 Window will now maximize on startup image load if image size is larger than screen size

@@ -30,6 +30,8 @@ bool JFVGL::WXApp::OnInit()
 	wnd->SetSizer(sizer);
 	wnd->SetAutoLayout(true);
 	// TODO Check for file paths with spaces (path split over multiple args)
+	wnd->SetTitle("Loading...");
+	wnd->Show(true);
 	if (wxApp::argc == 2)
 		wnd->canvas->img->Open(wxApp::argv[1]);
 	else
@@ -39,7 +41,7 @@ bool JFVGL::WXApp::OnInit()
 	if (wnd->canvas->img->w + (wnd->GetSize().x - wnd->GetClientSize().x) > disp.GetClientArea().width ||
 		wnd->canvas->img->h + (wnd->GetSize().y - wnd->GetClientSize().y) > disp.GetClientArea().height)
 	{
-		//wnd->Maximize(true);
+		// TODO Set zoom appropriately
 	}
 	wnd->SetClientSize(
 		JFVGL::fclamp(WND_WMIN, wnd->canvas->img->w, disp.GetClientArea().width),
@@ -47,7 +49,7 @@ bool JFVGL::WXApp::OnInit()
 	wnd->SetPosition(wxPoint(
 		(disp.GetClientArea().width - wnd->GetSize().x) / 2,
 		(disp.GetClientArea().height - wnd->GetSize().y) / 2));
-	return wnd->Show(true);
+	return true;
 }
 
 BEGIN_EVENT_TABLE(JFVGL::WXCanvas, wxGLCanvas)
