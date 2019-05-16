@@ -160,9 +160,13 @@ void JFVGL::WXCanvas::KeyDown(wxKeyEvent &e)
 	if (e.GetKeyCode() == WXK_LEFT)
 	{
 		img->TraverseDirectory(-1);
+		((wxFrame *)GetParent())->SetTitle(*img->filename);
+		Refresh();
 	}
 	else if (e.GetKeyCode() == WXK_RIGHT)
 	{
 		img->TraverseDirectory(1);
+		((wxFrame *)GetParent())->SetTitle(*img->filename);
+		Refresh();
 	}
 }
