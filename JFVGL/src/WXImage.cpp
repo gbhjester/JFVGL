@@ -18,15 +18,15 @@ JFVGL::WXImage::WXImage()
 	this->bpc = 0;
 	this->id = 0;
 	this->filename = new wxString();
-	this->supportedFileTypes[0] = wxString("bmp");
-	this->supportedFileTypes[1] = wxString("gif");
-	this->supportedFileTypes[2] = wxString("jpg");
-	this->supportedFileTypes[3] = wxString("jpeg");
-	this->supportedFileTypes[4] = wxString("pcx");
-	this->supportedFileTypes[5] = wxString("png");
-	this->supportedFileTypes[6] = wxString("tga");
-	this->supportedFileTypes[7] = wxString("tif");
-	this->supportedFileTypes[8] = wxString("tiff");
+	this->supportedFileTypes[0] = wxString(".bmp");
+	this->supportedFileTypes[1] = wxString(".gif");
+	this->supportedFileTypes[2] = wxString(".jpg");
+	this->supportedFileTypes[3] = wxString(".jpeg");
+	this->supportedFileTypes[4] = wxString(".pcx");
+	this->supportedFileTypes[5] = wxString(".png");
+	this->supportedFileTypes[6] = wxString(".tga");
+	this->supportedFileTypes[7] = wxString(".tif");
+	this->supportedFileTypes[8] = wxString(".tiff");
 	this->supportedFileTypes[9] = wxString("");
 }
 
@@ -89,7 +89,8 @@ unsigned int JFVGL::WXImage::Open(wxString filename)
 void JFVGL::WXImage::Close()
 {
 	// TODO Test VERY IMPORTANT TO ENSURE IMAGES ARE RELEASED FROM VRAM
-	glDeleteTextures(1, &id);
+	// Seems to work
+	//glDeleteTextures(1, &id);
 	id = 0;
 }
 
@@ -97,6 +98,7 @@ void JFVGL::WXImage::TraverseDirectory(int delta)
 {
 	if (delta == 0)
 		return;
+	// TODO Rename tstr
 	wxString tstr(*filename);
 	char *tstrcstr = (char *)tstr.c_str().AsChar();
 	for (int i = tstr.length() - 1; i >= 0; i--)
@@ -108,7 +110,7 @@ void JFVGL::WXImage::TraverseDirectory(int delta)
 		}
 	}
 #ifdef DEBUG
-	printf("[%s]\n", tstr.c_str().AsChar());
+	printf("WXImage::TraverseDirectory() Directory name:\n\t[%s]\n", tstr.c_str().AsChar());
 #endif
 	wxArrayString asfiles, supportedFiles;
 	// NOTE GetAllFiles(...) and manually traversing is probably slower than Traverse(...)
@@ -123,9 +125,13 @@ void JFVGL::WXImage::TraverseDirectory(int delta)
 			o++;
 		}
 	}
+	
+	// Sort supportedFiles according to StrCmpLogicalW(...)
+	supportedFiles.Sort(_wxStrCmpLogical);
 #ifdef DEBUG
+	printf("WXImage::TraverseDirectory() Files:\n");
 	for (size_t i = 0; i < supportedFiles.Count(); i++)
-		printf(">%s\n", supportedFiles[i].c_str().AsChar());
+		printf("\t>%s\n", supportedFiles[i].c_str().AsChar());
 #endif
 	// TODO Optimize. Traversing to big files is SLOW
 	// TODO Find current file in list

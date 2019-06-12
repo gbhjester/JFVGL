@@ -45,7 +45,7 @@ LDFLAGS=-L$(LDIR) -L$(LDIR)/wx
 ifeq ($(ENV), Linux)
 	LDFLAGS+=# TODO add Linux wx linker args
 else
-	LDFLAGS+=-lopengl32 -lglu32 $(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a $(LDIR)/wx/libwxmsw31u_gl.a
+	LDFLAGS+=-lshlwapi -lopengl32 -lglu32 $(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a $(LDIR)/wx/libwxmsw31u_gl.a
 ifeq ($(DBG), 0)
 	LDFLAGS+=-mwindows
 endif

@@ -11,6 +11,7 @@
 
 #pragma once
 
+#include <shlwapi.h>
 #include <GL/glu.h>
 #include <GL/gl.h>
 #include "wx/wx.h"
@@ -61,6 +62,19 @@ namespace JFVGL
 			using JFVGL::Swap;
 			// Swap all member variables
 			//swap(lhs.x, rhs.x);
+		}
+
+		static int _wxStrCmpLogical(const wxString &first, const wxString &second)
+		{
+#ifdef DEBUG
+			wprintf(L"WXImage::_wxStrCmpLogical() first.wc.str():\n\t[%s]\n", first.wc_str());
+#endif
+			// TODO Implement StrCmpLogicalW locally
+#ifdef WINDOWS
+			const wchar_t *psz1 = first.c_str();
+			const wchar_t *psz2 = second.c_str();
+			return StrCmpLogicalW(psz1, psz2);
+#endif
 		}
 
 		/* API */

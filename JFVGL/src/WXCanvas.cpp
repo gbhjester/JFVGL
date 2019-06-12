@@ -134,7 +134,7 @@ void JFVGL::WXCanvas::MouseWheel(wxMouseEvent &e)
 	}
 	Refresh();
 #ifdef DEBUG
-	printf("%f\n", f);
+	printf("Zoom %f%%\n", f * 100);
 #endif
 }
 
