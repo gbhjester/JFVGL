@@ -7,6 +7,7 @@ Move WXCanvas event table from WXWindow to WXCanvas
 RMB now pans view, LMB pans window
 View now centers when switching images
 View now zooms image to fit when switching images
+Set bilinear filtering
 
 2019-06-11
 On Windows, sort folder contents with shlwapi::StrCmpLogicalW(...)
