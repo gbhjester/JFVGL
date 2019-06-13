@@ -11,10 +11,10 @@
 
 #pragma once
 
-//#include <shlwapi.h>
 #include <GL/glu.h>
 #include <GL/gl.h>
 #include "wx/wx.h"
+#include "wx/display.h"
 #include "wx/glcanvas.h"
 #include "Main.h"
 #include "WXImage.h"
@@ -26,18 +26,13 @@ namespace JFVGL
 	class WXCanvas : public wxGLCanvas
 	{
 	private:
+		wxGLContext *context;
+		wxFrame *fParent;
 		float f;
 		float px, py; // Previous mouse coords
 		float ppx, ppy; // Previous passive mouse coords (not updated while dragging
 		float dx, dy; // Delta mouse coords (x - px)
 		float cx, cy; // Camera coords
-
-		/* wxWidgets variables */
-
-		wxGLContext *context;
-
-		/* wxWidgets API */
-
 	protected:
 	public:
 		WXImage *img;
@@ -68,14 +63,10 @@ namespace JFVGL
 			// Swap all member variables
 			//swap(lhs.x, rhs.x);
 		}*/
+		
+		void SizeFormToImage(bool bCenter);
 
-		/* API */
-
-		/* wxWidgets API */
-
-		/* Events */
-
-		// TODO Move to WXWindow
+		DECLARE_EVENT_TABLE()
 		void Render(wxPaintEvent &e);
 		void Resized(wxSizeEvent &e);
 		void MouseMoved(wxMouseEvent &e);
@@ -83,7 +74,5 @@ namespace JFVGL
 		void MouseLeftDoubleClick(wxMouseEvent &e);
 		void MouseMiddleDoubleClick(wxMouseEvent &e);
 		void KeyDown(wxKeyEvent &e);
-
-		DECLARE_EVENT_TABLE()
 	};
 }

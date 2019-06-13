@@ -125,8 +125,6 @@ void JFVGL::WXImage::TraverseDirectory(int delta)
 			o++;
 		}
 	}
-	
-	// Sort supportedFiles according to StrCmpLogicalW(...)
 	supportedFiles.Sort(_wxStrCmpLogical);
 #ifdef DEBUG
 	printf("WXImage::TraverseDirectory() Files:\n");
@@ -159,5 +157,4 @@ void JFVGL::WXImage::TraverseDirectory(int delta)
 			}
 		}
 	}
-	// TODO Sort by shlwapi::StrCmpLogicalW(...)
 }

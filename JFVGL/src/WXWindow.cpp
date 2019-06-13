@@ -11,10 +11,6 @@
 
 #include "WXWindow.h"
 
-// TODO Move to Preferences
-#define WND_WMIN 300
-#define WND_HMIN 300
-
 bool JFVGL::WXApp::OnInit()
 {
 	wxInitAllImageHandlers();
@@ -29,48 +25,17 @@ bool JFVGL::WXApp::OnInit()
 	sizer->Add(wnd->canvas, 1, wxEXPAND);
 	wnd->SetSizer(sizer);
 	wnd->SetAutoLayout(true);
-	// TODO Check for file paths with spaces (path split over multiple args)
-	wnd->SetTitle("Loading...");
+	wnd->SetTitle("JFVGL");
 	wnd->Show(true);
 	if (wxApp::argc == 2)
 		wnd->canvas->img->Open(wxApp::argv[1]);
 	else
 		wnd->canvas->img->Open("table2.png");
 	wnd->SetTitle(/*"JFVGL - " + */*wnd->canvas->img->filename);
-	// TODO Set display to display mouse currently inside
-	if (wnd->canvas->img->w + (wnd->GetSize().x - wnd->GetClientSize().x) > disp.GetClientArea().width ||
-		wnd->canvas->img->h + (wnd->GetSize().y - wnd->GetClientSize().y) > disp.GetClientArea().height)
-	{
-		// TODO Set zoom appropriately
-	}
-	wnd->SetClientSize(
-		JFVGL::fclamp(WND_WMIN, wnd->canvas->img->w, disp.GetClientArea().width),
-		JFVGL::fclamp(WND_HMIN, wnd->canvas->img->h, disp.GetClientArea().height));
-	wnd->SetPosition(wxPoint(
-		(disp.GetClientArea().width - wnd->GetSize().x) / 2,
-		(disp.GetClientArea().height - wnd->GetSize().y) / 2));
+	// TODO Set display to display that mouse currently inside
+	wnd->canvas->SizeFormToImage(true);
 	return true;
 }
 
-BEGIN_EVENT_TABLE(JFVGL::WXCanvas, wxGLCanvas)
-EVT_PAINT(JFVGL::WXCanvas::Render)
-EVT_SIZE(JFVGL::WXCanvas::Resized)
-EVT_MOTION(JFVGL::WXCanvas::MouseMoved)
-EVT_MOUSEWHEEL(JFVGL::WXCanvas::MouseWheel)
-EVT_LEFT_DCLICK(JFVGL::WXCanvas::MouseLeftDoubleClick)
-EVT_MIDDLE_DCLICK(JFVGL::WXCanvas::MouseMiddleDoubleClick)
-EVT_KEY_DOWN(JFVGL::WXCanvas::KeyDown)
-//EVT_(JFVGL::WXCanvas::)
-END_EVENT_TABLE()
-
 JFVGL::WXWindow::WXWindow() : wxFrame(NULL, wxID_ANY, "JFVGL"){ }
-
 JFVGL::WXWindow::~WXWindow(){ }
-
-/* wxWidgets API */
-
-/* API */
-
-void JFVGL::WXWindow::Start(){ }
-
-void JFVGL::WXWindow::Render(){ }

@@ -10,9 +10,10 @@
  */
 
 #include "WXCanvas.h"
-#include "WXImage.h"
 
 // TODO Move to class Preferences
+#define WND_WMIN 300
+#define WND_HMIN 300
 #define FPS_TARGET 60
 #define ZOOM_MIN 0.01f
 #define ZOOM_MAX 10.f
@@ -22,6 +23,7 @@ JFVGL::WXCanvas::WXCanvas(wxFrame *owner, int *args)
 {
 	this->context = new wxGLContext(this);
 	SetCurrent(*context);
+	this->fParent = owner;
 	this->img = new WXImage();
 
 	this->f = 1.f;
@@ -38,7 +40,54 @@ JFVGL::WXCanvas::~WXCanvas()
 	delete context;
 }
 
-/* Events */
+void JFVGL::WXCanvas::SizeFormToImage(bool bCenter)
+{
+	wxDisplay disp(wxDisplay::GetFromWindow(fParent));
+	cx = 0;
+	cy = 0;
+	f = 1.f;
+	if (img->w > disp.GetClientArea().width)
+	{
+		f = fclamp(ZOOM_MIN, (float) disp.GetClientArea().width / img->w, ZOOM_MAX);
+	}
+	if (img->h > disp.GetClientArea().height)
+	{
+		f = fclamp(ZOOM_MIN, (float) disp.GetClientArea().height / img->h, ZOOM_MAX);
+	}
+	if (!fParent->IsMaximized())
+	{
+		wxSize oldSize(fParent->GetSize());
+		wxPoint oldCenter(fParent->GetPosition());
+		oldCenter.x += (oldSize.x) / 2;
+		oldCenter.y += (oldSize.y) / 2;
+		fParent->SetClientSize(
+			JFVGL::fclamp(WND_WMIN, img->w * f, disp.GetClientArea().width),
+			JFVGL::fclamp(WND_HMIN, img->h * f, disp.GetClientArea().height));
+		if (bCenter)
+		{
+			fParent->SetPosition(wxPoint(
+				(disp.GetClientArea().width - fParent->GetSize().x) / 2,
+				(disp.GetClientArea().height - fParent->GetSize().y) / 2));
+		}
+		else
+		{
+			fParent->SetPosition(wxPoint(
+				oldCenter.x - (GetSize().x / 2),
+				oldCenter.y - (GetSize().y / 2)));
+		}
+	}
+}
+
+BEGIN_EVENT_TABLE(JFVGL::WXCanvas, wxGLCanvas)
+EVT_PAINT(JFVGL::WXCanvas::Render)
+EVT_SIZE(JFVGL::WXCanvas::Resized)
+EVT_MOTION(JFVGL::WXCanvas::MouseMoved)
+EVT_MOUSEWHEEL(JFVGL::WXCanvas::MouseWheel)
+EVT_LEFT_DCLICK(JFVGL::WXCanvas::MouseLeftDoubleClick)
+EVT_MIDDLE_DCLICK(JFVGL::WXCanvas::MouseMiddleDoubleClick)
+EVT_KEY_DOWN(JFVGL::WXCanvas::KeyDown)
+//EVT_(JFVGL::WXCanvas::)
+END_EVENT_TABLE()
 
 void JFVGL::WXCanvas::Render(wxPaintEvent& e)
 {
@@ -98,12 +147,7 @@ void JFVGL::WXCanvas::MouseMoved(wxMouseEvent &e)
 {
 	dx = e.GetX() - px;
 	dy = e.GetY() - py;
-	if (e.LeftIsDown()) // LMB - pan view
-	{
-		cx += dx / f;
-		cy += dy / f;
-	}
-	else if (e.RightIsDown()) // RMB - pan window
+	if (e.LeftIsDown()) // LMB - pan window
 	{
 		if (!((wxFrame *)GetParent())->IsMaximized())
 		{
@@ -111,6 +155,11 @@ void JFVGL::WXCanvas::MouseMoved(wxMouseEvent &e)
 				e.GetX() - ppx + GetParent()->GetPosition().x,
 				e.GetY() - ppy + GetParent()->GetPosition().y);
 		}
+	}
+	else if (e.RightIsDown()) // RMB - pan view
+	{
+		cx += dx / f;
+		cy += dy / f;
 	}
 	else // Nothing pressed
 	{
@@ -140,8 +189,7 @@ void JFVGL::WXCanvas::MouseWheel(wxMouseEvent &e)
 
 void JFVGL::WXCanvas::MouseLeftDoubleClick(wxMouseEvent &e)
 {
-	wxFrame *fp = ((wxFrame *)GetParent());
-	fp->Maximize(!fp->IsMaximized());
+	fParent->Maximize(!fParent->IsMaximized());
 }
 
 void JFVGL::WXCanvas::MouseMiddleDoubleClick(wxMouseEvent &e)
@@ -153,22 +201,19 @@ void JFVGL::WXCanvas::KeyDown(wxKeyEvent &e)
 {
 	if (e.GetKeyCode() == WXK_ESCAPE || e.GetKeyCode() == WXK_RETURN)
 	{
-		GetParent()->Close(true);
+		fParent->Close(true);
 		return;
 	}
 	
-	if (e.GetKeyCode() == WXK_LEFT)
+	if (e.GetKeyCode() == WXK_LEFT || e.GetKeyCode() == WXK_RIGHT)
 	{
-		((wxFrame *)GetParent())->SetTitle("Loading...");
-		img->TraverseDirectory(-1);
-		((wxFrame *)GetParent())->SetTitle(*img->filename);
-		Refresh();
-	}
-	else if (e.GetKeyCode() == WXK_RIGHT)
-	{
-		((wxFrame *)GetParent())->SetTitle("Loading...");
-		img->TraverseDirectory(1);
-		((wxFrame *)GetParent())->SetTitle(*img->filename);
+		fParent->SetTitle("Loading...");
+		if (e.GetKeyCode() == WXK_LEFT)
+			img->TraverseDirectory(-1);
+		else if (e.GetKeyCode() == WXK_RIGHT)
+			img->TraverseDirectory(1);
+		fParent->SetTitle(*img->filename);
+		SizeFormToImage(false);
 		Refresh();
 	}
 }
