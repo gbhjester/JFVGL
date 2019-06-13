@@ -57,6 +57,7 @@ void JFVGL::WXCanvas::SizeFormToImage(bool bCenter)
 	if (!fParent->IsMaximized())
 	{
 		wxSize oldSize(fParent->GetSize());
+		oldSize -= fParent->GetSize() - fParent->GetClientSize();
 		wxPoint oldCenter(fParent->GetPosition());
 		oldCenter.x += (oldSize.x) / 2;
 		oldCenter.y += (oldSize.y) / 2;
