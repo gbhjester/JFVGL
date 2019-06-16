@@ -1,5 +1,12 @@
 *** CHANGELOG ***
 
+2019-06-16
+Fix not locating images with extensions containing upper case letters
+
+2019-06-14
+MMB now pans view
+Numpad enter / return also closes window
+
 2019-06-12
 Remove interface IWindow
 Window now resizes when switching images

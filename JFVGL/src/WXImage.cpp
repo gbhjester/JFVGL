@@ -120,7 +120,7 @@ void JFVGL::WXImage::TraverseDirectory(int delta)
 		int o = 0;
 		while (supportedFileTypes[o] != "")
 		{
-			if (asfiles[i].EndsWith(supportedFileTypes[o]))
+			if (asfiles[i].Lower().EndsWith(supportedFileTypes[o]))
 				supportedFiles.Add(asfiles[i]);
 			o++;
 		}
