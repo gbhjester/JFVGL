@@ -159,7 +159,7 @@ void JFVGL::WXCanvas::MouseMoved(wxMouseEvent &e)
 				e.GetY() - ppy + GetParent()->GetPosition().y);
 		}
 	}
-	else if (e.RightIsDown()) // RMB - pan view
+	else if (e.MiddleIsDown()) // MMB - pan view
 	{
 		cx += dx / f;
 		cy += dy / f;
@@ -202,7 +202,10 @@ void JFVGL::WXCanvas::MouseMiddleDoubleClick(wxMouseEvent &e)
 
 void JFVGL::WXCanvas::KeyDown(wxKeyEvent &e)
 {
-	if (e.GetKeyCode() == WXK_ESCAPE || e.GetKeyCode() == WXK_RETURN)
+#ifdef DEBUG
+	printf("Key down : %d\n", e.GetKeyCode());
+#endif
+	if (e.GetKeyCode() == WXK_ESCAPE || e.GetKeyCode() == WXK_RETURN || e.GetKeyCode() == 370)
 	{
 		fParent->Close(true);
 		return;
