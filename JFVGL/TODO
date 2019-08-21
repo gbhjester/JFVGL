@@ -3,20 +3,21 @@
 Separate class WXApp from WXWindow.cpp into WXApp.cpp
 Implement main(...) and add wx startup macros
 Refactor WXWindow/WXCanvas/WXImage data sharing / gl sharing shitness
-Fix Linux linking shitness
-	- Need to link wxWidgets on Linux...
 Add class Preferences
 	- Load(), Save()
 	- Subclass wxConfig?
 Add right click context menu
 Drop dependency GLUT (AFTER wxWindow codepath fully supported on Windows AND Linux!)
 Refactor away from old multi-backend design
-	- Remove define TARGET_WX
-Compile wxWidgets from source
-	- Strip and shrink resulting binaries
+
 
 Project:
 	Get precompiled headers working
+	Platform dependant clean (JFVGL vs JFVGL.exe etc)
+	Compile wxWidgets from source
+		- Strip and shrink resulting binaries
+	Fix Linux linking shitness
+		- Need to link wxWidgets on Linux...
 
 View:
 	Zoom around mouse cursor

@@ -1,5 +1,8 @@
 *** CHANGELOG ***
 
+2019-07-19
+Remove unused Main.cpp(...) and obsolete codepaths (glut etc)
+
 2019-06-16
 Fix not locating images with extensions containing upper case letters
 

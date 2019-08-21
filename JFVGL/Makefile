@@ -72,5 +72,6 @@ prec: $(SDIR)/prec.h.gch
 
 clean:
 	rm -f $(NAME)
+	rm -f $(NAME).exe
 	rm -r -f obj
 	mkdir obj

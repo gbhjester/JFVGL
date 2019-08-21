@@ -11,6 +11,8 @@
 
 #include "WXImage.h"
 
+#define WXIMAGE_CODEPATH_PROCESSIMAGECPU
+
 JFVGL::WXImage::WXImage()
 {
 	this->w = 0;
@@ -42,11 +44,15 @@ unsigned int JFVGL::WXImage::Open(wxString filename)
 	wxLogNull DONTLOGME;
 	if (!wxFileExists(filename))
 	{
+		// TODO Replace with log error or something
 		wxMessageBox(filename + " not found.", "Error");
 		return 0;
 	}
+
+	// Memory leak protection
 	if (id != 0)
 		Close();
+
 	*this->filename = filename;
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	wxImage *img = new wxImage(filename);
@@ -58,20 +64,22 @@ unsigned int JFVGL::WXImage::Open(wxString filename)
 #ifdef DEBUG
 	printf("bpc : %d\n", bpc);
 #endif
-	/*unsigned char *buf = new unsigned char[w * h * bpc];
+#ifdef WXIMAGE_CODEPATH_PROCESSIMAGECPU
+	unsigned char *buf = new unsigned char[w * h * bpc];
 	unsigned char *data = img->GetData();
 	unsigned char *alpha = img->GetAlpha();
 	for (int y = 0; y < h; y++)
 	{
 		for (int x = 0; x < w; x++)
 		{
-			buf[x + y * w  * bpc + 0] = data[x + y * w  * 3];
-			buf[x + y * w  * bpc + 1] = data[x + y * w  * 3 + 1];
-			buf[x + y * w  * bpc + 2] = data[x + y * w  * 3 + 2];
+			buf[x + y * w * bpc + 0] = data[x + y * w * 3];
+			buf[x + y * w * bpc + 1] = data[x + y * w * 3 + 1];
+			buf[x + y * w * bpc + 2] = data[x + y * w * 3 + 2];
 			if (bpc == 4)
 				buf[x + y * w * bpc + 3] = alpha[x + y * w];
 		}
-	}*/
+	}
+#endif
 	glClearColor(0.25f, 0.25f, 0.25f, 1.f);
 	glColor3f(0.5f, 0.5f, 1.f);
 	glMatrixMode(GL_PROJECTION);
@@ -80,8 +88,11 @@ unsigned int JFVGL::WXImage::Open(wxString filename)
 	glGenTextures(1, &id);
 	glBindTexture(GL_TEXTURE_2D, id);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	//glTexImage2D(GL_TEXTURE_2D, 0, bpc == 4 ? GL_RGBA : GL_RGB, w, h, 0, bpc == 4 ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, buf);
+#ifdef WXIMAGE_CODEPATH_PROCESSIMAGECPU
+	glTexImage2D(GL_TEXTURE_2D, 0, bpc == 4 ? GL_RGB : GL_RGB, w, h, 0, bpc == 4 ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, buf);
+#else
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, img->GetData());
+#endif
 	delete img;
 	return id;
 }
@@ -137,7 +148,7 @@ void JFVGL::WXImage::TraverseDirectory(int delta)
 	{
 		if (*filename == supportedFiles[i])
 		{
-			if (delta < 0)	// Backward
+			if (delta < 0) // Backward
 			{
 				if (i > 0)
 				{
@@ -146,7 +157,7 @@ void JFVGL::WXImage::TraverseDirectory(int delta)
 					return;
 				}
 			}
-			else if (delta > 0)	// Forward
+			else if (delta > 0) // Forward
 			{
 				if (i < supportedFiles.Count() - 1)
 				{
