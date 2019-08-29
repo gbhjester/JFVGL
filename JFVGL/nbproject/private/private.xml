@@ -9,21 +9,7 @@
     </data>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Jester/Documents/SVN/Github/JFVGL/JFVGL/src/WXWindow.cpp</file>
-            <file>file:/C:/Users/Jester/Documents/SVN/Github/JFVGL/JFVGL/src/Main.h</file>
-            <file>file:/C:/Users/Jester/Documents/SVN/Github/JFVGL/JFVGL/src/prec.h</file>
-            <file>file:/C:/Users/Jester/Documents/SVN/Github/JFVGL/JFVGL/README</file>
-            <file>file:/C:/Users/Jester/Documents/SVN/Github/JFVGL/JFVGL/Makefile</file>
-            <file>file:/C:/Users/Jester/Documents/SVN/Github/JFVGL/JFVGL/src/WXCanvas.h</file>
-            <file>file:/C:/Users/Jester/Documents/SVN/Github/JFVGL/JFVGL/TODO</file>
-            <file>file:/C:/Users/Jester/Documents/SVN/Github/JFVGL/JFVGL/src/WXImage.h</file>
-            <file>file:/C:/Users/Jester/Documents/SVN/Github/JFVGL/JFVGL/src/WXWindow.h</file>
-            <file>file:/C:/Users/Jester/Documents/SVN/Github/JFVGL/JFVGL/src/WXCanvas.cpp</file>
-            <file>file:/C:/Users/Jester/Documents/SVN/Github/JFVGL/JFVGL/CHANGELOG</file>
-            <file>file:/C:/Users/Jester/Documents/SVN/Github/JFVGL/JFVGL/src/WXImage.cpp</file>
-            <file>file:/C:/Users/Jester/Documents/SVN/Github/JFVGL/JFVGL/src/Main.cpp</file>
-        </group>
+        <group/>
     </open-files>
     <preferences xmlns="http://www.netbeans.org/ns/auxiliary-configuration-preferences/1">
         <module name="org-netbeans-modules-cnd-discovery">

@@ -1550,7 +1550,6 @@
       <in>WXImage.h</in>
       <in>WXWindow.cpp</in>
       <in>WXWindow.h</in>
-      <in>prec.h</in>
     </df>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>

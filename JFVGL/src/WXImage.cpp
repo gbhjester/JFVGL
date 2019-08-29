@@ -11,7 +11,7 @@
 
 #include "WXImage.h"
 
-#define WXIMAGE_CODEPATH_PROCESSIMAGECPU
+//#define WXIMAGE_CODEPATH_PROCESSIMAGECPU
 
 JFVGL::WXImage::WXImage()
 {
@@ -111,7 +111,7 @@ void JFVGL::WXImage::TraverseDirectory(int delta)
 		return;
 	// TODO Rename tstr
 	wxString tstr(*filename);
-	char *tstrcstr = (char *)tstr.c_str().AsChar();
+	/*char *tstrcstr = (char *)tstr.c_str().AsChar();
 	for (int i = tstr.length() - 1; i >= 0; i--)
 	{
 		if (tstrcstr[i] == '/' || tstrcstr[i] == '\\')
@@ -119,7 +119,9 @@ void JFVGL::WXImage::TraverseDirectory(int delta)
 			tstr = tstr.Mid(0, i);
 			break;
 		}
-	}
+	}*/
+	tstr = tstr.Mid(0, tstr.Find('/', true));
+	tstr = tstr.Mid(0, tstr.Find('\\', true));
 #ifdef DEBUG
 	printf("WXImage::TraverseDirectory() Directory name:\n\t[%s]\n", tstr.c_str().AsChar());
 #endif
