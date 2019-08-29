@@ -13,7 +13,6 @@ FreeGLUT (bundled, not working under Linux atm, to be removed).
 wxWidgets (bundled).
 
 ## BUILDING
-I do full builds with:
-make clean ; make
+make clean ; make -j
 
 Set switches (DBG, OPT, etc) in Makefile.
