@@ -12,15 +12,10 @@
 #pragma once
 
 #include "wx/wx.h"
-//#include "wx/dir.h"
 #include "wx/display.h"
 #include "wx/frame.h"
-//#include "wx/glcanvas.h"
-//#include "wx/image.h"
 #include "Main.h"
-#include "IWindow.h"
 #include "WXCanvas.h"
-#include "WXImage.h"
 
 namespace JFVGL
 {
@@ -31,7 +26,7 @@ namespace JFVGL
 		bool OnInit();
 	};
 
-	class WXWindow : public IWindow, public wxFrame
+	class WXWindow : public wxFrame
 	{
 	private:
 
@@ -62,19 +57,11 @@ namespace JFVGL
 
 		virtual ~WXWindow();
 
-		friend void Swap(WXWindow &lhs, WXWindow &rhs)
+		void Swap(WXWindow &lhs, WXWindow &rhs)
 		{
 			using JFVGL::Swap;
 			// Swap all member variables
 			//swap(lhs.x, rhs.x);
 		}
-
-		/* API */
-
-		virtual void Start();
-		virtual void Render();
-
-		/* wxWidgets API */
-
 	};
 }

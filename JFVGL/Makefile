@@ -1,12 +1,16 @@
 # I, Jester, hereby release this work, except as stated otherwise, into the public domain.
 
-ENV=$(shell uname)
+NAME=JFVGL
+
+#ENV=$(shell uname)
+#ENV=Linux
+ENV=Windows
 # 0, 1
-DBG=0
+DBG=1
 # 0, 1
 DBG_CMP=0
 # 2, 6, s. 0 = disabled
-OPT=6
+OPT=0
 
 DEFINES=-DTARGET_WX
 ifneq ($(DBG), 0)
@@ -40,37 +44,33 @@ else
 	CXXFLAGS+=-Og
 endif
 
-
 LDFLAGS=-L$(LDIR) -L$(LDIR)/wx
 ifeq ($(ENV), Linux)
 	LDFLAGS+=-lGL -lGLU $(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a $(LDIR)/wx/libwxmsw31u_gl.a
 else
-	LDFLAGS+=-lopengl32 -lglu32 $(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a $(LDIR)/wx/libwxmsw31u_gl.a
+	LDFLAGS+=-lshlwapi -lopengl32 -lglu32 $(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a $(LDIR)/wx/libwxmsw31u_gl.a
 ifeq ($(DBG), 0)
 	LDFLAGS+=-mwindows
 endif
 endif
 
-_DEPS=Main.h wxWindow.h wxCanvas.h WXImage.h
-DEPS=$(patsubst %,$(SDIR)/%,$(_DEPS))
+_SRC=Main WXWindow WXCanvas WXImage
+#SRC=$(patsubst %,$(SDIR)/%.cpp,$(_SRC))
+#DEPS=$(patsubst %,$(SDIR)/%.h,$(_SRC))
+OBJ=$(patsubst %,$(ODIR)/%.o,$(_SRC))
 
-_OBJ=Main.o wxWindow.o wxCanvas.o WXImage.o
-OBJ=$(patsubst %,$(ODIR)/%,$(_OBJ))
-
-NAME=JFVGL
-
-$(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
+$(ODIR)/%.o: $(SDIR)/%.cpp
 	$(CXX) $(CXXFLAGS) $(DEFINES) -c $< -o$@
 
 all: $(OBJ)
 	$(CXX) -o$(NAME) $^ $(LDFLAGS)
 
-$(SDIR)/prec.h.gch: $(SDIR)/prec.h
-	$(CXX) $(CXXFLAGS) $(DEFINES) -c $< -o$@
-
-prec: $(SDIR)/prec.h.gch
+#$(SDIR)/prec.h.gch: $(SDIR)/prec.h
+#	$(CXX) $(CXXFLAGS) $(DEFINES) -c $< -o$@
+#prec: $(SDIR)/prec.h.gch
 
 clean:
 	rm -f $(NAME)
+	rm -f $(NAME).exe
 	rm -r -f obj
 	mkdir obj

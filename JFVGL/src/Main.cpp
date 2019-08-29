@@ -8,29 +8,17 @@
 
 #include "wx/wx.h"
 #include "Main.h"
-#ifdef TARGET_GLUT
-#include "GLUTWindow.h" // For now
-#endif
-#ifdef TARGET_WX
-	#include "WXWindow.h"
-#endif
+#include "WXWindow.h"
 
-#ifdef TARGET_WX
-	// wx entry point. Replaces main()
-	wxIMPLEMENT_APP(JFVGL::WXApp);
-#else
-int main(int argc, char **argv)
+// wx entry point. Replaces main()
+wxIMPLEMENT_APP(JFVGL::WXApp);
+
+// TODO Put wxwidgets defines in main(...)
+/*int main(int argc, char **argv)
 {
 #ifdef DEBUG
 	for (int i = 0; i < argc; i++)
 		printf("%s\n", argv[i]);
 #endif
-#ifdef TARGET_GLUT
-	JFVGL::GLUTWindow::DoGlutStuff(argc, argv);
 	return 0;
-#else
-	printf("No target specified\n");
-#endif
-	return 0;
-}
-#endif
+}*/

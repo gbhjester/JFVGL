@@ -1,32 +1,31 @@
 *** TODO ***
 
 Separate class WXApp from WXWindow.cpp into WXApp.cpp
+Implement main(...) and add wx startup macros
 Refactor WXWindow/WXCanvas/WXImage data sharing / gl sharing shitness
-Fix Linux linking shitness
-	- OpenGL? GLUT?
-	- Need to link wxWidgets on Linux...
 Add class Preferences
 	- Load(), Save()
 	- Subclass wxConfig?
 Add right click context menu
-Move away from GLUT
 Drop dependency GLUT (AFTER wxWindow codepath fully supported on Windows AND Linux!)
-Remove interface IWindow
 Refactor away from old multi-backend design
-	- Remove define TARGET_WX
-Compile wxWidgets from source
-	- Strip and shrink resulting binaries
-View individual channel
+
 
 Project:
 	Get precompiled headers working
+	Platform dependant clean (JFVGL vs JFVGL.exe etc)
+	Compile wxWidgets from source
+		- Strip and shrink resulting binaries
+	Fix Linux linking shitness
+		- Need to link wxWidgets on Linux...
 
 View:
 	Zoom around mouse cursor
-	Keyboard input (esc etc)
+	Keyboard input (esc etc) DONE PROPERLY
 	Set appropriate default scale on load
 		- IF SMALLER THAN SCREEN SIZE : zoom 100%, window to image size
 		- IF NOT SMALLER THAN SCREEN SIZE : window to screen size, zoom to fit
+	View individual channel
 
 Image handling:
 	Animated gif support
