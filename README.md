@@ -1,4 +1,4 @@
-# *** README ***
+# README
 This is my image viewer.
 
 ## PLATFORMS
@@ -15,13 +15,17 @@ wxWidgets (bundled).
 ## BUILDING
 make clean ; make -j
 
-### Set switches (DBG, OPT, etc) in Makefile.
+Set switches (DBG, OPT, etc) in Makefile.
 
 ### Makefile switches (make variables):
-	
+Switch|Status|Allowed Values|Notes
+:---:|:---:|:---:|:---:
+ENV|Active|WINDOWS, LINUX|Platform to target. Needs improvement
+DBG|Active|0, 1|Enable debugging
 
 ### Codepath switches (-Dxxx):
-Switch | Status | Discription
---- | --- | ---
-TARGET_GLUT | Removed | Use GLUT
-TARGET_WX | Depreciated | Use wxWidgets
+Switch|Status|Allowed Values|Notes
+:---:|:---:|:---:|:---:
+TARGET_GLUT|Removed|0, 1|Use GLUT codepath (no shared code)
+TARGET_WX|Depreciated|0, 1|Use wxWidgets for windowing
+DWXIMAGE_USESOFTWAREIMAGEPROCESSING|Active|0, 1|Read image buffer into system memory, filter, and pass filtered buffer to OpenGL
