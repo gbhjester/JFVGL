@@ -3,8 +3,8 @@
 NAME=JFVGL
 
 #ENV=$(shell uname)
-#ENV=Linux
-ENV=Windows
+#ENV=LINUX
+ENV=WINDOWS
 # 0, 1
 DBG=0
 # 0, 1
@@ -13,6 +13,7 @@ DBG_CMP=0
 OPT=6
 
 DEFINES=-DTARGET_WX
+DEFINES+=-D$(ENV)
 ifneq ($(DBG), 0)
 	DEFINES+=-DDEBUG -D_DEBUG -DWXDEBUG
 endif
@@ -45,7 +46,7 @@ else
 endif
 
 LDFLAGS=-L$(LDIR) -L$(LDIR)/wx
-ifeq ($(ENV), Linux)
+ifeq ($(ENV), LINUX)
 	LDFLAGS+=-lGL -lGLU $(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a $(LDIR)/wx/libwxmsw31u_gl.a
 else
 	LDFLAGS+=-lshlwapi -lopengl32 -lglu32 $(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a $(LDIR)/wx/libwxmsw31u_gl.a

@@ -1,5 +1,8 @@
 *** CHANGELOG ***
 
+2019-08-29
+Move platform defines to makefile
+
 2019-08-28
 Fix folder traversal on non-ascii filenames
 

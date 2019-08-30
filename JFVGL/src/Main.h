@@ -12,18 +12,6 @@
 #include <cstdio>
 #endif
 
-#if defined(__linux__) || defined(__linux__) || defined(__linux) || defined(linux) || defined(LINUX)
-	#define LINUX
-#elif defined (_WIN32) || defined(_WIN64)
-	#define WINDOWS
-#endif
-
-/*#ifdef LINUX
-	;
-#elif WINDOWS
-	;
-#endif*/
-
 namespace JFVGL
 {
 
