@@ -7,12 +7,12 @@ Add class Preferences
 	- Load(), Save()
 	- Subclass wxConfig?
 Add right click context menu
-Drop dependency GLUT (AFTER wxWindow codepath fully supported on Windows AND Linux!)
+Drop dependency GLUT (AFTER WXWindow codepath fully supported on Windows AND Linux!)
 Refactor away from old multi-backend design
 
 
 Project:
-	Get precompiled headers working
+	Get precompiled headers working (or remove pch)
 	Platform dependant clean (JFVGL vs JFVGL.exe etc)
 	Compile wxWidgets from source
 		- Strip and shrink resulting binaries
@@ -21,14 +21,12 @@ Project:
 
 View:
 	Zoom around mouse cursor
-	Keyboard input (esc etc) DONE PROPERLY
-	Set appropriate default scale on load
-		- IF SMALLER THAN SCREEN SIZE : zoom 100%, window to image size
-		- IF NOT SMALLER THAN SCREEN SIZE : window to screen size, zoom to fit
-	View individual channel
+	Keyboard input (esc etc) DONE PROPERLY (how?)
+	View individual channels (rgba)
 
 Image handling:
-	Animated gif support
+	Finish software image processing codepath
+	Animated gif support (requires software image processing codepath)
 
 Shell integration:
 	Add folder navigation
