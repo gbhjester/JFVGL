@@ -37,7 +37,7 @@
       </toolsSet>
       <flagsDictionary>
         <element flagsID="0" commonFlags="-std=c++14"/>
-        <element flagsID="1" commonFlags="-std=c++98 -march=native"/>
+        <element flagsID="1" commonFlags="-std=c++98"/>
       </flagsDictionary>
       <codeAssistance>
         <includeAdditional>true</includeAdditional>
@@ -63,8 +63,8 @@
       <folder path="1">
         <ccTool>
           <preprocessorList>
-            <Elem>TARGET_WX</Elem>
             <Elem>WINDOWS</Elem>
+            <Elem>WXIMAGE_USESOFTWAREIMAGEPROCESSING</Elem>
           </preprocessorList>
         </ccTool>
       </folder>

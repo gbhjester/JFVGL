@@ -60,7 +60,7 @@ unsigned int JFVGL::WXImage::Open(wxString filename)
 	if (img->HasAlpha())
 		bpc = 4;
 #ifdef DEBUG
-	printf("bpc : %d\n", bpc);
+	printf("bpc : %ud\n", bpc);
 #endif
 #ifdef DWXIMAGE_USESOFTWAREIMAGEPROCESSING
 	unsigned char *buf = new unsigned char[w * h * bpc];
@@ -88,6 +88,7 @@ unsigned int JFVGL::WXImage::Open(wxString filename)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 #ifdef DWXIMAGE_USESOFTWAREIMAGEPROCESSING
 	glTexImage2D(GL_TEXTURE_2D, 0, bpc == 4 ? GL_RGBA : GL_RGB, w, h, 0, bpc == 4 ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, buf);
+	delete buf;
 #else
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, img->GetData());
 #endif
@@ -99,7 +100,7 @@ void JFVGL::WXImage::Close()
 {
 	// TODO Test VERY IMPORTANT TO ENSURE IMAGES ARE RELEASED FROM VRAM
 	// Seems to work
-	//glDeleteTextures(1, &id);
+	glDeleteTextures(1, &id);
 	id = 0;
 }
 
