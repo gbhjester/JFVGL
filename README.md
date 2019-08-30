@@ -18,14 +18,16 @@ make clean ; make -j
 Set switches (DBG, OPT, etc) in Makefile.
 
 ### Makefile switches (make variables):
-Switch|Status|Allowed Values|Notes
+Switch|Allowed Values|Status|Notes
 :---:|:---:|:---:|:---:
-ENV|Active|WINDOWS, LINUX|Platform to target. Needs improvement
-DBG|Active|0, 1|Enable debugging
+ENV|WINDOWS, LINUX|Mandatory|Platform to target. Needs improvement
+DBG|0, 1|Mandatory|Activate debugging flags
+DBG_CMP|0, 1|Mandatory|Tell GCC to display compilation debugging information
+OPT|0, 2, 6, s|Mandatory|Pass -Ox optimization flag to GCC
 
 ### Codepath switches (-Dxxx):
-Switch|Status|Allowed Values|Notes
+Switch|Allowed Values|Status|Notes
 :---:|:---:|:---:|:---:
-TARGET_GLUT|Removed|0, 1|Use GLUT codepath (no shared code)
-TARGET_WX|Depreciated|0, 1|Use wxWidgets for windowing
-DWXIMAGE_USESOFTWAREIMAGEPROCESSING|Active|0, 1|Read image buffer into system memory, filter, and pass filtered buffer to OpenGL
+TARGET_GLUT|0, 1|Removed|Use GLUT codepath (no shared code)
+TARGET_WX|0, 1|Depreciated|Use wxWidgets for windowing frontend
+DWXIMAGE_USESOFTWAREIMAGEPROCESSING|0, 1|Active|Read image buffer into system memory, filter, and pass filtered buffer to OpenGL

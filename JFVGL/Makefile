@@ -12,8 +12,7 @@ DBG_CMP=0
 # 2, 6, s. 0 = disabled
 OPT=6
 
-DEFINES=-DTARGET_WX
-DEFINES+=-D$(ENV)
+DEFINES=-D$(ENV)
 ifneq ($(DBG), 0)
 	DEFINES+=-DDEBUG -D_DEBUG -DWXDEBUG
 endif
