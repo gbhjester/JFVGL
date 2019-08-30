@@ -109,25 +109,15 @@ void JFVGL::WXImage::TraverseDirectory(int delta)
 {
 	if (delta == 0)
 		return;
-	// TODO Rename tstr
-	wxString tstr(*filename);
-	/*char *tstrcstr = (char *)tstr.c_str().AsChar();
-	for (int i = tstr.length() - 1; i >= 0; i--)
-	{
-		if (tstrcstr[i] == '/' || tstrcstr[i] == '\\')
-		{
-			tstr = tstr.Mid(0, i);
-			break;
-		}
-	}*/
-	tstr = tstr.Mid(0, tstr.Find('/', true));
-	tstr = tstr.Mid(0, tstr.Find('\\', true));
+	wxString prunedFilename(*filename);
+	prunedFilename = prunedFilename.Mid(0, prunedFilename.Find('/', true));
+	prunedFilename = prunedFilename.Mid(0, prunedFilename.Find('\\', true));
 #ifdef DEBUG
-	printf("WXImage::TraverseDirectory() Directory name:\n\t[%s]\n", tstr.c_str().AsChar());
+	printf("WXImage::TraverseDirectory() Directory name:\n\t[%s]\n", prunedFilename.c_str().AsChar());
 #endif
 	wxArrayString asfiles, supportedFiles;
 	// NOTE GetAllFiles(...) and manually traversing is probably slower than Traverse(...)
-	wxDir::GetAllFiles(tstr, &asfiles, wxString("*.*"), wxDIR_FILES | wxDIR_NO_FOLLOW);
+	wxDir::GetAllFiles(prunedFilename, &asfiles, wxString("*.*"), wxDIR_FILES | wxDIR_NO_FOLLOW);
 	for (size_t i = 0; i < asfiles.Count(); i++)
 	{
 		int o = 0;
