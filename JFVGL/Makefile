@@ -6,11 +6,11 @@ NAME=JFVGL
 #ENV=Linux
 ENV=Windows
 # 0, 1
-DBG=1
+DBG=0
 # 0, 1
 DBG_CMP=0
 # 2, 6, s. 0 = disabled
-OPT=0
+OPT=6
 
 DEFINES=-DTARGET_WX
 ifneq ($(DBG), 0)
