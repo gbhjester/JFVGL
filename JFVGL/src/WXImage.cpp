@@ -11,8 +11,6 @@
 
 #include "WXImage.h"
 
-//#define WXIMAGE_CODEPATH_PROCESSIMAGECPU
-
 JFVGL::WXImage::WXImage()
 {
 	this->w = 0;
@@ -64,7 +62,7 @@ unsigned int JFVGL::WXImage::Open(wxString filename)
 #ifdef DEBUG
 	printf("bpc : %d\n", bpc);
 #endif
-#ifdef WXIMAGE_CODEPATH_PROCESSIMAGECPU
+#ifdef DWXIMAGE_USESOFTWAREIMAGEPROCESSING
 	unsigned char *buf = new unsigned char[w * h * bpc];
 	unsigned char *data = img->GetData();
 	unsigned char *alpha = img->GetAlpha();
@@ -88,7 +86,7 @@ unsigned int JFVGL::WXImage::Open(wxString filename)
 	glGenTextures(1, &id);
 	glBindTexture(GL_TEXTURE_2D, id);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-#ifdef WXIMAGE_CODEPATH_PROCESSIMAGECPU
+#ifdef DWXIMAGE_USESOFTWAREIMAGEPROCESSING
 	glTexImage2D(GL_TEXTURE_2D, 0, bpc == 4 ? GL_RGBA : GL_RGB, w, h, 0, bpc == 4 ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, buf);
 #else
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, img->GetData());

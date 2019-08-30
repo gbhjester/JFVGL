@@ -21,6 +21,9 @@ ifneq ($(DBG_CMP), 0)
 	DEFINES+=-Winvalid-pch -H
 endif
 
+# Codepath switches
+DEFINES+=-DWXIMAGE_USESOFTWAREIMAGEPROCESSING
+
 IDIR=inc
 LDIR=lib
 ifeq ($(ENV), Linux)
