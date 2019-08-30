@@ -30,4 +30,4 @@ Switch|Allowed Values|Status|Notes
 :---:|:---:|:---:|:---:
 TARGET_GLUT|0, 1|Removed|Use GLUT codepath (no shared code)
 TARGET_WX|0, 1|Depreciated|Use wxWidgets for windowing frontend
-DWXIMAGE_USESOFTWAREIMAGEPROCESSING|0, 1|Active|Read image buffer into system memory, filter, and pass filtered buffer to OpenGL
+DWXIMAGE_USESOFTWAREIMAGEPROCESSING|0, 1|Optional (defaults to undefined)|Read image buffer into system memory, filter, and pass filtered buffer to OpenGL
