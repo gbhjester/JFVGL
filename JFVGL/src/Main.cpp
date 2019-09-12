@@ -10,15 +10,21 @@
 #include "Main.h"
 #include "WXWindow.h"
 
-// wx entry point. Replaces main()
-wxIMPLEMENT_APP(JFVGL::WXApp);
-
-// TODO Put wxwidgets defines in main(...)
-/*int main(int argc, char **argv)
+// wx entry point
+int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, wxCmdLineArgType, int nCmdShow)
 {
-#ifdef DEBUG
-	for (int i = 0; i < argc; i++)
-		printf("%s\n", argv[i]);
-#endif
-	return 0;
-}*/
+	return wxEntry(hInstance, hPrevInstance, __null, nCmdShow);
+}
+
+JFVGL::WXApp &wxGetApp()
+{
+	return *static_cast<JFVGL::WXApp *> (wxApp::GetInstance());
+}
+
+wxAppConsole *wxCreateApp()
+{
+	wxAppConsole::CheckBuildOptions("3" "." "1" "." "2" " (" "wchar_t" ",compiler with C++ ABI compatible with gcc 4" ",wx containers" ",compatible with 3.0" ")", "your program");
+	return new JFVGL::WXApp;
+}
+
+wxAppInitializer wxTheAppInitializer((wxAppInitializerFunction) wxCreateApp);

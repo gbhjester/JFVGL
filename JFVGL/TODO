@@ -1,7 +1,6 @@
 *** TODO ***
 
 Separate class WXApp from WXWindow.cpp into WXApp.cpp
-Implement main(...) and add wx startup macros
 Refactor WXWindow/WXCanvas/WXImage data sharing / gl sharing shitness
 Add class Preferences
 	- Load(), Save()

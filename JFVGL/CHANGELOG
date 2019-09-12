@@ -1,5 +1,8 @@
 *** CHANGELOG ***
 
+2019-09-11
+Implement WinMain(...) and add wx startup macros
+
 2019-08-29
 Move platform defines to makefile
 Fix software codepath channel detection
