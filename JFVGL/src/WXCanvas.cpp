@@ -128,8 +128,7 @@ void JFVGL::WXCanvas::Render(wxPaintEvent& e)
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glBindTexture(GL_TEXTURE_2D, img->id);
 	glEnable(GL_TEXTURE_2D);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	//float faf = 0.f;
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glColor3f(1.f, 1.f, 1.f);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, vi);

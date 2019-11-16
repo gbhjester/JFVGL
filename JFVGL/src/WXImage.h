@@ -40,28 +40,33 @@ namespace JFVGL
 
 		WXImage();
 
-		WXImage(const WXImage &other)
+		WXImage(const WXImage &rhs)
 		{
 			// Deep copy all member variables
-			// eg this->x = other.x;
-			;
+			this->w = rhs.w;
+			this->h = rhs.h;
+			this->bpc = rhs.bpc;
+			this->id = rhs.id;
+			this->filename = new wxString(*rhs.filename);
 		}
 
 		WXImage &operator=(WXImage rhs)
 		{
-			if (this == &rhs)
-				return *this;
-			Swap(*this, rhs);
+			swap(*this, rhs);
 			return *this;
 		}
 
 		virtual ~WXImage();
 
-		friend void Swap(WXImage &lhs, WXImage &rhs)
+		friend void swap(WXImage &lhs, WXImage &rhs)
 		{
-			using JFVGL::Swap;
+			using std::swap;
 			// Swap all member variables
-			//swap(lhs.x, rhs.x);
+			swap(lhs.w, rhs.w);
+			swap(lhs.h, rhs.h);
+			swap(lhs.bpc, rhs.bpc);
+			swap(lhs.id, rhs.id);
+			swap(lhs.filename, rhs.filename);
 		}
 
 		static int _wxStrCmpLogical(const wxString &first, const wxString &second)

@@ -2,8 +2,7 @@
 
 NAME=JFVGL
 
-#ENV=$(shell uname)
-#ENV=LINUX
+#WINDOWS, LINUX
 ENV=WINDOWS
 # 0, 1
 DBG=0
@@ -17,11 +16,13 @@ ifneq ($(DBG), 0)
 	DEFINES+=-DDEBUG -D_DEBUG -DWXDEBUG
 endif
 ifneq ($(DBG_CMP), 0)
-	DEFINES+=-Winvalid-pch -H
+	DEFINES+=-H
+	#DEFINES+=-Winvalid-pch
 endif
 
 # Codepath switches
-DEFINES+=-DWXIMAGE_USESOFTWAREIMAGEPROCESSING
+#DEFINES+=-DWXIMAGE_USESOFTWAREIMAGEPROCESSING
+#DEFINES+=-DWXIMAGE_USESOFTWAREIMAGEPREPROCESSING
 
 IDIR=inc
 LDIR=lib
@@ -36,11 +37,14 @@ ODIR=obj
 CXX=g++
 CXXFLAGS=-std=c++98 -Wall -I$(IDIR)
 
+# Only enable optimizations on nondebug builds
 ifeq ($(DBG), 0)
+# If any optimizations enabled
 ifneq ($(OPT), 0)
-	CXXFLAGS+=-O$(OPT)
+	CXXFLAGS+=-O$(OPT) -flto
+# DANGER ZONE
 ifeq ($(OPT), 6)
-	CXXFLAGS+=-flto -march=native -frename-registers
+	CXXFLAGS+=-march=native -frename-registers -ffast-math
 endif
 endif
 else
@@ -58,7 +62,7 @@ ifeq ($(DBG), 0)
 endif
 endif
 
-_SRC=Main WXWindow WXCanvas WXImage
+_SRC=Main WXApp WXWindow WXCanvas WXImage
 #SRC=$(patsubst %,$(SDIR)/%.cpp,$(_SRC))
 #DEPS=$(patsubst %,$(SDIR)/%.h,$(_SRC))
 OBJ=$(patsubst %,$(ODIR)/%.o,$(_SRC))

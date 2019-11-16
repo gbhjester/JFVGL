@@ -10,6 +10,7 @@
     </df>
     <df root="src" name="1">
       <in>Main.cpp</in>
+      <in>WXApp.cpp</in>
       <in>WXCanvas.cpp</in>
       <in>WXImage.cpp</in>
       <in>WXWindow.cpp</in>
@@ -37,7 +38,7 @@
       </toolsSet>
       <flagsDictionary>
         <element flagsID="0" commonFlags="-std=c++14"/>
-        <element flagsID="1" commonFlags="-std=c++98"/>
+        <element flagsID="1" commonFlags="-std=c++98 -Og"/>
       </flagsDictionary>
       <codeAssistance>
         <includeAdditional>true</includeAdditional>
@@ -63,8 +64,11 @@
       <folder path="1">
         <ccTool>
           <preprocessorList>
+            <Elem>DEBUG</Elem>
             <Elem>WINDOWS</Elem>
-            <Elem>WXIMAGE_USESOFTWAREIMAGEPROCESSING</Elem>
+            <Elem>WXDEBUG</Elem>
+            <Elem>WXIMAGE_USESOFTWAREIMAGEPREPROCESSING</Elem>
+            <Elem>_DEBUG</Elem>
           </preprocessorList>
         </ccTool>
       </folder>
@@ -81,6 +85,10 @@
         </ccTool>
       </item>
       <item path="src/Main.cpp" ex="false" tool="1" flavor2="4">
+        <ccTool flags="1">
+        </ccTool>
+      </item>
+      <item path="src/WXApp.cpp" ex="false" tool="1" flavor2="4">
         <ccTool flags="1">
         </ccTool>
       </item>

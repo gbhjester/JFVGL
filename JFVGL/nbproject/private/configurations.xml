@@ -1544,6 +1544,8 @@
       <in>GLUTWindow.h</in>
       <in>Main.cpp</in>
       <in>Main.h</in>
+      <in>WXApp.cpp</in>
+      <in>WXApp.h</in>
       <in>WXCanvas.cpp</in>
       <in>WXCanvas.h</in>
       <in>WXImage.cpp</in>
@@ -1588,11 +1590,13 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" test/b-panel.png</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" C:\Users\Jester\Documents\SVN\Github\JFVGL\JFVGL\test\b-panel.png</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" /test/0912192243.jpg</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" D:/SVN/Github/JFVGL/JFVGL/test/0912192243.jpg</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" C:\Users\Jester\Documents\SVN\Github\JFVGL\JFVGL\test\b-panel.png</runcommand>
+        <runcommand>"${OUTPUT_PATH}" D:/SVN/Github/JFVGL/JFVGL/test/0912192243.jpg</runcommand>
         <rundir>.</rundir>
         <buildfirst>true</buildfirst>
         <console-type>1</console-type>

@@ -8,7 +8,7 @@
 
 #include "wx/wx.h"
 #include "Main.h"
-#include "WXWindow.h"
+#include "WXApp.h"
 
 // wx entry point
 int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, wxCmdLineArgType, int nCmdShow)
@@ -18,7 +18,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, wxCmdLineArgType, int 
 
 JFVGL::WXApp &wxGetApp()
 {
-	return *static_cast<JFVGL::WXApp *> (wxApp::GetInstance());
+	return *(JFVGL::WXApp *)wxApp::GetInstance();
 }
 
 wxAppConsole *wxCreateApp()

@@ -30,7 +30,7 @@ namespace JFVGL
 		wxFrame *fParent;
 		float f;
 		float px, py; // Previous mouse coords
-		float ppx, ppy; // Previous passive mouse coords (not updated while dragging
+		float ppx, ppy; // Previous passive mouse coords (not updated while dragging)
 		float dx, dy; // Delta mouse coords (x - px)
 		float cx, cy; // Camera coords
 	protected:
@@ -38,30 +38,46 @@ namespace JFVGL
 		WXImage *img;
 
 		WXCanvas(wxFrame *owner, int *args);
-
-		// TODO Does copy ctor make sense for canvas?
-		/*WXCanvas(const WXCanvas &other)
+		
+		/*WXCanvas(const WXCanvas &rhs)
 		{
 			// Deep copy all member variables
-			// eg this->x = other.x;
-			;
-		}*/
+			this->context = rhs.;
+			this->fParent = rhs.;
+			this->f = rhs.;
+			this->px = rhs.;
+			this->py = rhs.;
+			this->ppx = rhs.;
+			this->ppy = rhs.;
+			this->dx = rhs.;
+			this->dy = rhs.;
+			this->cx = rhs.;
+			this->cy = rhs.;
+		}
 
-		/*WXCanvas &operator=(WXCanvas rhs)
+		WXCanvas &operator=(WXCanvas rhs)
 		{
-			if (this == &rhs)
-				return *this;
-			Swap(*this, rhs);
+			swap(*this, rhs);
 			return *this;
 		}*/
 
 		virtual ~WXCanvas();
 
-		/*friend void Swap(WXCanvas &lhs, WXCanvas &rhs)
+		/*friend void swap(WXCanvas &lhs, WXCanvas &rhs)
 		{
-			using JFVGL::Swap;
+			using std::swap;
 			// Swap all member variables
-			//swap(lhs.x, rhs.x);
+			swap(lhs., rhs.);
+			swap(lhs., rhs.);
+			swap(lhs., rhs.);
+			swap(lhs., rhs.);
+			swap(lhs., rhs.);
+			swap(lhs., rhs.);
+			swap(lhs., rhs.);
+			swap(lhs., rhs.);
+			swap(lhs., rhs.);
+			swap(lhs., rhs.);
+			swap(lhs., rhs.);
 		}*/
 		
 		void SizeFormToImage(bool bCenter);

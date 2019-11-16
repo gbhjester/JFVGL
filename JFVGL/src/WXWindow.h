@@ -19,13 +19,6 @@
 
 namespace JFVGL
 {
-
-	class WXApp : public wxApp
-	{
-	public:
-		bool OnInit();
-	};
-
 	class WXWindow : public wxFrame
 	{
 	private:
@@ -40,7 +33,7 @@ namespace JFVGL
 
 		WXWindow();
 
-		WXWindow(const WXWindow &other)
+		/*WXWindow(const WXWindow &other)
 		{
 			// Deep copy all member variables
 			// eg this->x = other.x;
@@ -49,19 +42,17 @@ namespace JFVGL
 
 		WXWindow &operator=(WXWindow rhs)
 		{
-			if (this == &rhs)
-				return *this;
-			Swap(*this, rhs);
+			swap(*this, rhs);
 			return *this;
-		}
+		}*/
 
-		virtual ~WXWindow();
+		//virtual ~WXWindow();
 
-		void Swap(WXWindow &lhs, WXWindow &rhs)
+		/*void swap(WXWindow &lhs, WXWindow &rhs)
 		{
-			using JFVGL::Swap;
+			using std::swap;
 			// Swap all member variables
 			//swap(lhs.x, rhs.x);
-		}
+		}*/
 	};
 }

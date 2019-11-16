@@ -9,6 +9,10 @@
  * Created on May 11, 2019, 9:17 PM
  */
 
+#ifdef WXIMAGE_USESOFTWAREIMAGEPREPROCESSING
+#include <fstream>
+using namespace std;
+#endif
 #include "WXImage.h"
 
 JFVGL::WXImage::WXImage()
@@ -37,13 +41,13 @@ JFVGL::WXImage::~WXImage()
 
 /* API */
 
-unsigned int JFVGL::WXImage::Open(wxString filename)
+unsigned int JFVGL::WXImage::Open(wxString fn)
 {
 	wxLogNull DONTLOGME;
-	if (!wxFileExists(filename))
+	if (!wxFileExists(fn))
 	{
-		// TODO Replace with log error or something
-		wxMessageBox(filename + " not found.", "Error");
+		// TODO Log
+		wxMessageBox(fn + " not found.", "Error");
 		return 0;
 	}
 
@@ -51,18 +55,82 @@ unsigned int JFVGL::WXImage::Open(wxString filename)
 	if (id != 0)
 		Close();
 
-	*this->filename = filename;
+	*this->filename = fn;
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	wxImage *img = new wxImage(filename);
+	wxImage *img = new wxImage(fn);
 	w = img->GetWidth();
 	h = img->GetHeight();
 	bpc = 3;
 	if (img->HasAlpha())
 		bpc = 4;
 #ifdef DEBUG
-	printf("bpc : %ud\n", bpc);
+	printf("bpc : %hhu\n", bpc);
 #endif
-#ifdef DWXIMAGE_USESOFTWAREIMAGEPROCESSING
+#ifdef WXIMAGE_USESOFTWAREIMAGEPREPROCESSING
+	wifstream file(fn);	// TODO Test for unicode filenames. Might have to convert to uft8
+	bool bFoundAPP1 = false, bRevByteListings = false;
+	if (!file || !file.is_open())
+	{
+		// TODO Log
+		wxMessageBox("Unable to open " + fn + " for preprocessing.", "Error");
+		goto WXIMAGE_USESOFTWAREIMAGEPREPROCESSING_end;
+	}
+	// Determine if file is jpeg
+	if (!(file.get() == 0xFF && file.get() == 0xD8))
+		goto WXIMAGE_USESOFTWAREIMAGEPREPROCESSING_end;
+	printf("SOI\n");
+	// TODO Find start IFD
+	// Scan file for exif chunk
+	while (file.good())
+	{
+		char ch[2];
+		if (bFoundAPP1 == false)
+		{
+			if (file.get() == 0xFF && file.get() == 0xE1)
+			{
+				printf("APP1 : %d\n", (int)file.tellg());
+				bFoundAPP1 = true;
+			}
+			
+			if (file.get() == 0x49 && file.get() == 0x49)
+			{
+				printf("Little-endian\n");
+				bRevByteListings = true;
+			}
+		}
+		else
+		{if (file.get() == 0x49 && file.get() == 0x49)
+			{
+				printf("Little-endian\n");
+				bRevByteListings = true;
+			}
+			ch[0] = file.get();
+			ch[1] = file.get();
+			if (bRevByteListings)
+			{
+				char tch = ch[0];
+				ch[0] = ch[1];
+				ch[1] = tch;
+			}
+			if (ch[0] == 0x01 && ch[1] == 0x12)
+			{
+				//unsigned short orient = (unsigned short)file.get();
+				unsigned short orient = 0;
+				printf("Orientation : %hu\n", orient);
+				break;
+			}
+		}
+	}
+	// TODO Figure out endianness
+	// Scan for Orientation EXIF tag
+	/*while (file.good())
+	{
+		;
+	}*/
+	file.close();
+WXIMAGE_USESOFTWAREIMAGEPREPROCESSING_end:
+#endif
+#ifdef WXIMAGE_USESOFTWAREIMAGEPROCESSING
 	unsigned char *buf = new unsigned char[w * h * bpc];
 	unsigned char *data = img->GetData();
 	unsigned char *alpha = img->GetAlpha();
@@ -86,8 +154,8 @@ unsigned int JFVGL::WXImage::Open(wxString filename)
 	glGenTextures(1, &id);
 	glBindTexture(GL_TEXTURE_2D, id);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-#ifdef DWXIMAGE_USESOFTWAREIMAGEPROCESSING
-	glTexImage2D(GL_TEXTURE_2D, 0, bpc == 4 ? GL_RGBA : GL_RGB, w, h, 0, bpc == 4 ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, buf);
+#ifdef WXIMAGE_USESOFTWAREIMAGEPROCESSING
+	glTexImage2D(GL_TEXTURE_2D, 0, bpc == 4 ? GL_RGB : GL_RGB, w, h, 0, bpc == 4 ? GL_RGB : GL_RGB, GL_UNSIGNED_BYTE, buf);
 	delete buf;
 #else
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, img->GetData());

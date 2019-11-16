@@ -14,15 +14,6 @@
 
 namespace JFVGL
 {
-
-	template <typename T>
-	void Swap(T &lhs, T &rhs)
-	{
-		T tmp(rhs);
-		lhs = rhs;
-		rhs = tmp;
-	}
-	
 	// If a == b, return a
 	static inline int imin(int a, int b)
 	{

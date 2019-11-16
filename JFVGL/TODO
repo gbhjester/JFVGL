@@ -9,6 +9,7 @@ Add right click context menu
 Drop dependency GLUT (AFTER WXWindow codepath fully supported on Windows AND Linux!)
 Refactor away from old multi-backend design
 Handle rotation EXIF metadata
+Set window position when unmaximizing
 
 Project:
 	Get precompiled headers working (or remove pch)
