@@ -10,6 +10,7 @@ Drop dependency GLUT (AFTER WXWindow codepath fully supported on Windows AND Lin
 Refactor away from old multi-backend design
 Handle rotation EXIF metadata
 Set window position when unmaximizing
+Set window to open on display mouse currently inside
 
 Project:
 	Get precompiled headers working (or remove pch)

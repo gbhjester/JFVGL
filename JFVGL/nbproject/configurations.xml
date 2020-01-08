@@ -35,10 +35,11 @@
         <compilerSet>MinGW|MinGW</compilerSet>
         <dependencyChecking>false</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
+        <prependToolCollectionPath>false</prependToolCollectionPath>
       </toolsSet>
       <flagsDictionary>
         <element flagsID="0" commonFlags="-std=c++14"/>
-        <element flagsID="1" commonFlags="-std=c++98 -Og"/>
+        <element flagsID="1" commonFlags="-std=c++98"/>
       </flagsDictionary>
       <codeAssistance>
         <includeAdditional>true</includeAdditional>
@@ -46,7 +47,7 @@
       <makefileType>
         <makeTool>
           <buildCommandWorkingDir>.</buildCommandWorkingDir>
-          <buildCommand>${MAKE} -j</buildCommand>
+          <buildCommand>${MAKE} -j16</buildCommand>
           <cleanCommand>${MAKE} clean</cleanCommand>
           <executablePath>JFVGL.exe</executablePath>
           <ccTool>
@@ -64,11 +65,7 @@
       <folder path="1">
         <ccTool>
           <preprocessorList>
-            <Elem>DEBUG</Elem>
             <Elem>WINDOWS</Elem>
-            <Elem>WXDEBUG</Elem>
-            <Elem>WXIMAGE_USESOFTWAREIMAGEPREPROCESSING</Elem>
-            <Elem>_DEBUG</Elem>
           </preprocessorList>
         </ccTool>
       </folder>

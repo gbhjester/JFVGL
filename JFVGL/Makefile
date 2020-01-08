@@ -8,8 +8,8 @@ ENV=WINDOWS
 DBG=0
 # 0, 1
 DBG_CMP=0
-# 2, 6, s. 0 = disabled
-OPT=6
+# 0, 1
+OPT=1
 
 DEFINES=-D$(ENV)
 ifneq ($(DBG), 0)
@@ -25,7 +25,7 @@ endif
 #DEFINES+=-DWXIMAGE_USESOFTWAREIMAGEPREPROCESSING
 
 IDIR=inc
-LDIR=lib
+#LDIR=lib
 ifeq ($(ENV), Linux)
 	LDIR=lib/deb
 else
@@ -37,18 +37,13 @@ ODIR=obj
 CXX=g++
 CXXFLAGS=-std=c++98 -Wall -I$(IDIR)
 
-# Only enable optimizations on nondebug builds
-ifeq ($(DBG), 0)
-# If any optimizations enabled
-ifneq ($(OPT), 0)
-	CXXFLAGS+=-O$(OPT) -flto
-# DANGER ZONE
-ifeq ($(OPT), 6)
-	CXXFLAGS+=-march=native -frename-registers -ffast-math
-endif
-endif
-else
+ifeq ($(DBG), 1)
 	CXXFLAGS+=-Og
+else
+    CXXFLAGS+=-s
+endif
+ifeq ($(OPT), 1)
+	CXXFLAGS+=-Ofast -frename-registers -funroll-loops -fpeel-loops -ffast-math -ffinite-math-only -fno-signed-zeros -fno-trapping-math -ftree-vectorize -ftree-parallelize-loops=4 -march=znver2 -fopenmp
 endif
 
 LDFLAGS=-L$(LDIR) -L$(LDIR)/wx
@@ -56,7 +51,7 @@ ifeq ($(ENV), LINUX)
 	LDFLAGS+=-lGL -lGLU
 	#LDFLAGS+=-lGL -lGLU $(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a $(LDIR)/wx/libwxmsw31u_gl.a
 else
-	LDFLAGS+=-lshlwapi -lopengl32 -lglu32 $(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a $(LDIR)/wx/libwxmsw31u_gl.a
+	LDFLAGS+=-lshlwapi -lopengl32 -lglu32 $(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a $(LDIR)/wx/libwxmsw31u_gl.a -flto
 ifeq ($(DBG), 0)
 	LDFLAGS+=-mwindows
 endif
@@ -68,7 +63,7 @@ _SRC=Main WXApp WXWindow WXCanvas WXImage
 OBJ=$(patsubst %,$(ODIR)/%.o,$(_SRC))
 
 $(ODIR)/%.o: $(SDIR)/%.cpp
-	$(CXX) $(CXXFLAGS) $(DEFINES) -c $< -o$@
+	$(CXX) -c $< -o"$@" $(CXXFLAGS) $(DEFINES)
 
 all: $(OBJ)
 	$(CXX) -o$(NAME) $^ $(LDFLAGS)
