@@ -15,6 +15,7 @@
 #include <GL/gl.h>
 #include "wx/wx.h"
 #include "wx/display.h"
+//#include "wx/event.h"
 #include "wx/glcanvas.h"
 #include "Main.h"
 #include "WXImage.h"

@@ -17,6 +17,8 @@
 #include "Main.h"
 #include "WXCanvas.h"
 
+#define JID_CM_PIN 6900
+
 namespace JFVGL
 {
 	class WXWindow : public wxFrame
@@ -54,5 +56,12 @@ namespace JFVGL
 			// Swap all member variables
 			//swap(lhs.x, rhs.x);
 		}*/
+		
+		DECLARE_EVENT_TABLE()
+		void OnRightClick(wxContextMenuEvent &e);
+		
+		void GenerateAndShowContextMenu();
+		
+		void test(wxContextMenuEvent &e);
 	};
 }

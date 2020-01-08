@@ -204,6 +204,7 @@ void JFVGL::WXCanvas::KeyDown(wxKeyEvent &e)
 #ifdef DEBUG
 	printf("Key down : %d\n", e.GetKeyCode());
 #endif
+	// TODO Document keycode 370
 	if (e.GetKeyCode() == WXK_ESCAPE || e.GetKeyCode() == WXK_RETURN || e.GetKeyCode() == 370)
 	{
 		fParent->Close(true);
