@@ -13,6 +13,7 @@
 #include <fstream>
 using namespace std;
 #endif
+
 #include "WXImage.h"
 
 JFVGL::WXImage::WXImage()

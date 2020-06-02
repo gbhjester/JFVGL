@@ -4,15 +4,31 @@ NAME=JFVGL
 
 #WINDOWS, LINUX
 ENV=WINDOWS
-# 0, 1
-DBG=0
+DEFINES=-D$(ENV)
+
+# Debug compilation
 # 0, 1
 DBG_CMP=0
-# 0, 1
-OPT=1
 
-DEFINES=-D$(ENV)
-ifneq ($(DBG), 0)
+# d, 0, 1, f
+# d : debug (-Og)
+# 0 : no optimization (no -Ox flag set)
+# 1 : -O3 and some -fflags to ensure attempt autovectorization
+# f : -Ofast and break everything
+OPT=0
+
+# Use OpenMP and parallel glibc
+# 0, 1
+OMP=0
+
+# Logical threadcount passed to GCC
+LTC=16
+
+# PEDANTIC MODE. Use when sad.
+# 0, 1
+PEDANTIC_ERROR_OUT=0
+
+ifeq ($(OPT), d)
 	DEFINES+=-DDEBUG -D_DEBUG -DWXDEBUG
 endif
 ifneq ($(DBG_CMP), 0)
@@ -25,7 +41,7 @@ endif
 #DEFINES+=-DWXIMAGE_USESOFTWAREIMAGEPREPROCESSING
 
 IDIR=inc
-#LDIR=lib
+LDIR=.
 ifeq ($(ENV), Linux)
 	LDIR=lib/deb
 else
@@ -35,15 +51,28 @@ SDIR=src
 ODIR=obj
 
 CXX=g++
-CXXFLAGS=-std=c++98 -Wall -I$(IDIR)
+CXXFLAGS=-std=c++98 -Wall -I"$(IDIR)"
 
-ifeq ($(DBG), 1)
+ifneq ($(PEDANTIC_ERROR_OUT), 0)
+	CXXFLAGS+=-Werror -Wpedantic
+endif
+
+ifeq ($(OPT), d)
 	CXXFLAGS+=-Og
+	DEFINES+=-DDEBUG
 else
     CXXFLAGS+=-s
 endif
 ifeq ($(OPT), 1)
-	CXXFLAGS+=-Ofast -frename-registers -funroll-loops -fpeel-loops -ffast-math -ffinite-math-only -fno-signed-zeros -fno-trapping-math -ftree-vectorize -ftree-parallelize-loops=4 -march=znver2 -fopenmp
+	CXXFLAGS+=-O3 -frename-registers -funroll-loops -fpeel-loops -ftree-vectorize -ftree-parallelize-loops=$(LTC) -march=native
+endif
+ifeq ($(OPT), f)
+	CXXFLAGS+=-Ofast -frename-registers -funroll-loops -fpeel-loops -ffast-math -ffinite-math-only -fno-signed-zeros -fno-trapping-math -ftree-vectorize -ftree-parallelize-loops=$(LTC) -march=native
+endif
+ifneq ($(OMP), 0)
+	CXXFLAGS+=-fopenmp
+	LDFLAGS+=-fopenmp
+	DEFINES+=-D_LIBGCXX_PARALLEL
 endif
 
 LDFLAGS=-L$(LDIR) -L$(LDIR)/wx
@@ -51,22 +80,19 @@ ifeq ($(ENV), LINUX)
 	LDFLAGS+=-lGL -lGLU
 	#LDFLAGS+=-lGL -lGLU $(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a $(LDIR)/wx/libwxmsw31u_gl.a
 else
-	LDFLAGS+=-lshlwapi -lopengl32 -lglu32 $(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a $(LDIR)/wx/libwxmsw31u_gl.a -flto
-ifeq ($(DBG), 0)
-	LDFLAGS+=-mwindows
-endif
+	LDFLAGS+=-lshlwapi -lopengl32 -lglu32 $(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a $(LDIR)/wx/libwxmsw31u_gl.a -mwindows -flto
 endif
 
+# Source files to generate object files for
 _SRC=Main WXApp WXWindow WXCanvas WXImage
-#SRC=$(patsubst %,$(SDIR)/%.cpp,$(_SRC))
-#DEPS=$(patsubst %,$(SDIR)/%.h,$(_SRC))
+SRC=$(patsubst %,$(SDIR)/%.cpp,$(_SRC))
 OBJ=$(patsubst %,$(ODIR)/%.o,$(_SRC))
 
 $(ODIR)/%.o: $(SDIR)/%.cpp
-	$(CXX) -c $< -o"$@" $(CXXFLAGS) $(DEFINES)
+	$(CXX) -c "$<" -o"$@" $(CXXFLAGS) $(DEFINES)
 
 all: $(OBJ)
-	$(CXX) -o$(NAME) $^ $(LDFLAGS)
+	$(CXX) -o"$(NAME)" $^ $(LDFLAGS)
 
 #$(SDIR)/prec.h.gch: $(SDIR)/prec.h
 #	$(CXX) $(CXXFLAGS) $(DEFINES) -c $< -o$@
