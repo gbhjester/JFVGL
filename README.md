@@ -1,5 +1,5 @@
 # README
-This is my image viewer.
+My personal image viewer.
 
 ## PLATFORMS
 Primary target is Windows 10 64bit, should theoretically compile on XP, haven't tried.
