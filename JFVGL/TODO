@@ -17,6 +17,8 @@ Set window position when unmaximizing
 Set window to open on display mouse currently inside
 Move supported filetypes to config?
 	Modules for different filetype decoders?
+Add filtering types (nearest neighbor, linear, etc)
+	Mipmaps
 
 Project:
 	Get precompiled headers working (or remove pch)
