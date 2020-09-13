@@ -147,7 +147,8 @@ WXIMAGE_USESOFTWAREIMAGEPREPROCESSING_end:
 		}
 	}
 #endif
-	glClearColor(0.25f, 0.25f, 0.25f, 1.f);
+	// TODO Move clear color to preferences as background color
+	glClearColor(0.2f, 0.2f, 0.2f, 1.f);
 	glColor3f(0.5f, 0.5f, 1.f);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
