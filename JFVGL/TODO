@@ -1,14 +1,18 @@
 *** TODO ***
 
-Separate class WXApp from WXWindow.cpp into WXApp.cpp
 Refactor WXWindow/WXCanvas/WXImage data sharing / gl sharing shitness
+Sort out header bullshit and organize headers once and for all
 Add class Preferences
-	- Load(), Save()
-	- Subclass wxConfig?
-Add right click context menu
+	Load(), Save()
+	Subclass wxConfig?
+Add right click context menu (wip)
+	Pin (remove window decorations and optionally freeze location / panning)
+	Exit
 Drop dependency GLUT (AFTER WXWindow codepath fully supported on Windows AND Linux!)
 Refactor away from old multi-backend design
-Handle rotation EXIF metadata
+	Backends were actually frontends and code became intermingled anyways
+Handle jpeg rotation EXIF metadata
+	Requires image preprocessing codepath
 Set window position when unmaximizing
 Set window to open on display mouse currently inside
 Move supported filetypes to config?
@@ -18,15 +22,20 @@ Project:
 	Get precompiled headers working (or remove pch)
 	Platform dependant clean (JFVGL vs JFVGL.exe etc)
 	Compile wxWidgets from source
-		- Strip and shrink resulting binaries
+		Strip and shrink resulting binaries
 	Fix Linux linking shitness
-		- Need to link wxWidgets on Linux...
+		Need to link wxWidgets on Linux...
 	Add build numbers or something
 
 View:
 	Zoom around mouse cursor
+		Requires redoing OpenGL code
+			Maybe add shader?
+				OVERKILL??
 	Keyboard input (esc etc) DONE PROPERLY (how?)
+		What does this mean? Refactor keyboard into to proper location / own class? Use different API?
 	View individual channels (rgba)
+		Requires software processing codepath
 
 Image handling:
 	Finish software image processing codepath
