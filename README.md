@@ -21,7 +21,7 @@ Switch|Allowed Values|Status|Notes
 ENV|WINDOWS, LINUX|Mandatory|Platform to target. Needs improvement
 DBG|0, 1|Removed|Activate debugging flags
 DBG_CMP|0, 1|Mandatory|Tell GCC to display compilation debugging information
-OPT|0, 2, 6, s, d|Mandatory|Pass -Ox optimization flag to GCC. If d, do no optimization and compile with debug symbols
+OPT|d, 0, 2, 6, s|Mandatory|Pass -Ox optimization flag to GCC. If d, do no optimization and compile with debug symbols
 PEDANTIC_ERROR_OUT|0, 1|Mandatory|Show pedantic warnings as errors
 
 ### Codepath switches (-Dxxx):
