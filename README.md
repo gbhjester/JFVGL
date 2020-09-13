@@ -2,15 +2,13 @@
 My personal image viewer.
 
 ## PLATFORMS
-Primary target is Windows 10 64bit, should theoretically compile on XP, haven't tried.
-On Windows I compile with MinGW64 / GCC 8.1.0 / POSIX threads.
-
-Linux (Debian stretch) support is planned.
-On Debian I compile with GCC 8.1.0.
+Primary target is Windows 10.
+On Windows compiled with MinGW64 / GCC 8.1.0 / POSIX threads.
+On Debian compiled with GCC 8.1.0.
 
 ## DEPENDENCIES
-FreeGLUT (bundled, not working under Linux atm, to be removed).
-wxWidgets (bundled).
+FreeGLUT (bundled, Windows only, to be removed).
+wxWidgets (binary bundled, TODO bundle src).
 
 ## BUILDING
 make clean ; make -j
@@ -21,13 +19,14 @@ Set switches (DBG, OPT, etc) in Makefile.
 Switch|Allowed Values|Status|Notes
 :---:|:---:|:---:|:---:
 ENV|WINDOWS, LINUX|Mandatory|Platform to target. Needs improvement
-DBG|0, 1|Mandatory|Activate debugging flags
+DBG|0, 1|Removed|Activate debugging flags
 DBG_CMP|0, 1|Mandatory|Tell GCC to display compilation debugging information
-OPT|0, 2, 6, s|Mandatory|Pass -Ox optimization flag to GCC
+OPT|0, 2, 6, s, d|Mandatory|Pass -Ox optimization flag to GCC. If d, do no optimization and compile with debug symbols
+PEDANTIC_ERROR_OUT|0, 1|Mandatory|Show pedantic warnings as errors
 
 ### Codepath switches (-Dxxx):
 Switch|Allowed Values|Status|Notes
 :---:|:---:|:---:|:---:
-TARGET_GLUT|0, 1|Removed|Use GLUT codepath (no shared code)
-TARGET_WX|0, 1|Depreciated|Use wxWidgets for windowing frontend
-DWXIMAGE_USESOFTWAREIMAGEPROCESSING|0, 1|Optional (defaults to undefined)|Read image buffer into system memory, filter, and pass filtered buffer to OpenGL
+TARGET_GLUT||Removed|Use GLUT codepath (no shared code)
+TARGET_WX||Removed|Use wxWidgets for windowing frontend
+DWXIMAGE_USESOFTWAREIMAGEPROCESSING||Optional|Read image buffer into system memory, filter, and pass filtered buffer to OpenGL
