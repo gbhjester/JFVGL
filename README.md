@@ -29,5 +29,5 @@ Switch|Allowed Values|Status|Notes
 :---:|:---:|:---:|:---:
 TARGET_GLUT||Removed|Use GLUT codepath (no shared code)
 TARGET_WX||Removed|Use wxWidgets for windowing frontend
-DWXIMAGE_USESOFTWAREIMAGEPROCESSING||Optional|Read image buffer into system memory, filter, and pass filtered buffer to OpenGL
-DWXIMAGE_USESOFTWAREIMAGEPREPROCESSING||Optional|Parse jpegs for metadata
+DWXIMAGE_USESOFTWAREIMAGEPROCESSING||Optional (wip, broken)|Read image buffer into system memory, filter, and pass filtered buffer to OpenGL
+DWXIMAGE_USESOFTWAREIMAGEPREPROCESSING||Optional (wip, broken)|Parse jpegs for metadata
