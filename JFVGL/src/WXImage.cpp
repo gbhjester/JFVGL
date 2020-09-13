@@ -24,15 +24,17 @@ JFVGL::WXImage::WXImage()
 	this->id = 0;
 	this->filename = new wxString();
 	this->supportedFileTypes[0] = wxString(".bmp");
-	this->supportedFileTypes[1] = wxString(".gif");
-	this->supportedFileTypes[2] = wxString(".jpg");
-	this->supportedFileTypes[3] = wxString(".jpeg");
-	this->supportedFileTypes[4] = wxString(".pcx");
-	this->supportedFileTypes[5] = wxString(".png");
-	this->supportedFileTypes[6] = wxString(".tga");
-	this->supportedFileTypes[7] = wxString(".tif");
-	this->supportedFileTypes[8] = wxString(".tiff");
-	this->supportedFileTypes[9] = wxString("");
+	this->supportedFileTypes[1] = wxString(".jpg");
+	this->supportedFileTypes[2] = wxString(".jpeg");
+	this->supportedFileTypes[3] = wxString(".pcx");
+	this->supportedFileTypes[4] = wxString(".png");
+	this->supportedFileTypes[5] = wxString(".tga");
+	this->supportedFileTypes[6] = wxString(".tif");
+	this->supportedFileTypes[7] = wxString(".tiff");
+	this->supportedFileTypes[8] = wxString("");
+	//this->supportedFileTypes[8] = wxString(".gif");
+	// Last supportedFileType must be ""
+	//this->supportedFileTypes[9] = wxString("");
 }
 
 JFVGL::WXImage::~WXImage()
