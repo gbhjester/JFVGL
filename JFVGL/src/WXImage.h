@@ -29,6 +29,7 @@ namespace JFVGL
 	{
 	private:
 		// TODO Move to class Preferences
+		// TODO Make some kind of smart array type with API
 		wxString supportedFileTypes[10];
 
 	protected:
