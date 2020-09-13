@@ -11,6 +11,8 @@ Refactor away from old multi-backend design
 Handle rotation EXIF metadata
 Set window position when unmaximizing
 Set window to open on display mouse currently inside
+Move supported filetypes to config?
+	Modules for different filetype decoders?
 
 Project:
 	Get precompiled headers working (or remove pch)
@@ -19,6 +21,7 @@ Project:
 		- Strip and shrink resulting binaries
 	Fix Linux linking shitness
 		- Need to link wxWidgets on Linux...
+	Add build numbers or something
 
 View:
 	Zoom around mouse cursor
