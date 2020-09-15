@@ -41,7 +41,8 @@ View:
 
 Image handling:
 	Finish software image processing codepath
-	Animated gif support (requires software image processing codepath)
+	Animated gif support (requires software image processing codepath?)
+		stb supports animated gifs, just have to figure out why stb's loader keeps failing
 
 Shell integration:
 	Add folder navigation
