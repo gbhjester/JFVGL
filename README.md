@@ -3,11 +3,14 @@ My personal image viewer.
 
 ## PLATFORMS
 Primary target is Windows 10.
+
 On Windows compiled with MinGW64 / GCC 8.1.0 / POSIX threads.
+
 On Debian compiled with GCC 8.1.0.
 
 ## DEPENDENCIES
 FreeGLUT (bundled, Windows only, to be removed).
+
 wxWidgets (binary bundled, TODO bundle src).
 
 ## BUILDING
