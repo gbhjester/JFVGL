@@ -19,6 +19,7 @@ Move supported filetypes to config?
 	Modules for different filetype decoders?
 Add filtering types (nearest neighbor, linear, etc)
 	Mipmaps
+Add multiview (2 images side by side)
 
 Project:
 	Get precompiled headers working (or remove pch)
