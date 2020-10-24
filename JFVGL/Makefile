@@ -54,7 +54,7 @@ CXX=g++
 CXXFLAGS=-std=c++98 -Wall -I"$(IDIR)"
 
 ifneq ($(PEDANTIC_ERROR_OUT), 0)
-	CXXFLAGS+=-Werror -Wpedantic
+	CXXFLAGS+=-Wextra -Werror -Wpedantic
 endif
 
 ifeq ($(OPT), d)
