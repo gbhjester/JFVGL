@@ -28,14 +28,6 @@ LTC=16
 # 0, 1
 PEDANTIC_ERROR_OUT=0
 
-ifeq ($(OPT), d)
-	DEFINES+=-DDEBUG -D_DEBUG -DWXDEBUG
-endif
-ifneq ($(DBG_CMP), 0)
-	DEFINES+=-H
-	#DEFINES+=-Winvalid-pch
-endif
-
 # Codepath switches
 #DEFINES+=-DWXIMAGE_USESOFTWAREIMAGEPROCESSING
 #DEFINES+=-DWXIMAGE_USESOFTWAREIMAGEPREPROCESSING
@@ -53,13 +45,18 @@ ODIR=obj
 CXX=g++
 CXXFLAGS=-std=c++98 -Wall -I"$(IDIR)"
 
+ifneq ($(DBG_CMP), 0)
+	DEFINES+=-H
+	#DEFINES+=-Winvalid-pch
+endif
+
 ifneq ($(PEDANTIC_ERROR_OUT), 0)
 	CXXFLAGS+=-Wextra -Werror -Wpedantic
 endif
 
 ifeq ($(OPT), d)
 	CXXFLAGS+=-Og
-	DEFINES+=-DDEBUG
+	DEFINES+=-DDEBUG -D_DEBUG -DWXDEBUG
 else
     CXXFLAGS+=-s
 endif
