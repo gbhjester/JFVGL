@@ -31,8 +31,8 @@ JFVGL::WXImage::WXImage()
 	this->supportedFileTypes[5] = wxString(".tga");
 	this->supportedFileTypes[6] = wxString(".tif");
 	this->supportedFileTypes[7] = wxString(".tiff");
-	this->supportedFileTypes[8] = wxString("");
-	//this->supportedFileTypes[8] = wxString(".gif");
+	this->supportedFileTypes[8] = wxString(".gif");
+	this->supportedFileTypes[9] = wxString("");
 	// Last supportedFileType must be ""
 	//this->supportedFileTypes[9] = wxString("");
 }
