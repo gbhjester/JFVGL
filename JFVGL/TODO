@@ -1,5 +1,6 @@
 *** TODO ***
 
+Refactor to use MVC pattern
 Refactor WXWindow/WXCanvas/WXImage data sharing / gl sharing shitness
 Sort out header bullshit and organize headers once and for all
 Add class Preferences
