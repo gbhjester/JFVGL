@@ -34,9 +34,10 @@ PEDANTIC_ERROR_OUT=0
 
 IDIR=inc
 LDIR=.
-ifeq ($(ENV), Linux)
+ifeq ($(ENV), LINUX)
 	LDIR=lib/deb
-else
+endif
+ifeq ($(ENV), WINDOWS)
 	LDIR=lib/win64
 endif
 SDIR=src
@@ -76,7 +77,8 @@ LDFLAGS=-L$(LDIR) -L$(LDIR)/wx
 ifeq ($(ENV), LINUX)
 	LDFLAGS+=-lGL -lGLU
 	#LDFLAGS+=-lGL -lGLU $(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a $(LDIR)/wx/libwxmsw31u_gl.a
-else
+endif
+ifeq ($(ENV), WINDOWS)
 	LDFLAGS+=-lshlwapi -lopengl32 -lglu32 $(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a $(LDIR)/wx/libwxmsw31u_gl.a -mwindows -flto
 endif
 
