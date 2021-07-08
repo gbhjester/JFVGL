@@ -12,8 +12,6 @@ Add right click context menu (wip)
 Drop dependency GLUT (AFTER WXWindow codepath fully supported on Windows AND Linux!)
 Refactor away from old multi-backend design
 	Backends were actually frontends and code became intermingled anyways
-Handle jpeg rotation EXIF metadata
-	Requires image preprocessing codepath
 Set window position when unmaximizing
 Set window to open on display mouse currently inside
 Move supported filetypes to config?
@@ -24,7 +22,8 @@ Add multiview (2 images side by side)
 
 Project:
 	Get precompiled headers working (or remove pch)
-	Platform dependant clean (JFVGL vs JFVGL.exe etc)
+	Platform appropriate clean (JFVGL vs JFVGL.exe etc)
+	Update stb_image
 	Compile wxWidgets from source
 		Strip and shrink resulting binaries
 	Fix Linux linking shitness
@@ -39,13 +38,21 @@ View:
 	Keyboard input (esc etc) DONE PROPERLY (how?)
 		What does this mean? Refactor keyboard into to proper location / own class? Use different API?
 	View individual channels (rgba)
-		Requires software processing codepath
+		Requires software processing codepath?
 
 Image handling:
 	Finish software image processing codepath
+		Remove software image processing codepath
+	Handle jpeg rotation EXIF metadata
+		Requires image preprocessing codepath?
+			LOOK AT STB_IMAGE
+	Rewrite opengl -- use shaders?
 	Animated gif support (requires software image processing codepath?)
 		stb supports animated gifs, just have to figure out why stb's loader keeps failing
+	Figure out why stb's loader keeps failing on some images
 
 Shell integration:
 	Add folder navigation
 	Add drag / drop
+	Add explorer context menu image preview?
+		This is stupid
