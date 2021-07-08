@@ -13,12 +13,11 @@ JFVGL::WXWindow::WXWindow(int argc, wxChar **argv) : wxFrame(NULL, wxID_ANY, "JF
 	sizer->Add(canvas, 1, wxEXPAND);
 	SetSizer(sizer);
 	SetAutoLayout(true);
-	SetTitle("JFVGL");
 	Show(true);
 	if (argc == 2) {
 		canvas->img->Open(argv[1]);
 	} else {
-		//canvas->img->Open("table2.png");
+		canvas->img->Open("table2.png");
 	}
 	SetTitle(/*"JFVGL - " + */*canvas->img->filename);
 	// TODO Set window to open on display mouse currently inside
