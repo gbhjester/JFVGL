@@ -19,7 +19,6 @@
 #include "Main.h"
 
 namespace JFVGL {
-
 	class WXImage {
 	private:
 		// TODO Move to class Preferences
@@ -75,12 +74,8 @@ namespace JFVGL {
 #endif
 		}
 
-		/* API */
-
 		virtual unsigned int Open(wxString filename);
-
 		virtual void Close();
-
 		void TraverseDirectory(int delta);
 	};
 }

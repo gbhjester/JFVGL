@@ -6,13 +6,29 @@
 
 #include "WXWindow.h"
 
-JFVGL::WXWindow::WXWindow() : wxFrame(NULL, wxID_ANY, "JFVGL") {}
-//JFVGL::WXWindow::~WXWindow(){ }
+JFVGL::WXWindow::WXWindow(int argc, wxChar **argv) : wxFrame(NULL, wxID_ANY, "JFVGL") {
+	int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, 0};
+	canvas = new WXCanvas(this, args);
+	wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
+	sizer->Add(canvas, 1, wxEXPAND);
+	SetSizer(sizer);
+	SetAutoLayout(true);
+	//SetTitle("JFVGL");
+	Show(true);
+	if (argc == 2) {
+		canvas->img->Open(argv[1]);
+	} else {
+		canvas->img->Open("table2.png");
+	}
+	SetTitle(/*"JFVGL - " + */*canvas->img->filename);
+	// TODO Set window to open on display mouse currently inside
+	canvas->SizeFormToImage(true);
+}
+// WHY IS THIS DTOR EMPTY
+//JFVGL::WXWindow::~WXWindow() {}
 
-BEGIN_EVENT_TABLE(JFVGL::WXWindow, wxFrame
-)
+BEGIN_EVENT_TABLE(JFVGL::WXWindow, wxFrame)
 EVT_CONTEXT_MENU(JFVGL::WXWindow::OnRightClick)
-
 //EVT_(JFVGL::WXWindow::)
 END_EVENT_TABLE()
 

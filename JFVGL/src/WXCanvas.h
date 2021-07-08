@@ -17,7 +17,6 @@
 #include "Main.h"
 
 namespace JFVGL {
-
 	class WXCanvas : public wxGLCanvas {
 	private:
 		wxGLContext *context;
@@ -32,64 +31,15 @@ namespace JFVGL {
 		WXImage *img;
 
 		WXCanvas(wxFrame *owner, int *args);
-
-		/*WXCanvas(const WXCanvas &rhs)
-		{
-			// Deep copy all member variables
-			this->context = rhs.;
-			this->fParent = rhs.;
-			this->f = rhs.;
-			this->px = rhs.;
-			this->py = rhs.;
-			this->ppx = rhs.;
-			this->ppy = rhs.;
-			this->dx = rhs.;
-			this->dy = rhs.;
-			this->cx = rhs.;
-			this->cy = rhs.;
-		}
-
-		WXCanvas &operator=(WXCanvas rhs)
-		{
-			swap(*this, rhs);
-			return *this;
-		}*/
-
 		virtual ~WXCanvas();
-
-		/*friend void swap(WXCanvas &lhs, WXCanvas &rhs)
-		{
-			using std::swap;
-			// Swap all member variables
-			swap(lhs., rhs.);
-			swap(lhs., rhs.);
-			swap(lhs., rhs.);
-			swap(lhs., rhs.);
-			swap(lhs., rhs.);
-			swap(lhs., rhs.);
-			swap(lhs., rhs.);
-			swap(lhs., rhs.);
-			swap(lhs., rhs.);
-			swap(lhs., rhs.);
-			swap(lhs., rhs.);
-		}*/
-
 		void SizeFormToImage(bool bCenter);
-
 		DECLARE_EVENT_TABLE()
-
 		void Render(wxPaintEvent &e);
-
 		void Resized(wxSizeEvent &e);
-
 		void MouseMoved(wxMouseEvent &e);
-
 		void MouseWheel(wxMouseEvent &e);
-
 		void MouseLeftDoubleClick(wxMouseEvent &e);
-
 		void MouseMiddleDoubleClick(wxMouseEvent &e);
-
 		void KeyDown(wxKeyEvent &e);
 	};
 }

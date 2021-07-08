@@ -13,19 +13,17 @@
 #define ZOOM_MIN 0.01f
 #define ZOOM_MAX 10.f
 
-JFVGL::WXCanvas::WXCanvas(wxFrame *owner, int *args)
-		: wxGLCanvas(owner, wxID_ANY, args, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE) {
+JFVGL::WXCanvas::WXCanvas(wxFrame *owner, int *args) : wxGLCanvas(owner, wxID_ANY, args, wxDefaultPosition,
+																  wxDefaultSize, wxFULL_REPAINT_ON_RESIZE) {
 	this->context = new wxGLContext(this);
 	SetCurrent(*context);
 	this->fParent = owner;
 	this->img = new WXImage();
-
 	this->f = 1.f;
 	this->px = 0, this->py = 0;
 	this->ppx = 0, this->ppy = 0;
 	this->dx = 0, this->dy = 0;
 	this->cx = 0, this->cy = 0;
-
 	SetBackgroundStyle(wxBG_STYLE_CUSTOM);
 }
 
@@ -65,8 +63,7 @@ void JFVGL::WXCanvas::SizeFormToImage(bool bCenter) {
 	}
 }
 
-BEGIN_EVENT_TABLE(JFVGL::WXCanvas, wxGLCanvas
-)
+BEGIN_EVENT_TABLE(JFVGL::WXCanvas, wxGLCanvas)
 EVT_PAINT(JFVGL::WXCanvas::Render)
 EVT_SIZE(JFVGL::WXCanvas::Resized)
 EVT_MOTION(JFVGL::WXCanvas::MouseMoved)
@@ -74,17 +71,14 @@ EVT_MOUSEWHEEL(JFVGL::WXCanvas::MouseWheel)
 EVT_LEFT_DCLICK(JFVGL::WXCanvas::MouseLeftDoubleClick)
 EVT_MIDDLE_DCLICK(JFVGL::WXCanvas::MouseMiddleDoubleClick)
 EVT_KEY_DOWN(JFVGL::WXCanvas::KeyDown)
-
 //EVT_(JFVGL::WXCanvas::)
 END_EVENT_TABLE()
 
 void JFVGL::WXCanvas::Render(wxPaintEvent &e) {
 	if (!IsShown())
 		return;
-
 	wxGLCanvas::SetCurrent(*context);
 	wxPaintDC(this);
-
 	glViewport(0, 0, GetClientSize().x, GetClientSize().y);
 	glScissor(0, 0, GetClientSize().x, GetClientSize().y);
 	glEnable(GL_SCISSOR_TEST);
@@ -115,7 +109,6 @@ void JFVGL::WXCanvas::Render(wxPaintEvent &e) {
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glBindTexture(GL_TEXTURE_2D, img->id);
 	glEnable(GL_TEXTURE_2D);
-	//float faf = 0.f;
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glColor3f(1.f, 1.f, 1.f);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, vi);
@@ -142,12 +135,10 @@ void JFVGL::WXCanvas::MouseMoved(wxMouseEvent &e) {
 					e.GetX() - ppx + GetParent()->GetPosition().x,
 					e.GetY() - ppy + GetParent()->GetPosition().y);
 		}
-	} else if (e.MiddleIsDown()) // MMB - pan view
-	{
+	} else if (e.MiddleIsDown()) {	// MMB - pan view
 		cx += dx / f;
 		cy += dy / f;
-	} else // Nothing pressed
-	{
+	} else {	// Nothing pressed
 		ppx = e.GetX();
 		ppy = e.GetY();
 	}
@@ -185,7 +176,6 @@ void JFVGL::WXCanvas::KeyDown(wxKeyEvent &e) {
 		fParent->Close(true);
 		return;
 	}
-
 	if (e.GetKeyCode() == WXK_LEFT || e.GetKeyCode() == WXK_RIGHT) {
 		fParent->SetTitle("Loading...");
 		if (e.GetKeyCode() == WXK_LEFT)

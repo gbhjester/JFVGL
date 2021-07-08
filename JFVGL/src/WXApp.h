@@ -11,8 +11,9 @@
 
 namespace JFVGL {
 	class WXApp : public wxApp {
+	private:
+		WXWindow *wnd;
 	public:
 		bool OnInit();
 	};
-
 }
