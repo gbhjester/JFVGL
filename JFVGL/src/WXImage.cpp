@@ -28,7 +28,7 @@ JFVGL::WXImage::WXImage() {
 	this->supportedFileTypes[8] = wxString(".gif");
 	this->supportedFileTypes[9] = wxString("");
 	// Last supportedFileType must be ""
-	//this->supportedFileTypes[9] = wxString("");
+	//this->supportedFileTypes[n] = wxString("");
 }
 
 JFVGL::WXImage::~WXImage() {
