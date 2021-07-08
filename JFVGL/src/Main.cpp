@@ -1,9 +1,5 @@
-/*
- * 
- */
-
 /**
- * Main.c
+ * Main.cpp
  */
 
 #include "wx/wx.h"

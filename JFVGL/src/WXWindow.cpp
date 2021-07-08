@@ -1,10 +1,5 @@
-/*
- * 
- */
-
-/* 
- * File:   wxWindow.cpp
- * Author: Jester
+/**
+ * WXWindow.cpp
  * 
  * Created on May 11, 2019, 3:24 PM
  */

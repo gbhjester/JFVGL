@@ -1,10 +1,5 @@
-/*
- * 
- */
-
-/* 
- * File:   WXImage.cpp
- * Author: Jester
+/**
+ * WXImage.cpp
  * 
  * Created on May 11, 2019, 9:17 PM
  */

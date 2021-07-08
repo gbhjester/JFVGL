@@ -1,10 +1,5 @@
-/*
- * 
- */
-
-/* 
- * File:   WXCanvas.cpp
- * Author: Jester
+/**
+ * WXCanvas.cpp
  * 
  * Created on May 11, 2019, 7:21 PM
  */

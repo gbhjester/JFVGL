@@ -1,10 +1,5 @@
-/*
- * 
- */
-
-/* 
- * File:   WXImage.h
- * Author: Jester
+/**
+ * WXImage.h
  *
  * Created on May 11, 2019, 9:17 PM
  */

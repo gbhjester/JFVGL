@@ -1,10 +1,5 @@
-/*
- * 
- */
-
-/* 
- * File:   wxWindow.h
- * Author: Jester
+/**
+ * WXWindow.h
  *
  * Created on May 11, 2019, 3:24 PM
  */
