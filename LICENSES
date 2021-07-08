@@ -1,6 +1,7 @@
+# Licenses
 This file handles licensing for libraries. For project licensing, see JFVGL/LICENSE.
 
-Freeglut:
+## Freeglut
   Freeglut Copyright
   ------------------
   
@@ -28,7 +29,7 @@ Freeglut:
   used  in advertising  or otherwise to promote the sale, use or other dealings 
   in this Software without prior written authorization from Pawel W. Olszta.
 
-stb_image:
+## stb_image
 ------------------------------------------------------------------------------
 This software is available under 2 licenses -- choose whichever you prefer.
 ------------------------------------------------------------------------------

@@ -14,7 +14,8 @@ FreeGLUT (bundled, Windows only, to be removed).
 wxWidgets (binary bundled, TODO bundle src).
 
 ## BUILDING
-make clean ; make -j
+make clean ; make
+make clean ; make -j<n>
 
 Set switches (DBG, OPT, etc) in Makefile.
 
@@ -34,3 +35,6 @@ TARGET_GLUT||Removed|Use GLUT codepath (no shared code)
 TARGET_WX||Removed|Use wxWidgets for windowing frontend
 DWXIMAGE_USESOFTWAREIMAGEPROCESSING||Optional (wip, broken)|Read image buffer into system memory, filter, and pass filtered buffer to OpenGL
 DWXIMAGE_USESOFTWAREIMAGEPREPROCESSING||Optional (wip, broken)|Parse jpegs for metadata
+
+## Attributions
+See LICENSES. I would like to thank the developers of FreeGLUT, wxWidgets, and stb_image for releasing their respective libraries.
