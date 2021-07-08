@@ -1,5 +1,5 @@
 /*
- * I, Jester, hereby release this work, except as stated otherwise, into the public domain.
+ * 
  */
 
 /* 
