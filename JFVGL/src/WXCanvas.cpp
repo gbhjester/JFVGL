@@ -129,8 +129,7 @@ void JFVGL::WXCanvas::Resized(wxSizeEvent &e) {
 void JFVGL::WXCanvas::MouseMoved(wxMouseEvent &e) {
 	dx = e.GetX() - px;
 	dy = e.GetY() - py;
-	if (e.LeftIsDown()) // LMB - pan window
-	{
+	if (e.LeftIsDown()) {	// LMB - pan window
 		if (!((wxFrame *) GetParent())->IsMaximized()) {
 			GetParent()->Move(
 					e.GetX() - ppx + GetParent()->GetPosition().x,
@@ -179,10 +178,13 @@ void JFVGL::WXCanvas::KeyDown(wxKeyEvent &e) {
 	}
 	if (e.GetKeyCode() == WXK_LEFT || e.GetKeyCode() == WXK_RIGHT) {
 		fParent->SetTitle("Loading...");
-		if (e.GetKeyCode() == WXK_LEFT)
+		// TODO Refactor image travesrsal to own directory abstraction
+		if (e.GetKeyCode() == WXK_LEFT) {
 			img->TraverseDirectory(-1);
-		else if (e.GetKeyCode() == WXK_RIGHT)
+		} else if (e.GetKeyCode() == WXK_RIGHT) {
 			img->TraverseDirectory(1);
+		}
+		// TODO Refactor wrap loading image and setting title, resizing window together
 		fParent->SetTitle(*img->filename);
 		SizeFormToImage(false);
 		Refresh();
