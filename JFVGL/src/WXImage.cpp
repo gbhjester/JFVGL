@@ -46,8 +46,9 @@ unsigned int JFVGL::WXImage::Open(wxString fn) {
 	}
 
 	// Memory leak protection
-	if (id != 0)
+	if (id != 0) {
 		Close();
+	}
 
 	*this->filename = fn;
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
