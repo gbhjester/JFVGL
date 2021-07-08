@@ -168,8 +168,9 @@ void JFVGL::WXImage::Close() {
 }
 
 void JFVGL::WXImage::TraverseDirectory(int delta) {
-	if (delta == 0)
+	if (delta == 0) {
 		return;
+	}
 	wxString prunedFilename(*filename);
 	prunedFilename = prunedFilename.Mid(0, prunedFilename.Find('/', true));
 	prunedFilename = prunedFilename.Mid(0, prunedFilename.Find('\\', true));
