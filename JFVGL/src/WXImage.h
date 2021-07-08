@@ -14,6 +14,7 @@
 #ifdef WINDOWS
 #include <shlwapi.h>
 #endif
+
 #include <GL/glu.h>
 #include <GL/gl.h>
 #include "wx/wx.h"
@@ -22,11 +23,9 @@
 #include "wx/image.h"
 #include "Main.h"
 
-namespace JFVGL
-{
+namespace JFVGL {
 
-	class WXImage
-	{
+	class WXImage {
 	private:
 		// TODO Move to class Preferences
 		// TODO Make some kind of smart array type with API
@@ -41,8 +40,7 @@ namespace JFVGL
 
 		WXImage();
 
-		WXImage(const WXImage &rhs)
-		{
+		WXImage(const WXImage &rhs) {
 			// Deep copy all member variables
 			this->w = rhs.w;
 			this->h = rhs.h;
@@ -51,16 +49,14 @@ namespace JFVGL
 			this->filename = new wxString(*rhs.filename);
 		}
 
-		WXImage &operator=(WXImage rhs)
-		{
+		WXImage &operator=(WXImage rhs) {
 			swap(*this, rhs);
 			return *this;
 		}
 
 		virtual ~WXImage();
 
-		friend void swap(WXImage &lhs, WXImage &rhs)
-		{
+		friend void swap(WXImage &lhs, WXImage &rhs) {
 			using std::swap;
 			// Swap all member variables
 			swap(lhs.w, rhs.w);
@@ -70,8 +66,7 @@ namespace JFVGL
 			swap(lhs.filename, rhs.filename);
 		}
 
-		static int _wxStrCmpLogical(const wxString &first, const wxString &second)
-		{
+		static int _wxStrCmpLogical(const wxString &first, const wxString &second) {
 #ifdef DEBUG
 			wprintf(L"WXImage::_wxStrCmpLogical() first.wc.str():\n\t[%s]\n", first.wc_str());
 #endif
@@ -88,7 +83,9 @@ namespace JFVGL
 		/* API */
 
 		virtual unsigned int Open(wxString filename);
+
 		virtual void Close();
+
 		void TraverseDirectory(int delta);
 	};
 }

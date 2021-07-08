@@ -21,11 +21,9 @@
 #include "WXImage.h"
 #include "Main.h"
 
-namespace JFVGL
-{
+namespace JFVGL {
 
-	class WXCanvas : public wxGLCanvas
-	{
+	class WXCanvas : public wxGLCanvas {
 	private:
 		wxGLContext *context;
 		wxFrame *fParent;
@@ -39,7 +37,7 @@ namespace JFVGL
 		WXImage *img;
 
 		WXCanvas(wxFrame *owner, int *args);
-		
+
 		/*WXCanvas(const WXCanvas &rhs)
 		{
 			// Deep copy all member variables
@@ -80,16 +78,23 @@ namespace JFVGL
 			swap(lhs., rhs.);
 			swap(lhs., rhs.);
 		}*/
-		
+
 		void SizeFormToImage(bool bCenter);
 
 		DECLARE_EVENT_TABLE()
+
 		void Render(wxPaintEvent &e);
+
 		void Resized(wxSizeEvent &e);
+
 		void MouseMoved(wxMouseEvent &e);
+
 		void MouseWheel(wxMouseEvent &e);
+
 		void MouseLeftDoubleClick(wxMouseEvent &e);
+
 		void MouseMiddleDoubleClick(wxMouseEvent &e);
+
 		void KeyDown(wxKeyEvent &e);
 	};
 }

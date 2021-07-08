@@ -1,8 +1,4 @@
 /*
- * 
- */
-
-/* 
  * File:   GLUTWindow.cpp
  * Author: Jester
  * 
@@ -14,8 +10,10 @@
 #include <cstdio>
 #include <cstdlib>
 #include "GL/freeglut.h"
+
 #define STB_IMAGE_IMPLEMENTATION
 #define STBI_FAILURE_USERMSG
+
 #include "stb_image.h"
 #include "GLUTWindow.h"
 
@@ -24,9 +22,9 @@
 #define ZOOM_MIN 0.01f
 #define ZOOM_MAX 10.f
 
-JFVGL::GLUTWindow::GLUTWindow(){ }
+JFVGL::GLUTWindow::GLUTWindow() {}
 
-JFVGL::GLUTWindow::~GLUTWindow(){ }
+JFVGL::GLUTWindow::~GLUTWindow() {}
 
 unsigned int texid;
 unsigned char *img;
@@ -40,13 +38,11 @@ int btnPressed; // Current button pressed, or -1
 
 // For now
 // TODO Remove / refactor
-int JFVGL::GLUTWindow::DoGlutStuff(int argc, char **argv)
-{
+int JFVGL::GLUTWindow::DoGlutStuff(int argc, char **argv) {
 	const char *fn;
 	if (argc == 2)
 		fn = argv[1];
-	else
-	{
+	else {
 		//fn = "E:/torrents/updated mosaic.png";
 		//fn = "table.jpg";
 		//fn = "nrm.png";
@@ -54,30 +50,26 @@ int JFVGL::GLUTWindow::DoGlutStuff(int argc, char **argv)
 		//fn = "plasma.png";
 	}
 	img = stbi_load(fn, &w, &h, &ch, 3);
-	if (img)
-	{
+	if (img) {
 		const char *format = NULL;
-		switch (ch)
-		{
-		case 1:
-			format = "g";
-			break;
-		case 2:
-			format = "ga";
-			break;
-		case 3:
-			format = "rgb";
-			break;
-		case 4:
-			format = "rgba";
-			break;
-		default:
-			format = "Unknown";
+		switch (ch) {
+			case 1:
+				format = "g";
+				break;
+			case 2:
+				format = "ga";
+				break;
+			case 3:
+				format = "rgb";
+				break;
+			case 4:
+				format = "rgba";
+				break;
+			default:
+				format = "Unknown";
 		}
 		printf("Loaded image %s\nWidth : %d\nHeight : %d\nFormat : %s\n", fn, w, h, format);
-	}
-	else
-	{
+	} else {
 		printf("Image failed to load : %s (%s)\n", stbi_failure_reason(), strerror(errno));
 		return -1;
 	}
@@ -88,52 +80,48 @@ int JFVGL::GLUTWindow::DoGlutStuff(int argc, char **argv)
 	return 0;*/
 	glutInit(&argc, argv);
 
-	if (img)
-	{
+	if (img) {
 		glutInitWindowSize(
-			fclamp(w, w, glutGet(GLUT_SCREEN_WIDTH)),
-			fclamp(h, h, glutGet(GLUT_SCREEN_HEIGHT)));
+				fclamp(w, w, glutGet(GLUT_SCREEN_WIDTH)),
+				fclamp(h, h, glutGet(GLUT_SCREEN_HEIGHT)));
 		/*f = fmax(
 			(float)w / (float)glutGet(GLUT_SCREEN_WIDTH),
 			(float)h / (float)glutGet(GLUT_SCREEN_HEIGHT));*/
-	}
-	else
-	{
+	} else {
 		glutInitWindowSize(
-			glutGet(GLUT_SCREEN_WIDTH) / 3,
-			glutGet(GLUT_SCREEN_HEIGHT) / 2);
+				glutGet(GLUT_SCREEN_WIDTH) / 3,
+				glutGet(GLUT_SCREEN_HEIGHT) / 2);
 	}
 	glutInitWindowPosition(
-		(glutGet(GLUT_SCREEN_WIDTH) - glutGet(GLUT_INIT_WINDOW_WIDTH)) / 2,
-		(glutGet(GLUT_SCREEN_HEIGHT) - glutGet(GLUT_INIT_WINDOW_HEIGHT)) / 2);
+			(glutGet(GLUT_SCREEN_WIDTH) - glutGet(GLUT_INIT_WINDOW_WIDTH)) / 2,
+			(glutGet(GLUT_SCREEN_HEIGHT) - glutGet(GLUT_INIT_WINDOW_HEIGHT)) / 2);
 	glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE /*| GLUT_MULTISAMPLE*/);
 	glutCreateWindow("JFVGL");
-	glutDisplayFunc([]()
-	{
+	glutDisplayFunc([]() {
 		glViewport(0, 0, glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 		glScissor(0, 0, glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 		glEnable(GL_SCISSOR_TEST);
 		float v[] = {
-			(float)-w, (float)h,
-			(float)w, (float)h,
-			(float)-w, (float)-h,
-			(float)w, (float)-h
+				(float) -w, (float) h,
+				(float) w, (float) h,
+				(float) -w, (float) -h,
+				(float) w, (float) -h
 		};
 		unsigned short vi[] = {0, 1, 2, 2, 3, 1};
 		float uv[] = {
-			0.f, 0.f,
-			1.f, 0.f,
-			0.f, 1.f,
-			1.f, 1.f
+				0.f, 0.f,
+				1.f, 0.f,
+				0.f, 1.f,
+				1.f, 1.f
 		};
 		glClear(GL_COLOR_BUFFER_BIT);
 		glPushMatrix();
 		glScalef(
-			f / (float)glutGet(GLUT_WINDOW_WIDTH),
-			f / (float)glutGet(GLUT_WINDOW_HEIGHT), 0.f);
+				f / (float) glutGet(GLUT_WINDOW_WIDTH),
+				f / (float) glutGet(GLUT_WINDOW_HEIGHT), 0.f);
 		glTranslatef(
-			((float)cx * 2.f),
-			-((float)cy * 2.f), 0.f);
+				((float) cx * 2.f),
+				-((float) cy * 2.f), 0.f);
 		glVertexPointer(2, GL_FLOAT, 0, v);
 		glTexCoordPointer(2, GL_FLOAT, 0, uv);
 		glEnableClientState(GL_VERTEX_ARRAY);
@@ -149,51 +137,40 @@ int JFVGL::GLUTWindow::DoGlutStuff(int argc, char **argv)
 		glPopMatrix();
 		glFlush();
 	});
-	glutMouseFunc([](int btn, int state, int x, int y)
-	{
-		if (state == 1)
-		{
+	glutMouseFunc([](int btn, int state, int x, int y) {
+		if (state == 1) {
 			btnPressed = -1;
 			return;
 		}
 		btnPressed = btn;
 	});
-	glutMouseWheelFunc([](int wheel, int dir, int x, int y)
-	{
-		if (dir == 1)
-		{
+	glutMouseWheelFunc([](int wheel, int dir, int x, int y) {
+		if (dir == 1) {
 			//f *= 1.1f;
 			f = fclamp(ZOOM_MIN, f * 1.1f, ZOOM_MAX);
-		}
-		else if (dir == -1)
-		{
+		} else if (dir == -1) {
 			//f *= 1.f / 1.1f;
 			f = fclamp(ZOOM_MIN, f * (1.f / 1.1f), ZOOM_MAX);
 		}
 		glutPostRedisplay();
 		printf("%f\n", f);
 	});
-	glutMotionFunc([](int x, int y)
-	{
+	glutMotionFunc([](int x, int y) {
 		dx = x - px;
 		dy = y - py;
-		if (btnPressed == GLUT_LEFT_BUTTON)
-		{
+		if (btnPressed == GLUT_LEFT_BUTTON) {
 			cx += dx / f;
-				cy += dy / f;
-		}
-		else if (btnPressed == GLUT_RIGHT_BUTTON)
-		{
+			cy += dy / f;
+		} else if (btnPressed == GLUT_RIGHT_BUTTON) {
 			glutPositionWindow(
-				x - glutGet(GLUT_WINDOW_BORDER_WIDTH) - ppx + glutGet(GLUT_WINDOW_X),
-				y - glutGet(GLUT_WINDOW_BORDER_HEIGHT) - ppy + glutGet(GLUT_WINDOW_Y));
+					x - glutGet(GLUT_WINDOW_BORDER_WIDTH) - ppx + glutGet(GLUT_WINDOW_X),
+					y - glutGet(GLUT_WINDOW_BORDER_HEIGHT) - ppy + glutGet(GLUT_WINDOW_Y));
 		}
 		glutPostRedisplay();
 		px = x;
 		py = y;
 	});
-	glutPassiveMotionFunc([](int x, int y)
-	{
+	glutPassiveMotionFunc([](int x, int y) {
 		dx = x - px;
 		dy = y - py;
 		//glutPostRedisplay();
@@ -202,18 +179,16 @@ int JFVGL::GLUTWindow::DoGlutStuff(int argc, char **argv)
 		ppx = x;
 		ppy = y;
 	});
-	glutKeyboardFunc([](unsigned char key, int x, int y)
-	{
-		switch (key)
-		{
-		case 27: // Esc
-			exit(27); // Panic quit for testing
-			break;
-		case 13: // Enter
-			exit(0);
-			break;
-		default:
-			break;
+	glutKeyboardFunc([](unsigned char key, int x, int y) {
+		switch (key) {
+			case 27: // Esc
+				exit(27); // Panic quit for testing
+				break;
+			case 13: // Enter
+				exit(0);
+				break;
+			default:
+				break;
 		}
 	});
 	glClearColor(0.25f, 0.25f, 0.25f, 1.f);
@@ -225,19 +200,18 @@ int JFVGL::GLUTWindow::DoGlutStuff(int argc, char **argv)
 	glBindTexture(GL_TEXTURE_2D, texid);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexImage2D(
-		GL_TEXTURE_2D,
-		0,
-		ch == 4 ? GL_RGBA : GL_RGB,
-		w,
-		h,
-		0,
-		ch == 4 ? GL_RGBA : GL_RGB,
-		GL_UNSIGNED_BYTE,
-		img);
+			GL_TEXTURE_2D,
+			0,
+			ch == 4 ? GL_RGBA : GL_RGB,
+			w,
+			h,
+			0,
+			ch == 4 ? GL_RGBA : GL_RGB,
+			GL_UNSIGNED_BYTE,
+			img);
 	// TODO Integrate?
-	while (true)
-	{
-		if (glutGet(GLUT_ELAPSED_TIME) % (int)(1000.f / FPS_TARGET) != 0)
+	while (true) {
+		if (glutGet(GLUT_ELAPSED_TIME) % (int) (1000.f / FPS_TARGET) != 0)
 			Sleep(1000 / FPS_TARGET);
 		glutMainLoopEvent();
 	}
@@ -247,10 +221,8 @@ int JFVGL::GLUTWindow::DoGlutStuff(int argc, char **argv)
 
 /* API */
 
-void JFVGL::GLUTWindow::Start()
-{
+void JFVGL::GLUTWindow::Start() {
 }
 
-void JFVGL::GLUTWindow::Render()
-{
+void JFVGL::GLUTWindow::Render() {
 }

@@ -11,15 +11,14 @@
 
 #include "WXApp.h"
 
-bool JFVGL::WXApp::OnInit()
-{
+bool JFVGL::WXApp::OnInit() {
 	wxInitAllImageHandlers();
 	WXWindow *wnd = new WXWindow();
 	// TODO Move wnd->foo() to WXWindow constructor
 	wxDisplay disp(wxDisplay::GetFromWindow(wnd));
 	wnd->SetSize(
-		disp.GetClientArea().width / 4, disp.GetClientArea().height / 4,
-		disp.GetClientArea().width / 2, disp.GetClientArea().height / 2);
+			disp.GetClientArea().width / 4, disp.GetClientArea().height / 4,
+			disp.GetClientArea().width / 2, disp.GetClientArea().height / 2);
 	int args[] = {WX_GL_RGBA, WX_GL_DOUBLEBUFFER, WX_GL_DEPTH_SIZE, 16, 0};
 	wnd->canvas = new WXCanvas(wnd, args);
 	wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);

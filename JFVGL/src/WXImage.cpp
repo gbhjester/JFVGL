@@ -16,8 +16,7 @@ using namespace std;
 
 #include "WXImage.h"
 
-JFVGL::WXImage::WXImage()
-{
+JFVGL::WXImage::WXImage() {
 	this->w = 0;
 	this->h = 0;
 	this->bpc = 0;
@@ -37,18 +36,15 @@ JFVGL::WXImage::WXImage()
 	//this->supportedFileTypes[9] = wxString("");
 }
 
-JFVGL::WXImage::~WXImage()
-{
+JFVGL::WXImage::~WXImage() {
 	delete filename;
 }
 
 /* API */
 
-unsigned int JFVGL::WXImage::Open(wxString fn)
-{
+unsigned int JFVGL::WXImage::Open(wxString fn) {
 	wxLogNull DONTLOGME;
-	if (!wxFileExists(fn))
-	{
+	if (!wxFileExists(fn)) {
 		// TODO Log
 		wxMessageBox(fn + " not found.", "Error");
 		return 0;
@@ -168,16 +164,14 @@ WXIMAGE_USESOFTWAREIMAGEPREPROCESSING_end:
 	return id;
 }
 
-void JFVGL::WXImage::Close()
-{
+void JFVGL::WXImage::Close() {
 	// TODO Test VERY IMPORTANT TO ENSURE IMAGES ARE RELEASED FROM VRAM
 	// Seems to work
 	glDeleteTextures(1, &id);
 	id = 0;
 }
 
-void JFVGL::WXImage::TraverseDirectory(int delta)
-{
+void JFVGL::WXImage::TraverseDirectory(int delta) {
 	if (delta == 0)
 		return;
 	wxString prunedFilename(*filename);
@@ -189,11 +183,9 @@ void JFVGL::WXImage::TraverseDirectory(int delta)
 	wxArrayString asfiles, supportedFiles;
 	// NOTE GetAllFiles(...) and manually traversing is probably slower than Traverse(...)
 	wxDir::GetAllFiles(prunedFilename, &asfiles, wxString("*.*"), wxDIR_FILES | wxDIR_NO_FOLLOW);
-	for (size_t i = 0; i < asfiles.Count(); i++)
-	{
+	for (size_t i = 0; i < asfiles.Count(); i++) {
 		int o = 0;
-		while (supportedFileTypes[o] != "")
-		{
+		while (supportedFileTypes[o] != "") {
 			if (asfiles[i].Lower().EndsWith(supportedFileTypes[o]))
 				supportedFiles.Add(asfiles[i]);
 			o++;
@@ -207,23 +199,18 @@ void JFVGL::WXImage::TraverseDirectory(int delta)
 #endif
 	// TODO Optimize. Traversing to big files is SLOW
 	// TODO Find current file in list
-	for (size_t i = 0; i < supportedFiles.Count(); i++)
-	{
-		if (*filename == supportedFiles[i])
-		{
+	for (size_t i = 0; i < supportedFiles.Count(); i++) {
+		if (*filename == supportedFiles[i]) {
 			if (delta < 0) // Backward
 			{
-				if (i > 0)
-				{
+				if (i > 0) {
 					Close();
 					Open(supportedFiles[i - 1]);
 					return;
 				}
-			}
-			else if (delta > 0) // Forward
+			} else if (delta > 0) // Forward
 			{
-				if (i < supportedFiles.Count() - 1)
-				{
+				if (i < supportedFiles.Count() - 1) {
 					Close();
 					Open(supportedFiles[i + 1]);
 					return;

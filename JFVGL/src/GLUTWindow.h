@@ -1,8 +1,4 @@
 /*
- * 
- */
-
-/* 
  * File:   GLUTWindow.h
  * Author: Jester
  *
@@ -13,25 +9,21 @@
 
 #include "IWindow.h"
 
-namespace JFVGL
-{
+namespace JFVGL {
 
-	class GLUTWindow : public IWindow
-	{
+	class GLUTWindow : public IWindow {
 	private:
 	protected:
 	public:
 		GLUTWindow();
 
-		GLUTWindow(const GLUTWindow &other)
-		{
+		GLUTWindow(const GLUTWindow &other) {
 			// Deep copy all member variables
 			// eg this->x = other.x;
 			;
 		}
 
-		GLUTWindow &operator=(GLUTWindow rhs)
-		{
+		GLUTWindow &operator=(GLUTWindow rhs) {
 			if (this == &rhs)
 				return *this;
 			Swap(*this, rhs);
@@ -40,8 +32,7 @@ namespace JFVGL
 
 		virtual ~GLUTWindow();
 
-		friend void Swap(GLUTWindow &lhs, GLUTWindow &rhs)
-		{
+		friend void Swap(GLUTWindow &lhs, GLUTWindow &rhs) {
 			using JFVGL::Swap;
 			// Swap all member variables
 			//swap(lhs.x, rhs.x);
@@ -52,6 +43,7 @@ namespace JFVGL
 		/* API */
 
 		virtual void Start() override;
-        virtual void Render() override;
+
+		virtual void Render() override;
 	};
 }

@@ -14,10 +14,8 @@
 #include "wx/wx.h"
 #include "WXWindow.h"
 
-namespace JFVGL
-{
-	class WXApp : public wxApp
-	{
+namespace JFVGL {
+	class WXApp : public wxApp {
 	public:
 		bool OnInit();
 	};
