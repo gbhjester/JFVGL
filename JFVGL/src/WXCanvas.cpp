@@ -75,8 +75,9 @@ EVT_KEY_DOWN(JFVGL::WXCanvas::KeyDown)
 END_EVENT_TABLE()
 
 void JFVGL::WXCanvas::Render(wxPaintEvent &e) {
-	if (!IsShown())
+	if (!IsShown()) {
 		return;
+	}
 	wxGLCanvas::SetCurrent(*context);
 	wxPaintDC(this);
 	glViewport(0, 0, GetClientSize().x, GetClientSize().y);
