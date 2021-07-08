@@ -4,9 +4,9 @@ My personal image viewer.
 ## PLATFORMS
 Primary target is Windows 10.
 
-Windows -- compiled with MinGW64 / GCC 8.1.0 / POSIX threads.
+Windows -- compiled with MinGW64 / GCC 10.3.0 / POSIX threads.
 
-Debian -- compiled with GCC 8.1.0.
+Debian -- not built currently. todoo
 
 ## DEPENDENCIES
 FreeGLUT (bundled, Windows only, to be removed).
