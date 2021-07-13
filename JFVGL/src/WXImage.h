@@ -65,9 +65,7 @@ namespace JFVGL {
 			wprintf(L"WXImage::_wxStrCmpLogical() first.wc.str():\n\t[%s]\n", first.wc_str());
 #endif
 #ifdef WINDOWS
-			const wchar_t *psz1 = first.c_str();
-			const wchar_t *psz2 = second.c_str();
-			return StrCmpLogicalW(psz1, psz2);
+			return StrCmpLogicalW(first.c_str(), second.c_str());
 #else
 			// TODO Implement StrCmpLogicalW locally
 			return 0;
