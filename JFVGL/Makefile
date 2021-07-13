@@ -13,16 +13,16 @@ DBG_CMP=0
 # 0 : no optimization (no -Ox flag set)
 # 1 : -O3 and some -fflags to ensure attempt autovectorization
 # f : -Ofast and break everything
-OPT=0
+OPT=f
 
 # Use OpenMP and parallel glibc
 # 0, 1
-OMP=0
+OMP=1
 
 # Logical threadcount passed to GCC
 LTC=16
 
-# PEDANTIC MODE. Use when sad.
+# PEDANTIC MODE.
 # 0, 1
 PEDANTIC_ERROR_OUT=0
 
