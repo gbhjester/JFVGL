@@ -20,7 +20,11 @@ JFVGL::WXWindow::WXWindow(int argc, wxChar **argv) : wxFrame(NULL, wxID_ANY, "JF
 		canvas->img->Open("table2.png");
 	}
 	SetTitle(/*"JFVGL - " + */*canvas->img->filename);
-	// TODO Set window to open on display mouse currently inside
+	// TODO Set window to open on display cursor currently inside
+	// Create list of monitor widths
+	// Find out which entry cursor x resides in
+	// Add sum of monitor widths left of cursor entry to window x pos
+	// Repeat for height
 	canvas->SizeFormToImage(true);
 }
 // WHY IS THIS DTOR EMPTY
