@@ -80,10 +80,8 @@ ifeq ($(ENV), WINDOWS)
 	LDFLAGS+=-lshlwapi -lopengl32 -lglu32 $(LDIR)/wx/libwxbase31u.a $(LDIR)/wx/libwxmsw31u_core.a $(LDIR)/wx/libwxmsw31u_gl.a -mwindows -flto
 endif
 
-# Source files to generate object files for
-_SRC=Main WXApp WXWindow WXCanvas WXImage
-SRC=$(patsubst %,$(SDIR)/%.cpp,$(_SRC))
-OBJ=$(patsubst %,$(ODIR)/%.o,$(_SRC))
+SRC=$(wildcard $(SDIR)/*.cpp)
+OBJ=$(patsubst $(SDIR)/%.cpp, $(ODIR)/%.o, $(SRC))
 
 $(ODIR)/%.o: $(SDIR)/%.cpp
 	$(CXX) -c "$<" -o"$@" $(CXXFLAGS) $(DEFINES)
