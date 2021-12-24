@@ -1,5 +1,8 @@
 *** CHANGELOG ***
 
+2021-12-24
+Add recenter image (up arrow)
+
 2019-11-15
 Add swap&copy for WXImage
 Factor WXWindow::WXApp inner class to own file WXApp
