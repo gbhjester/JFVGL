@@ -188,5 +188,8 @@ void JFVGL::WXCanvas::KeyDown(wxKeyEvent &e) {
 		fParent->SetTitle(*img->filename);
 		SizeFormToImage(false);
 		Refresh();
+	} else if (e.GetKeyCode() == WXK_UP) {
+		SizeFormToImage(false);
+		Refresh();
 	}
 }
