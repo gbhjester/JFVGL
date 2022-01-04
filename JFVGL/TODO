@@ -20,6 +20,8 @@ Move supported filetypes to config?
 Add filtering types (nearest neighbor, linear, etc)
 	Mipmaps
 Add multiview (2 images side by side)
+Add pin
+Add sort by date
 
 Project:
 	Get precompiled headers working (or remove pch)
